@@ -2,6 +2,7 @@
   "name": "Библиотека Учебников",
   "short_name": "Учебники",
   "description": "Офлайн библиотека с просмотром PDF",
+  "id": "/WordbookLibrary/index.html",
   "start_url": "/WordbookLibrary/index.html",
   "display": "standalone",
   "background_color": "#FEF7FF",
@@ -12,7 +13,7 @@
       "src": "/WordbookLibrary/logo-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
