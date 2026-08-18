@@ -1,24 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<!-- PWA Manifest -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#6750A4">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Учебники">
-<link rel="apple-touch-icon" href="icon-192.png">
-
-<!-- Service Worker Registration -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(r => console.log('SW registered:', r.scope))
-      .catch(e => console.log('SW failed:', e));
-  });
-}
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
@@ -55,7 +37,6 @@ svg{fill:currentColor;display:block}
 .rp{position:absolute;border-radius:50%;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards;pointer-events:none}
 @keyframes rp{to{transform:scale(1);opacity:0}}
 
-/* ── Верхняя панель ── */
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--surface-container)}
 .logo{width:42px;height:42px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none}
 .logo svg{width:22px;height:22px}
@@ -67,7 +48,6 @@ svg{fill:currentColor;display:block}
 .ib svg{width:22px;height:22px}
 .q{font-size:20px;font-weight:700}
 
-/* ── Поиск, действия, чипсы ── */
 .controls{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;flex-direction:column;gap:10px}
 .searchbar{display:flex;align-items:center;gap:12px;height:56px;border-radius:28px;background:var(--surface-container-high);padding:0 10px 0 20px;transition:box-shadow .2s}
 .searchbar:focus-within{box-shadow:var(--e1)}
@@ -85,7 +65,6 @@ svg{fill:currentColor;display:block}
 .chip.on{background:var(--secondary-container);border-color:transparent;color:var(--on-secondary-container);font-weight:500}
 select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--on-surface-variant);font-size:13px;padding:0 8px;outline:none}
 
-/* ── Полка ── */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;max-width:1200px;margin:0 auto;padding:16px;width:100%}
 .book{border-radius:16px;overflow:hidden;background:var(--surface-container-high);transition:transform .25s,box-shadow .25s;animation:in .4s both;animation-delay:calc(var(--i)*30ms)}
 .book:hover{transform:translateY(-4px);box-shadow:var(--e2)}
@@ -113,26 +92,22 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .btn.text{background:none;color:var(--primary);box-shadow:none}
 .btn:disabled{opacity:.5;cursor:wait}
 
-/* ── FAB ── */
 .fab{position:fixed;right:20px;bottom:20px;height:56px;padding:0 20px;border-radius:16px;border:none;background:var(--primary-container);color:var(--on-primary-container);display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;box-shadow:var(--e3);cursor:pointer;z-index:30;transition:transform .2s,box-shadow .2s}
 .fab:hover{transform:translateY(-2px);box-shadow:var(--e3),0 6px 14px 4px rgba(0,0,0,.15)}
 .fab svg{width:22px;height:22px}
 
-/* ── Диалоги ── */
 .ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:opacity .25s;padding:16px}
 .ovl.open{opacity:1;pointer-events:auto}
 .dlg{width:min(580px,96vw);max-height:92vh;overflow:auto;border-radius:28px;background:var(--surface-container-high);color:var(--on-surface);padding:24px;transform:scale(.95);transition:transform .25s}
 .ovl.open .dlg{transform:scale(1)}
 .dlg h2{font-size:22px;font-weight:600;margin:0 0 18px}
-.dlg h3{font-size:15px;font-weight:600;color:var(--primary);margin:20px 0 8px}
-.dlg p,.dlg li{font-size:14px;line-height:1.55;color:var(--on-surface-variant)}
-.dlg ul{padding-left:20px;margin:6px 0}
-.dlg kbd{background:var(--surface-container-highest);border-radius:6px;padding:1px 7px;font-size:12px}
 .drop{border:2px dashed var(--outline);border-radius:20px;padding:26px 16px;text-align:center;cursor:pointer;transition:.2s;background:var(--surface-container)}
 .drop:hover,.drop.over{border-color:var(--primary);background:var(--primary-container)}
 .drop b{display:block;margin-bottom:4px}
 .drop small{color:var(--on-surface-variant)}
 .picked{margin-top:10px;font-size:13px;color:var(--on-surface-variant);word-break:break-all}
+.ai-info{margin-top:8px;padding:10px 12px;background:var(--primary-container);color:var(--on-primary-container);border-radius:12px;font-size:12px;line-height:1.4;display:none}
+.ai-info.show{display:block;animation:in .3s}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 .field{display:flex;flex-direction:column;gap:5px}
 .field.full{grid-column:1/-1}
@@ -143,7 +118,20 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .coverpick img{width:52px;height:70px;object-fit:cover;border-radius:6px;box-shadow:var(--e1)}
 .dfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
 
-/* ── Просмотрщик ── */
+/* Палитра цветов */
+.palette{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.palette button{width:48px;height:48px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .2s}
+.palette button:hover{transform:scale(1.1)}
+.palette button.on{border-color:var(--on-surface);box-shadow:var(--e1)}
+
+/* Гайд — карточки */
+.guide-cards{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.gcard{display:flex;gap:14px;padding:14px;background:var(--surface);border-radius:14px;border:1px solid var(--outline-variant)}
+.gcard .gicon{width:44px;height:44px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none;font-size:22px}
+.gcard .gtxt{flex:1;min-width:0}
+.gcard h4{margin:0 0 4px;font-size:14px;font-weight:600}
+.gcard p{margin:0;font-size:13px;color:var(--on-surface-variant);line-height:1.4}
+
 .viewer{position:fixed;inset:0;z-index:70;background:var(--surface);display:flex;flex-direction:column;transform:translateY(5%);opacity:0;pointer-events:none;transition:.28s}
 .viewer.open{transform:none;opacity:1;pointer-events:auto}
 .vbar{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--surface-container);flex-wrap:wrap}
@@ -155,21 +143,20 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .spin{width:40px;height:40px;border:4px solid var(--outline-variant);border-top-color:var(--primary);border-radius:50%;animation:rot .8s linear infinite;margin:60px auto}
 @keyframes rot{to{transform:rotate(360deg)}}
 
-/* ── Снекбар ── */
 .snack{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--inverse-surface);color:var(--inverse-on-surface);padding:14px 20px;border-radius:8px;font-size:14px;z-index:95;display:flex;gap:16px;align-items:center;max-width:92vw;transition:transform .3s;box-shadow:var(--e2)}
 .snack.show{transform:translate(-50%,0)}
 .snack button{border:none;background:none;color:var(--inverse-primary);font-weight:600;cursor:pointer;font-size:14px}
 
-/* ── Тур ── */
+/* Тур */
 #tour{position:fixed;inset:0;z-index:80;display:none}
 #tour.on{display:block}
 #tour.dim{background:rgba(0,0,0,.55)}
-#spot{position:fixed;border-radius:24px;box-shadow:0 0 0 100vmax rgba(0,0,0,.55);transition:all .35s ease;pointer-events:none;display:none}
-#tcard{position:fixed;width:min(380px,92vw);background:var(--surface-container-high);color:var(--on-surface);border-radius:22px;padding:22px;z-index:2;box-shadow:var(--e3)}
-#tcard h3{margin:0 0 8px;font-size:18px;font-weight:600}
-#tcard p{margin:0 0 18px;font-size:14px;line-height:1.5;color:var(--on-surface-variant)}
-#trow{display:flex;align-items:center;gap:8px}
-#tcnt{margin-right:auto;font-size:12px;color:var(--on-surface-variant)}
+#spot{position:fixed;border-radius:24px;box-shadow:0 0 0 100vmax rgba(0,0,0,.55);transition:all .35s ease;pointer-events:none;display:none;z-index:1}
+#tcard{position:fixed;width:min(360px,92vw);background:var(--surface-container-high);color:var(--on-surface);border-radius:22px;padding:20px;z-index:2;box-shadow:var(--e3)}
+#tcard h3{margin:0 0 8px;font-size:17px;font-weight:600}
+#tcard p{margin:0 0 14px;font-size:13px;line-height:1.5;color:var(--on-surface-variant)}
+#trow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+#tcnt{margin-right:auto;font-size:12px;color:var(--on-surface-variant);min-width:40px}
 @media(max-width:640px){
   .grid{grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:12px;padding:12px}
   .frow{grid-template-columns:1fr}
@@ -181,7 +168,8 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 
 <header class="topbar">
   <div class="logo"><svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v14h12V4H6Zm2 2h8v2H8V6Z"/></svg></div>
-  <div class="ttl"><h1>Библиотека учебников</h1><small id="subttl">локальная коллекция · без сервера</small></div>
+  <div class="ttl"><h1>Библиотека учебников</h1><small id="subttl">локальная коллекция · офлайн</small></div>
+  <button class="ib ripple" id="btnPalette" title="Цвет"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 2-2 2 2 0 0 0-.6-1.4c-.3-.3-.4-.6-.4-1a1.5 1.5 0 0 1 1.5-1.5H16a6 6 0 0 0 6-6c0-4.4-4.5-8-10-8ZM6.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg></button>
   <button class="ib ripple" id="btnTheme" title="Тема"><svg id="icoMoon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg><svg id="icoSun" viewBox="0 0 24 24" style="display:none"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-1-6h2v3h-2Zm0 17h2v3h-2ZM2 11h3v2H2Zm17 0h3v2h-3ZM4.2 5.6l1.4-1.4 2.1 2.1-1.4 1.4Zm12.1 12.1 1.4-1.4 2.1 2.1-1.4 1.4ZM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1Zm12.1-12.1 2.1-2.1 1.4 1.4-1.4 1.4Z"/></svg></button>
   <button class="ib ripple" id="btnHelp" title="Инструкция"><span class="q">?</span></button>
 </header>
@@ -209,7 +197,7 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   <div class="empty" id="emptyState" hidden>
     <div class="big"><svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v14h12V4H6Zm2 2h8v2H8V6Z"/></svg></div>
     <h2>На полках пока пусто</h2>
-    <p>Добавьте первый учебник в формате PDF — обложка создастся автоматически по первой странице. Или подключите папку и импортируйте всё сразу.</p>
+    <p>Добавьте первый учебник — название, автор, класс и предмет определятся автоматически.</p>
     <div class="row">
       <button class="btn ripple" id="btnAddEmpty">Добавить учебник</button>
       <button class="btn tonal ripple" id="btnFolderEmpty">Подключить папку</button>
@@ -223,12 +211,13 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 <div class="ovl" id="dlgAdd">
   <div class="dlg">
     <h2>Новый учебник</h2>
-    <div class="drop ripple" id="drop"><b>Перетащите PDF сюда</b><small>или нажмите, чтобы выбрать (можно несколько файлов)</small></div>
+    <div class="drop ripple" id="drop"><b>Перетащите PDF сюда</b><small>или нажмите — можно выбрать несколько файлов. ИИ определит автора и класс сам.</small></div>
     <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden>
     <div class="picked" id="pickedList"></div>
+    <div class="ai-info" id="aiInfo"></div>
     <div class="coverpick">
       <img id="coverPrev" hidden alt="">
-      <button class="tbtn outl ripple" id="btnCover">Своя обложка (картинка)</button>
+      <button class="tbtn outl ripple" id="btnCover">Своя обложка</button>
       <input type="file" id="coverInput" accept="image/*" hidden>
     </div>
     <div class="frow">
@@ -260,36 +249,32 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   <div class="vstage" id="vStage"></div>
 </div>
 
-<!-- Инструкция -->
+<!-- Гайд (упрощённый) -->
 <div class="ovl" id="dlgGuide">
   <div class="dlg">
-    <h2>Инструкция</h2>
-    <h3 id="g-start">Запуск и хранение</h3>
-    <p>Файл работает локально, сервер не нужен. Все книги и обложки хранятся в этом браузере (IndexedDB). Не очищайте данные сайта, иначе библиотека сотрётся. Для переноса и резервных копий используйте «Экспорт»/«Импорт».</p>
-    <h3 id="g-bookmark">Закладка на телефоне и ноутбуке</h3>
-    <ul>
-      <li><b>Ноутбук (Chrome/Edge):</b> нажмите <kbd>Ctrl</kbd>+<kbd>D</kbd> или звёздочку в адресной строке. Ещё удобнее: меню → «Создать ярлык» — появится отдельная иконка.</li>
-      <li><b>Android (Chrome):</b> меню <b>⋮</b> → «Добавить на гл. экран».</li>
-      <li><b>iPhone (Safari):</b> кнопка «Поделиться» → «На экран “Домой”».</li>
-    </ul>
-    <h3 id="g-folder">Папка для учебников</h3>
-    <ul>
-      <li>Создайте на устройстве папку, например «Учебники» (можно в облаке: Яндекс Диск, Google Drive — тогда одна библиотека на нескольких компьютерах).</li>
-      <li>Нажмите «Подключить папку» и выберите её. Каждый добавленный PDF будет автоматически копироваться в эту папку.</li>
-      <li>«Импорт из папки» — добавит в библиотеку все PDF, лежащие в папке. Удобно: скопировали файлы в папку на телефоне/ноутбуке → нажали кнопку.</li>
-      <li>На телефонах и в Safari/Firefox подключение папки может быть недоступно — тогда добавляйте книги кнопкой «Добавить» (можно выбрать сразу много файлов).</li>
-    </ul>
-    <h3 id="g-covers">Обложки</h3>
-    <ul>
-      <li>Обложка создаётся из <b>первой страницы PDF</b>. При самом первом открытии файла нужен интернет — загружается PDF-библиотека (далее работает офлайн).</li>
-      <li>Если интернета нет, создаётся аккуратная цветная обложка с названием; когда интернет появится, настоящие обложки подставятся автоматически.</li>
-      <li>При добавлении можно загрузить свою картинку-обложку (кнопка «Своя обложка»).</li>
-    </ul>
-    <h3 id="g-backup">Резервная копия</h3>
-    <p>«Экспорт» сохраняет всю библиотеку (файлы + обложки) в один JSON-файл. «Импорт» восстанавливает её на любом устройстве.</p>
+    <h2>Как пользоваться</h2>
+    <div class="guide-cards">
+      <div class="gcard"><div class="gicon">📥</div><div class="gtxt"><h4>Добавление</h4><p>Нажмите «Добавить» и выберите PDF — автор, класс и предмет определятся автоматически.</p></div></div>
+      <div class="gcard"><div class="gicon">📁</div><div class="gtxt"><h4>Папка</h4><p>Подключите папку «Учебники» — новые файлы копируются туда, «Импорт из папки» забирает всё в библиотеку.</p></div></div>
+      <div class="gcard"><div class="gicon">🖼️</div><div class="gtxt"><h4>Обложки</h4><p>Создаются из первой страницы PDF. Если интернета нет — будет цветная обложка с названием.</p></div></div>
+      <div class="gcard"><div class="gicon">📌</div><div class="gtxt"><h4>Закладка</h4><p>На ноуте: <b>Ctrl+D</b>. На Android: <b>⋮ → На глав. экран</b>. На iPhone: <b>Поделиться → На экран</b>.</p></div></div>
+      <div class="gcard"><div class="gicon">💾</div><div class="gtxt"><h4>Резервная копия</h4><p>Используйте «Экспорт» и «Импорт» для переноса библиотеки между устройствами.</p></div></div>
+    </div>
     <div class="dfoot">
-      <button class="btn text ripple" id="btnRetour">Пройти тур снова</button>
+      <button class="btn text ripple" id="btnRetour">Пройти тур</button>
       <button class="btn ripple" id="btnGuideClose">Понятно</button>
+    </div>
+  </div>
+</div>
+
+<!-- Палитра -->
+<div class="ovl" id="dlgPalette">
+  <div class="dlg">
+    <h2>Цвет приложения</h2>
+    <p style="color:var(--on-surface-variant);margin:0 0 6px">Выберите акцентный цвет:</p>
+    <div class="palette" id="palette"></div>
+    <div class="dfoot">
+      <button class="btn ripple" id="btnPaletteClose">Готово</button>
     </div>
   </div>
 </div>
@@ -309,7 +294,6 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 <input type="file" id="importJson" accept=".json" hidden>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s);
@@ -318,11 +302,132 @@ const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 const fmtSize=b=>b<1024?b+' Б':b<1048576?(b/1024).toFixed(0)+' КБ':(b/1048576).toFixed(1)+' МБ';
 const plural=(n,f)=>{n=Math.abs(n)%100;const d=n%10;if(n>10&&n<20)return f[2];if(d>1&&d<5)return f[1];if(d===1)return f[0];return f[2]};
 const debounce=(fn,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+
 const SUBJECTS=['Математика','Алгебра','Геометрия','Русский язык','Литература','История','Обществознание','Физика','Химия','Биология','География','Информатика','Английский язык','Окружающий мир','Музыка','ИЗО','Технология','ОБЖ','Физкультура','Астрономия','Экономика','Право'];
+
+/* ── База авторов для ИИ ── */
+const AUTHORS_DB=[
+  ['Макарычев','makarychev','makarycheva','макарычев'],
+  ['Мордкович','mordkovich','мордкович'],
+  ['Атанасян','atanasyan','атанасян'],
+  ['Мерзляк','merzlyak','merzliak','мерзляк'],
+  ['Дорофеев','dorofeev','дорофеев'],
+  ['Габриелян','gabrielyan','gabrielian','габриелян'],
+  ['Пёрышкин','peryshkin','перышкин'],
+  ['Лунин','lunin','лунин'],
+  ['Каменский','kamenskiy','каменский'],
+  ['Пасечник','pasechnik','пасечник'],
+  ['Алексашкина','aleksashkina','алексашкина'],
+  ['Данилов','danilov','данилов'],
+  ['Боголюбов','bogolyubov','боголюбов'],
+  ['Садовничий','sadovnichiy','садовничий'],
+  ['Быкова','bykova','быкова'],
+  ['Верещагина','vereshchagina','верещагина'],
+  ['Афанасьева','afanaseva','афанасьева'],
+  ['Кузовлев','kuzovlev','кузовлев'],
+  ['Ладыженская','ladyzhenskaya','ладыженская'],
+  ['Баранов','baranov','баранов'],
+  ['Тростенцова','trostentsova','тростенцова'],
+  ['Коровина','korovina','коровина'],
+  ['Виленкин','vilenkin','виленкин'],
+  ['Шестаков','shestakov','шестаков'],
+  ['Просветов','prosvetov','просветов'],
+  ['Колмогоров','kolmogorov','колмогоров'],
+  ['Никольский','nikolskiy','никoльский','никoльский'],
+  ['Гейдман','geydman','гейдман'],
+  ['Рудницкая','rudnitskaya','рудницкая'],
+  ['Бунимович','bunimovich','бунимович']
+];
+
+/* ── Словарь транслитерации ── */
+const TR={a:'а',b:'б',v:'в',w:'в',g:'г',d:'д',e:'е',yo:'ё',zh:'ж',z:'з',i:'и',y:'й',k:'к',l:'л',m:'м',n:'н',o:'о',p:'п',r:'р',s:'с',t:'т',u:'у',f:'ф',h:'х',x:'х',kh:'х',c:'ц',ts:'ц',ch:'ч',sh:'ш',sch:'щ','ʼ':'ъ',''':'ъ',j:'ж',ju:'ю',ya:'я'};
+function translit(s){
+  return String(s||'').toLowerCase()
+    .replace(/yo|zh|kh|ts|ch|sh|sch/gi,m=>TR[m.toLowerCase()]||m)
+    .replace(/[a-z]/gi,c=>TR[c.toLowerCase()]||c)
+    .replace(/ьъ+/g,'')
+    .replace(/ё/g,'е');
+}
+function normalize(s){return translit(s).replace(/[^а-яёa-z0-9\s]/gi,'').replace(/\s+/g,' ').trim().toLowerCase();}
+
+/* ── ИИ-анализ имени файла ── */
+function aiParse(filename){
+  const result={title:'',author:'',subject:'',grade:'',year:''};
+  const base=filename.replace(/\.pdf$/i,'').replace(/[_]+/g,' ').trim();
+  result.title=base;
+  const low=normalize(base);
+  const orig=base.toLowerCase();
+
+  // Год
+  const ym=base.match(/\b(19|20)\d{2}\b/);
+  if(ym){const y=+ym[0];if(y>=1950&&y<=2030)result.year=String(y);}
+
+  // Класс (1-11)
+  const gm=base.match(/\b(1[01]|[1-9])\s*(?:класс|кл\.?)\b/i)||base.match(/(?:класс|kl|kl\.?)\s*(1[01]|[1-9])\b/i);
+  if(gm){const g=+gm[1];if(g>=1&&g<=11)result.grade=g;}
+  if(!result.grade){
+    const m2=base.match(/\b(1[01]|[1-9])\b/);
+    if(m2){const g=+m2[1];
+      if(g>=1&&g<=11&&(result.year!==m2[0]))result.grade=g;}
+  }
+
+  // Предмет
+  const subjectMap=[
+    ['Математика',['математик','matematik']],
+    ['Алгебра',['алгебр','algebr']],
+    ['Геометрия',['геометр','геометрия','geometr','geometriya']],
+    ['Русский язык',['русск','русский','russk','russkiy','russian']],
+    ['Литература',['литератур','literatur']],
+    ['История',['истор','istor','history']],
+    ['Обществознание',['обществ','обществозн','obschestv','obschestvoznan','obshchestvoznan']],
+    ['Физика',['физик','физика','phizik','phizika','physics']],
+    ['Химия',['химия','хими','himiy','himija','chemistry']],
+    ['Биология',['биолог','biolog','biology']],
+    ['География',['географ','geograf','geography']],
+    ['Информатика',['информат','informat','informatics','computer science']],
+    ['Английский язык',['английск','angliysk','english','angl']],
+    ['Немецкий язык',['немецк','nemetsk','german','deutsch']],
+    ['Окружающий мир',['окружающ','mir','okruzh','world']],
+    ['Музыка',['музык','muzik','music']],
+    ['ИЗО',['изо','izo','izobrazit']],
+    ['Технология',['технологи','tehnolog','technolog']],
+    ['ОБЖ',['обж','obzh','bzh']],
+    ['Физкультура',['физкультур','физра','fizkult','fizra']],
+    ['Астрономия',['астроном','astronom']],
+    ['Экономика',['экономи','ekonomi','economics']],
+    ['Право',['право','pravo','law']]
+  ];
+  for(const[sub,keys]of subjectMap){
+    for(const k of keys){
+      if(low.includes(k)||orig.includes(k.toLowerCase())){result.subject=sub;break;}
+    }
+    if(result.subject)break;
+  }
+
+  // Автор (по словарю)
+  for(const author of AUTHORS_DB){
+    const [name,...keys]=author;
+    for(const k of keys){
+      if(low.includes(normalize(k))||orig.includes(k.toLowerCase())){result.author=name;break;}
+    }
+    if(result.author)break;
+  }
+
+  return result;
+}
 
 let db,books=[],dirHandle=null,dirGranted=false,pdfOk=false,pdfPromise=null,manualCover=null,picked=[];
 const state={q:'',sub:'',grade:'',sort:'new'};
 const view={id:null,rec:null,doc:null,page:1,pages:0,zoom:'auto',base:1,token:0};
+
+const PALETTES={
+  violet:{primary:'#6750A4',container:'#EADDFF',secondary:'#E8DEF8'},
+  blue:{primary:'#0061A4',container:'#D3E4FF',secondary:'#D7E3F7'},
+  green:{primary:'#386A20',container:'#CDECC6',secondary:'#DCE5D0'},
+  pink:{primary:'#984061',container:'#FFD9E2',secondary:'#F8D9E0'},
+  orange:{primary:'#A23F16',container:'#FFD8CE',secondary:'#F8DFD5'},
+  gray:{primary:'#616161',container:'#E0E0E0',secondary:'#ECECEC'}
+};
 
 /* ── ripple ── */
 document.addEventListener('pointerdown',e=>{
@@ -333,7 +438,6 @@ document.addEventListener('pointerdown',e=>{
   t.appendChild(r);setTimeout(()=>r.remove(),600);
 });
 
-/* ── снекбар ── */
 let snackT;
 function snack(msg,actLabel,actFn){
   const s=$('#snack');s.innerHTML='';s.append(Object.assign(document.createElement('span'),{textContent:msg}));
@@ -349,7 +453,6 @@ function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open('tl3',1)
 const bs=(m='readonly')=>db.transaction('books',m).objectStore('books');
 const ks=(m='readonly')=>db.transaction('kv',m).objectStore('kv');
 
-/* ── PDF.js с запасными источниками ── */
 const CDNS=['https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/','https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/','https://unpkg.com/pdfjs-dist@3.11.174/build/'];
 const loadScript=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>{s.remove();rej(new Error('load'))};document.head.appendChild(s)});
 function ensurePdf(){
@@ -359,7 +462,6 @@ function ensurePdf(){
     for(const b of CDNS){
       try{
         if(!window.pdfjsLib)await loadScript(b+'pdf.min.js');
-        if(window.pdfjsLib&&!window.pdfjsWorker){try{await loadScript(b+'pdf.worker.min.js')}catch(e){}}
         if(window.pdfjsLib){pdfOk=true;try{pdfjsLib.GlobalWorkerOptions.workerSrc=b+'pdf.worker.min.js'}catch(e){}return true;}
       }catch(e){}
     }
@@ -375,20 +477,18 @@ async function makeCover(blob){
   await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
   doc.destroy();return c.toDataURL('image/jpeg',.85);
 }
-/* аккуратная обложка-заглушка, если PDF-библиотека недоступна */
 function phCover(b){
   const W=600,H=800,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
-  const P=[['#EADDFF','#6750A4'],['#E8DEF8','#4F378B'],['#D3E4FF','#0061A4'],['#CDECC6','#386A20'],['#FFD8CE','#A23F16'],['#F9DEDC','#B3261E'],['#EFE0F9','#984061'],['#E5F0FF','#28506B']];
-  const h=[...(b.subject||b.title||'x')].reduce((s,ch)=>s+ch.charCodeAt(0),0);
-  const[bg,fg]=P[h%P.length];
-  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,bg);g.addColorStop(1,'#ffffff');x.fillStyle=g;x.fillRect(0,0,W,H);
-  x.fillStyle=fg;x.fillRect(0,0,26,H);
+  const primary=getComputedStyle(document.documentElement).getPropertyValue('--primary').trim()||'#6750A4';
+  const container=getComputedStyle(document.documentElement).getPropertyValue('--primary-container').trim()||'#EADDFF';
+  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,container);g.addColorStop(1,'#ffffff');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle=primary;x.fillRect(0,0,26,H);
   x.globalAlpha=.12;x.beginPath();x.arc(W-90,130,150,0,7);x.fill();x.globalAlpha=1;
-  x.fillStyle=fg;x.font='600 26px Roboto,sans-serif';x.textAlign='left';
+  x.fillStyle=primary;x.font='600 26px Roboto,sans-serif';x.textAlign='left';
   x.fillText(String(b.subject||'УЧЕБНИК').toUpperCase(),60,110);
   x.fillStyle='#1D1B20';x.font='700 44px Roboto,sans-serif';
   wrap(x,b.title,60,200,W-120,56,6);
-  if(b.grade){x.fillStyle=fg;x.beginPath();x.arc(W-90,H-100,56,0,7);x.fill();x.fillStyle='#fff';x.textAlign='center';x.font='700 42px Roboto,sans-serif';x.fillText(b.grade,W-90,H-86);x.font='500 17px Roboto,sans-serif';x.fillText('класс',W-90,H-58);}
+  if(b.grade){x.fillStyle=primary;x.beginPath();x.arc(W-90,H-100,56,0,7);x.fill();x.fillStyle='#fff';x.textAlign='center';x.font='700 42px Roboto,sans-serif';x.fillText(b.grade,W-90,H-86);x.font='500 17px Roboto,sans-serif';x.fillText('класс',W-90,H-58);}
   x.textAlign='left';x.fillStyle='#49454F';x.font='400 24px Roboto,sans-serif';
   x.fillText(String(b.author||'').slice(0,42),60,H-56);
   return c.toDataURL('image/jpeg',.87);
@@ -398,7 +498,6 @@ function wrap(x,t,X,y,mw,lh,maxL){const ws=String(t||'').split(/\s+/);let line='
     if(x.measureText(test).width>mw&&line){x.fillText(line,X,y);y+=lh;line=w;if(++n>=maxL){line='…';break}}else line=test;}
   if(line&&n<maxL)x.fillText(line,X,y);}
 
-/* ── папка устройства ── */
 const safeName=s=>String(s).replace(/[\\/:*?"<>|]/g,'_').trim();
 async function saveToFolder(b,file){
   if(!dirHandle||!dirGranted)return;
@@ -409,15 +508,15 @@ async function saveToFolder(b,file){
   }catch(e){console.warn('folder:',e)}
 }
 async function folderClick(){
-  if(!('showDirectoryPicker' in window)){snack('Подключение папки доступно в Chrome/Edge на компьютере. На телефоне добавляйте файлы кнопкой «Добавить».','Инструкция',()=>openDlg($('#dlgGuide')));return;}
+  if(!('showDirectoryPicker' in window)){snack('Подключение папки доступно в Chrome/Edge на компьютере');return;}
   try{
     if(!dirHandle){dirHandle=await showDirectoryPicker({mode:'readwrite'});dirGranted=true;await rq(ks('readwrite').put(dirHandle,'dir'));}
     else if(!dirGranted){dirGranted=(await dirHandle.requestPermission({mode:'readwrite'}))==='granted';}
     else{snack(`Папка подключена: «${dirHandle.name}»`);return;}
-    folderUI();if(dirGranted)snack(`Папка подключена: «${dirHandle.name}». Новые PDF будут копироваться в неё.`);
+    folderUI();if(dirGranted)snack(`Папка подключена: «${dirHandle.name}»`);
   }catch(e){}
 }
-function folderUI(){$('#btnFolder').textContent=dirGranted?`Папка: ${dirHandle.name}`:'Подключить папку';}
+function folderUI(){$('#btnFolder').textContent=dirGranted?`📁 ${dirHandle.name}`:'Подключить папку';}
 async function importFromFolder(){
   if(!dirHandle){await folderClick();if(!dirHandle)return;}
   if(!dirGranted){dirGranted=(await dirHandle.requestPermission({mode:'readwrite'}))==='granted';if(!dirGranted)return;}
@@ -430,19 +529,14 @@ async function importFromFolder(){
       refresh();
     }
     snack(n?`Импортировано из папки: ${n}`:'В папке нет новых PDF');
-  }catch(e){snack('Не удалось прочитать папку','ОК');}
+  }catch(e){snack('Не удалось прочитать папку');}
 }
 
-/* ── добавление книг ── */
-function parseName(fn){
-  let base=fn.replace(/\.pdf$/i,'').replace(/[_]+/g,' ').trim();
-  let grade=0;const gm=base.match(/\b(\d{1,2})\s*(?:класс|кл\.?)/i);if(gm){const g=+gm[1];if(g>=1&&g<=11)grade=g;}
-  let subject='';const low=base.toLowerCase();
-  for(const s of SUBJECTS){if(low.includes(s.toLowerCase())){subject=s;break}}
-  return{title:base,grade,subject};
-}
 async function addBookFromFile(file,opts={}){
-  const m=Object.assign({},parseName(file.name),opts.meta||{});
+  const ai=aiParse(file.name);
+  const m=Object.assign({},ai,opts.meta||{});
+  // Если в meta не передано, берём из ИИ
+  if(!opts.meta?.title)m.title=m.title||file.name.replace(/\.pdf$/i,'');
   let cover=opts.cover||null,coverSrc=cover?'manual':'ph';
   if(!cover&&pdfOk){try{cover=await makeCover(file);coverSrc='pdf';}catch(e){}}
   if(!cover){cover=phCover(m);coverSrc='ph';}
@@ -454,7 +548,6 @@ function imgToCover(file){return new Promise((res,rej)=>{const img=new Image();
   img.onload=()=>{const w=600,h=w*img.height/img.width,c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',.85));URL.revokeObjectURL(img.src)};
   img.onerror=rej;img.src=URL.createObjectURL(file);});}
 
-/* ── рендер ── */
 function matches(b){
   const q=state.q.trim().toLowerCase();
   if(q&&!`${b.title} ${b.author} ${b.subject}`.toLowerCase().includes(q))return false;
@@ -486,7 +579,7 @@ function render(){
   $('#stats').textContent=`${books.length} ${plural(books.length,['книга','книги','книг'])} · ${fmtSize(books.reduce((s,b)=>s+(b.size||0),0))}`;
   $('#emptyState').hidden=books.length>0;
   $('#grid').hidden=!list.length&&!!books.length;
-  if(!list.length&&books.length)snack('Ничего не найдено — измените запрос или фильтры');
+  if(!list.length&&books.length)snack('Ничего не найдено');
   const groups=new Map();
   list.forEach(b=>{const k=b.grade?+b.grade:0;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(b)});
   $('#grid').innerHTML=[...groups.keys()].sort((a,b)=>a-b).map(k=>groups.get(k).map((b,i)=>cardHTML(b,i)).join('')).join('');
@@ -502,10 +595,9 @@ async function regenPh(){
   if(n)snack(`Обложки обновлены: ${n}`);
 }
 
-/* ── просмотрщик ── */
 async function openViewer(id){
   const ok=await ensurePdf();
-  if(!ok){snack('Просмотр недоступен: не загрузилась PDF-библиотека (нужен интернет один раз). Книга доступна через «Скачать».','ОК');return;}
+  if(!ok){snack('Просмотр недоступен: нужен интернет один раз');return;}
   view.rec=await rq(bs().get(id));if(!view.rec)return;
   view.id=id;view.page=1;view.doc=null;
   $('#vTitle').textContent=view.rec.title;
@@ -533,13 +625,11 @@ async function renderPage(p){
 }
 function closeViewer(){$('#viewer').classList.remove('open');view.token++;if(view.doc){try{view.doc.destroy()}catch(e){}}view.doc=null;view.id=null;}
 
-/* ── скачать/удалить ── */
 function saveFile(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),8000);}
 async function downloadBook(id){const rec=await rq(bs().get(id));saveFile(rec.file,rec.fname||rec.title+'.pdf');snack('Скачивание началось');}
 async function deleteBook(id){const b=books.find(x=>x.id===id);if(!b||!confirm(`Удалить «${b.title}»?`))return;
   await rq(bs('readwrite').delete(id));books=books.filter(x=>x.id!==id);refresh();snack('Книга удалена');}
 
-/* ── экспорт/импорт JSON ── */
 const buf2b64=async blob=>{const u=new Uint8Array(await blob.arrayBuffer());let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(s)};
 const b64buf=b=>Uint8Array.from(atob(b),c=>c.charCodeAt(0)).buffer;
 async function exportAll(){
@@ -549,7 +639,7 @@ async function exportAll(){
     const data={app:'textbook-library',books:[]};
     for(const b of books){const rec=await rq(bs().get(b.id));const{file,...meta}=b;data.books.push({...meta,fname:rec.fname,file:await buf2b64(rec.file)});}
     saveFile(new Blob([JSON.stringify(data)],{type:'application/json'}),'biblioteka-'+new Date().toISOString().slice(0,10)+'.json');
-  }catch(e){snack('Экспорт не удался (слишком большой объём для браузера)','ОК');}
+  }catch(e){snack('Экспорт не удался');}
 }
 async function importJson(file){
   try{
@@ -560,22 +650,43 @@ async function importJson(file){
       try{await rq(bs('readwrite').add(rec));n++;}catch(e){}}
     books=await rq(bs().getAll());refresh();ensurePdf().then(ok=>ok&&regenPh());
     snack(`Импортировано: ${n}`);
-  }catch(e){snack('Файл резервной копии повреждён','ОК');}
+  }catch(e){snack('Файл повреждён');}
 }
 
-/* ── диалоги ── */
 function openDlg(el){el.classList.add('open')}
 function closeDlg(el){el.classList.remove('open')}
 document.querySelectorAll('.ovl').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeDlg(o)}));
 
-/* ── тур ── */
+/* ── Палитра цветов ── */
+function applyPalette(key){
+  const p=PALETTES[key];if(!p)return;
+  const root=document.documentElement;
+  root.style.setProperty('--primary',p.primary);
+  root.style.setProperty('--primary-container',p.container);
+  root.style.setProperty('--secondary-container',p.secondary);
+  localStorage.setItem('tl3_palette',key);
+  renderPalette();
+  // Перерисовать обложки-заглушки
+  books.filter(b=>b.coverSrc==='ph').forEach(b=>{b.cover=phCover(b);const img=document.querySelector(`[data-card="${b.id}"] img`);if(img)img.src=b.cover;});
+}
+function renderPalette(){
+  const cur=localStorage.getItem('tl3_palette')||'violet';
+  $('#palette').innerHTML=Object.keys(PALETTES).map(k=>
+    `<button data-k="${k}" style="background:${PALETTES[k].primary}" class="${k===cur?'on':''}" title="${k}"></button>`
+  ).join('');
+}
+$('#btnPalette').onclick=()=>{renderPalette();openDlg($('#dlgPalette'))};
+$('#btnPaletteClose').onclick=()=>closeDlg($('#dlgPalette'));
+$('#palette').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;applyPalette(b.dataset.k);});
+
+/* ── Тур (с исправлением бага) ── */
 const TOUR=[
- {t:'Добро пожаловать!',d:'Это ваша личная библиотека учебников. Всё хранится на этом устройстве — без серверов и регистрации.',sel:null},
- {sel:'#searchbar',t:'Поиск и фильтры',d:'Ищите по названию и автору, отбирайте по предмету и классу чипсами ниже.'},
- {sel:'#fab',t:'Добавление учебников',d:'Выберите один или несколько PDF. Обложка создастся автоматически с первой страницы.'},
- {sel:'#btnFolder',t:'Папка на устройстве',d:'Подключите папку «Учебники» — все новые PDF будут копироваться в неё, а «Импорт из папки» заберёт всё из папки в библиотеку.'},
- {sel:'#shelf',t:'Полка',d:'Нажатие на обложку открывает просмотр со листанием и масштабом. Кнопки карточки — скачать и удалить.'},
- {sel:'#btnHelp',t:'Инструкция и закладки',d:'Здесь подробный гайд: как добавить сайт в закладки на телефоне и ноутбуке, папка, обложки, резервные копии.'}
+  {t:'Добро пожаловать!',d:'Это ваша библиотека учебников. Всё хранится локально — без серверов.',sel:null},
+  {sel:'#searchbar',t:'Поиск',d:'Ищите по названию, автору и предмету. Фильтры — чипсами ниже.'},
+  {sel:'#fab',t:'Добавление',d:'Выберите PDF — ИИ сам определит автора, класс и предмет.'},
+  {sel:'#btnFolder',t:'Папка',d:'Подключите папку «Учебники» — новые файлы копируются туда.'},
+  {sel:'#shelf',t:'Полка',d:'Клик по обложке — просмотр. Кнопки — скачать и удалить.'},
+  {sel:'#btnPalette',t:'Цвета',d:'Выберите акцентный цвет приложения.'}
 ];
 let tStep=0;
 function startTour(){tStep=0;$('#tour').classList.add('on');showStep();}
@@ -586,21 +697,31 @@ function showStep(){
   $('#tcnt').textContent=`${tStep+1} / ${TOUR.length}`;
   $('#tBack').style.visibility=tStep?'visible':'hidden';
   $('#tNext').textContent=tStep===TOUR.length-1?'Готово':'Далее';
-  const spot=$('#spot'),tour=$('#tour');
+  const spot=$('#spot'),tour=$('#tour'),card=$('#tcard');
   const el=s.sel&&document.querySelector(s.sel);
   if(el){el.scrollIntoView({block:'center',behavior:'smooth'});
-    setTimeout(()=>{const r=el.getBoundingClientRect();
+    // Ждём полной отрисовки карточки перед позиционированием
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      // Сначала даём карточке отрендериться (высота)
+      card.style.visibility='hidden';card.style.display='block';
+      const cardH=card.offsetHeight;
+      card.style.visibility='';
+      const r=el.getBoundingClientRect();
       spot.style.display='block';tour.classList.remove('dim');
       spot.style.top=r.top-8+'px';spot.style.left=r.left-8+'px';spot.style.width=r.width+16+'px';spot.style.height=r.height+16+'px';
-      placeCard(r);},350);
+      placeCard(r,cardH);
+    }));
   }else{spot.style.display='none';tour.classList.add('dim');
-    const c=$('#tcard');c.style.left='50%';c.style.top='50%';c.style.transform='translate(-50%,-50%)';}
+    card.style.transform='translate(-50%,-50%)';
+    card.style.left='50%';card.style.top='50%';}
 }
-function placeCard(r){
+function placeCard(r,cardH){
   const c=$('#tcard');c.style.transform='none';
-  const ch=c.offsetHeight||220;
-  let top=r.bottom+20;if(top+ch>innerHeight-12)top=Math.max(12,r.top-ch-20);
-  let left=Math.min(Math.max(12,r.left),innerWidth-(c.offsetWidth||360)-12);
+  const ch=cardH||c.offsetHeight||220;
+  let top=r.bottom+20;
+  if(top+ch>innerHeight-16)top=Math.max(16,r.top-ch-20);
+  const cw=c.offsetWidth||360;
+  let left=Math.min(Math.max(16,r.left),innerWidth-cw-16);
   c.style.top=top+'px';c.style.left=left+'px';
 }
 $('#tNext').onclick=()=>{if(tStep<TOUR.length-1){tStep++;showStep()}else endTour()};
@@ -608,12 +729,10 @@ $('#tBack').onclick=()=>{if(tStep>0){tStep--;showStep()}};
 $('#tSkip').onclick=endTour;
 addEventListener('resize',()=>{if($('#tour').classList.contains('on'))showStep()});
 
-/* ── тема ── */
 function applyTheme(t){document.documentElement.dataset.theme=t;
   $('#icoMoon').style.display=t==='dark'?'none':'block';$('#icoSun').style.display=t==='dark'?'block':'none';}
 $('#btnTheme').onclick=()=>{const t=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tl3_theme',t);applyTheme(t)};
 
-/* ── события UI ── */
 $('#inpSearch').addEventListener('input',debounce(e=>{state.q=e.target.value;$('#btnClear').style.display=e.target.value?'grid':'none';render()},160));
 $('#btnClear').onclick=()=>{$('#inpSearch').value='';state.q='';$('#btnClear').style.display='none';render()};
 $('#chipsSub').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;state.sub=c.dataset.v;refresh()});
@@ -622,7 +741,30 @@ $('#selSort').onchange=e=>{state.sort=e.target.value;render()};
 $('#grid').addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(!el)return;
   const{act,id}=el.dataset;
   if(act==='view')openViewer(id);if(act==='dl')downloadBook(id);if(act==='del')deleteBook(id);});
-$('#fab').onclick=$('#btnAddEmpty').onclick=()=>{picked=[];manualCover=null;$('#coverPrev').hidden=true;$('#pickedList').textContent='';openDlg($('#dlgAdd'))};
+
+/* ── Добавление с автозаполнением ИИ ── */
+function fillFromAI(file){
+  const info=aiParse(file.name);
+  const f=id=>$('#'+id);
+  const wasEmpty={title:!f('fTitle').value.trim(),author:!f('fAuthor').value.trim(),subject:!f('fSubject').value.trim(),grade:!f('fGrade').value,year:!f('fYear').value.trim()};
+  if(info.title&&wasEmpty.title)f('fTitle').value=info.title;
+  if(info.author&&wasEmpty.author)f('fAuthor').value=info.author;
+  if(info.subject&&wasEmpty.subject)f('fSubject').value=info.subject;
+  if(info.grade&&wasEmpty.grade)f('fGrade').value=info.grade;
+  if(info.year&&wasEmpty.year)f('fYear').value=info.year;
+  // Показать что определилось
+  const found=[
+    info.author&&`автор: ${info.author}`,
+    info.subject&&`предмет: ${info.subject}`,
+    info.grade&&`${info.grade} класс`,
+    info.year&&`год: ${info.year}`
+  ].filter(Boolean);
+  const ai=$('#aiInfo');
+  if(found.length){ai.textContent='🤖 Определено: '+found.join(' · ');ai.classList.add('show');}
+  else{ai.classList.remove('show');}
+}
+
+$('#fab').onclick=$('#btnAddEmpty').onclick=()=>{picked=[];manualCover=null;$('#coverPrev').hidden=true;$('#pickedList').textContent='';$('#aiInfo').classList.remove('show');['fTitle','fAuthor','fSubject','fYear'].forEach(id=>$('#'+id).value='');$('#fGrade').value='';openDlg($('#dlgAdd'))};
 $('#btnFolder').onclick=folderClick;$('#btnFolderEmpty').onclick=folderClick;
 $('#btnFromFolder').onclick=importFromFolder;
 $('#btnExport').onclick=exportAll;
@@ -632,7 +774,6 @@ $('#btnHelp').onclick=()=>openDlg($('#dlgGuide'));
 $('#btnGuideClose').onclick=()=>closeDlg($('#dlgGuide'));
 $('#btnRetour').onclick=()=>{closeDlg($('#dlgGuide'));startTour()};
 
-/* добавление */
 const drop=$('#drop');
 drop.onclick=()=>$('#fileInput').click();
 $('#fileInput').onchange=e=>setPicked([...e.target.files]);
@@ -641,36 +782,52 @@ drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
 drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');setPicked([...e.dataTransfer.files])});
 function setPicked(files){
   picked=files.filter(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf');
-  if(!picked.length)return snack('Нужны файлы PDF','ОК');
+  if(!picked.length)return snack('Нужны файлы PDF');
   $('#pickedList').textContent=`Выбрано: ${picked.length} — ${picked.slice(0,3).map(f=>f.name).join(', ')}${picked.length>3?'…':''}`;
-  if(picked.length===1){const m=parseName(picked[0].name);
-    if(!$('#fTitle').value)$('#fTitle').value=m.title;
-    if(m.subject&&!$('#fSubject').value)$('#fSubject').value=m.subject;
-    if(m.grade&&!$('#fGrade').value)$('#fGrade').value=m.grade;}
+  if(picked.length===1)fillFromAI(picked[0]);
+  else if(picked.length>1){
+    // Для нескольких файлов — агрегируем общий предмет/класс если совпадают
+    const infos=picked.map(f=>aiParse(f.name));
+    const commonSub=infos.every(i=>i.subject===infos[0].subject)?infos[0].subject:'';
+    const commonGrade=infos.every(i=>i.grade===infos[0].grade)?infos[0].grade:'';
+    if(commonSub&&!$('#fSubject').value)$('#fSubject').value=commonSub;
+    if(commonGrade&&!$('#fGrade').value)$('#fGrade').value=commonGrade;
+    $('#aiInfo').textContent=`🤖 Для ${picked.length} файлов применён общий фильтр: ${commonSub||'—'} ${commonGrade?commonGrade+' кл':''}`;
+    $('#aiInfo').classList.add('show');
+  }
 }
 $('#btnCover').onclick=()=>$('#coverInput').click();
 $('#coverInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;
   manualCover=await imgToCover(f);const p=$('#coverPrev');p.src=manualCover;p.hidden=false;};
 $('#btnCancelAdd').onclick=()=>closeDlg($('#dlgAdd'));
 $('#btnSave').onclick=async()=>{
-  if(!picked.length)return snack('Сначала выберите PDF','ОК');
+  if(!picked.length)return snack('Сначала выберите PDF');
   const btn=$('#btnSave');btn.disabled=true;btn.textContent='Сохранение…';
   const common={author:$('#fAuthor').value.trim(),subject:$('#fSubject').value.trim(),grade:$('#fGrade').value,year:$('#fYear').value.trim()};
   try{
     if(picked.length===1){
-      const meta={...common,title:$('#fTitle').value.trim()||parseName(picked[0].name).title};
+      const meta={...common,title:$('#fTitle').value.trim()||aiParse(picked[0].name).title};
       await addBookFromFile(picked[0],{meta,cover:manualCover||undefined});
     }else{
-      for(const f of picked)await addBookFromFile(f,{meta:common});
+      for(const f of picked){
+        const ai=aiParse(f.name);
+        const meta={
+          title:ai.title,
+          author:common.author||ai.author,
+          subject:common.subject||ai.subject,
+          grade:common.grade||ai.grade,
+          year:common.year||ai.year
+        };
+        await addBookFromFile(f,{meta});
+      }
     }
     closeDlg($('#dlgAdd'));refresh();
-    snack(picked.length===1?`«${$('#fTitle').value||picked[0].name}» добавлен`:`Добавлено учебников: ${picked.length}`);
+    snack(picked.length===1?`Добавлен учебник`:`Добавлено: ${picked.length}`);
     ['fTitle','fAuthor','fSubject','fYear'].forEach(id=>$('#'+id).value='');$('#fGrade').value='';
-  }catch(e){console.error(e);snack('Ошибка сохранения','ОК');}
+  }catch(e){console.error(e);snack('Ошибка сохранения');}
   btn.disabled=false;btn.textContent='Сохранить';
 };
 
-/* просмотрщик */
 $('#vClose').onclick=closeViewer;
 $('#vPrev').onclick=()=>renderPage(view.page-1);
 $('#vNext').onclick=()=>renderPage(view.page+1);
@@ -689,11 +846,12 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-/* ── старт ── */
 (async()=>{
   applyTheme(localStorage.getItem('tl3_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+  const p=localStorage.getItem('tl3_palette')||'violet';
+  applyPalette(p);
   $('#subjList').innerHTML=SUBJECTS.map(s=>`<option value="${s}">`).join('');
-  try{db=await openDB();}catch(e){snack('Хранилище браузера недоступно','ОК');return;}
+  try{db=await openDB();}catch(e){snack('Хранилище недоступно');return;}
   books=(await rq(bs().getAll()))||[];
   try{const h=await rq(ks().get('dir'));if(h){dirHandle=h;dirGranted=(await h.queryPermission({mode:'readwrite'}))==='granted';}}catch(e){}
   folderUI();refresh();
