@@ -96,6 +96,10 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .fab:hover{transform:translateY(-2px);box-shadow:var(--e3),0 6px 14px 4px rgba(0,0,0,.15)}
 .fab svg{width:22px;height:22px}
 
+/* ИИ-помощник FAB */
+.fab-ai{position:fixed;left:20px;bottom:20px;width:56px;height:56px;border-radius:50%;border:none;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;box-shadow:var(--e3);cursor:pointer;z-index:30;font-size:24px;transition:transform .2s}
+.fab-ai:hover{transform:scale(1.08)}
+
 .ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:opacity .25s;padding:16px}
 .ovl.open{opacity:1;pointer-events:auto}
 .dlg{width:min(580px,96vw);max-height:92vh;overflow:auto;border-radius:28px;background:var(--surface-container-high);color:var(--on-surface);padding:24px;transform:scale(.95);transition:transform .25s}
@@ -118,19 +122,33 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .coverpick img{width:52px;height:70px;object-fit:cover;border-radius:6px;box-shadow:var(--e1)}
 .dfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
 
-/* Палитра цветов */
 .palette{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .palette button{width:48px;height:48px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .2s}
 .palette button:hover{transform:scale(1.1)}
 .palette button.on{border-color:var(--on-surface);box-shadow:var(--e1)}
 
-/* Гайд — карточки */
 .guide-cards{display:flex;flex-direction:column;gap:12px;margin-top:16px}
 .gcard{display:flex;gap:14px;padding:14px;background:var(--surface);border-radius:14px;border:1px solid var(--outline-variant)}
 .gcard .gicon{width:44px;height:44px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none;font-size:22px}
 .gcard .gtxt{flex:1;min-width:0}
 .gcard h4{margin:0 0 4px;font-size:14px;font-weight:600}
 .gcard p{margin:0;font-size:13px;color:var(--on-surface-variant);line-height:1.4}
+
+/* ИИ Чат */
+.ai-chat{display:flex;flex-direction:column;height:min(520px,80vh)}
+.ai-msgs{flex:1;overflow-y:auto;padding:8px 0;display:flex;flex-direction:column;gap:10px}
+.ai-msg{max-width:85%;padding:12px 16px;border-radius:18px;font-size:14px;line-height:1.5;animation:in .3s}
+.ai-msg.bot{background:var(--surface-container);color:var(--on-surface);align-self:flex-start;border-bottom-left-radius:6px}
+.ai-msg.user{background:var(--primary);color:var(--on-primary);align-self:flex-end;border-bottom-right-radius:6px}
+.ai-msg.bot b{color:var(--primary)}
+.ai-input-row{display:flex;gap:8px;margin-top:12px}
+.ai-input-row input{flex:1;border:1px solid var(--outline-variant);border-radius:22px;padding:12px 18px;font:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);outline:none}
+.ai-input-row input:focus{border-color:var(--primary)}
+.ai-input-row button{width:48px;height:48px;border-radius:50%;border:none;background:var(--primary);color:var(--on-primary);cursor:pointer;display:grid;place-items:center}
+.ai-input-row button svg{width:20px;height:20px}
+.ai-suggest{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.ai-suggest button{height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--outline-variant);background:transparent;color:var(--on-surface-variant);font-size:12px;cursor:pointer}
+.ai-suggest button:hover{background:var(--state)}
 
 .viewer{position:fixed;inset:0;z-index:70;background:var(--surface);display:flex;flex-direction:column;transform:translateY(5%);opacity:0;pointer-events:none;transition:.28s}
 .viewer.open{transform:none;opacity:1;pointer-events:auto}
@@ -147,7 +165,6 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .snack.show{transform:translate(-50%,0)}
 .snack button{border:none;background:none;color:var(--inverse-primary);font-weight:600;cursor:pointer;font-size:14px}
 
-/* Тур */
 #tour{position:fixed;inset:0;z-index:80;display:none}
 #tour.on{display:block}
 #tour.dim{background:rgba(0,0,0,.55)}
@@ -177,7 +194,7 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 <section class="controls">
   <div class="searchbar" id="searchbar">
     <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
-    <input id="inpSearch" type="text" placeholder="Поиск: название, автор, предмет…" autocomplete="off">
+    <input id="inpSearch" type="text" placeholder="Поиск: название, автор, предмет..." autocomplete="off">
     <button class="ib" id="btnClear" style="display:none" title="Очистить"><svg viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6Z"/></svg></button>
   </div>
   <div class="actions">
@@ -197,7 +214,7 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   <div class="empty" id="emptyState" hidden>
     <div class="big"><svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v14h12V4H6Zm2 2h8v2H8V6Z"/></svg></div>
     <h2>На полках пока пусто</h2>
-    <p>Добавьте первый учебник — название, автор, класс и предмет определятся автоматически.</p>
+    <p>Добавьте первый учебник — автор, класс и предмет определятся автоматически.</p>
     <div class="row">
       <button class="btn ripple" id="btnAddEmpty">Добавить учебник</button>
       <button class="btn tonal ripple" id="btnFolderEmpty">Подключить папку</button>
@@ -206,12 +223,13 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 </main>
 
 <button class="fab ripple" id="fab"><svg viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/></svg>Добавить</button>
+<button class="fab-ai ripple" id="fabAI" title="ИИ-помощник">&#x1F916;</button>
 
 <!-- Диалог добавления -->
 <div class="ovl" id="dlgAdd">
   <div class="dlg">
     <h2>Новый учебник</h2>
-    <div class="drop ripple" id="drop"><b>Перетащите PDF сюда</b><small>или нажмите — можно выбрать несколько файлов. ИИ определит автора и класс сам.</small></div>
+    <div class="drop ripple" id="drop"><b>Перетащите PDF сюда</b><small>или нажмите — можно выбрать несколько. ИИ определит автора и класс сам.</small></div>
     <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden>
     <div class="picked" id="pickedList"></div>
     <div class="ai-info" id="aiInfo"></div>
@@ -234,31 +252,44 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   </div>
 </div>
 
+<!-- ИИ Чат -->
+<div class="ovl" id="dlgAI">
+  <div class="dlg ai-chat">
+    <h2>&#x1F916; ИИ-помощник</h2>
+    <div class="ai-msgs" id="aiMsgs"></div>
+    <div class="ai-suggest" id="aiSuggest"></div>
+    <div class="ai-input-row">
+      <input id="aiInput" type="text" placeholder="Спросите что-нибудь..." autocomplete="off">
+      <button id="aiSend" title="Отправить"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+    </div>
+  </div>
+</div>
+
 <!-- Просмотрщик -->
 <div class="viewer" id="viewer">
   <div class="vbar">
     <button class="ib ripple" id="vClose" title="Закрыть (Esc)"><svg viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6Z"/></svg></button>
     <div class="vttl" id="vTitle"></div>
     <span class="vmeta" id="vMeta"></span>
-    <button class="ib ripple" id="vPrev" title="Назад (←)"><svg viewBox="0 0 24 24"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12Z"/></svg></button>
+    <button class="ib ripple" id="vPrev" title="Назад"><svg viewBox="0 0 24 24"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12Z"/></svg></button>
     <span class="vmeta" id="vPage">—</span>
-    <button class="ib ripple" id="vNext" title="Вперёд (→)"><svg viewBox="0 0 24 24"><path d="M8.6 5.4 10 4l8 8-8 8-1.4-1.4L15.2 12Z"/></svg></button>
+    <button class="ib ripple" id="vNext" title="Вперёд"><svg viewBox="0 0 24 24"><path d="M8.6 5.4 10 4l8 8-8 8-1.4-1.4L15.2 12Z"/></svg></button>
     <select class="sortsel" id="vZoom"><option value="auto">По ширине</option><option value="1">100%</option><option value="1.5">150%</option><option value="2">200%</option></select>
     <button class="tbtn ripple" id="vDownload">Скачать</button>
   </div>
   <div class="vstage" id="vStage"></div>
 </div>
 
-<!-- Гайд (упрощённый) -->
+<!-- Гайд -->
 <div class="ovl" id="dlgGuide">
   <div class="dlg">
     <h2>Как пользоваться</h2>
     <div class="guide-cards">
-      <div class="gcard"><div class="gicon">📥</div><div class="gtxt"><h4>Добавление</h4><p>Нажмите «Добавить» и выберите PDF — автор, класс и предмет определятся автоматически.</p></div></div>
-      <div class="gcard"><div class="gicon">📁</div><div class="gtxt"><h4>Папка</h4><p>Подключите папку «Учебники» — новые файлы копируются туда, «Импорт из папки» забирает всё в библиотеку.</p></div></div>
-      <div class="gcard"><div class="gicon">🖼️</div><div class="gtxt"><h4>Обложки</h4><p>Создаются из первой страницы PDF. Если интернета нет — будет цветная обложка с названием.</p></div></div>
-      <div class="gcard"><div class="gicon">📌</div><div class="gtxt"><h4>Закладка</h4><p>На ноуте: <b>Ctrl+D</b>. На Android: <b>⋮ → На глав. экран</b>. На iPhone: <b>Поделиться → На экран</b>.</p></div></div>
-      <div class="gcard"><div class="gicon">💾</div><div class="gtxt"><h4>Резервная копия</h4><p>Используйте «Экспорт» и «Импорт» для переноса библиотеки между устройствами.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F4E5;</div><div class="gtxt"><h4>Добавление</h4><p>Нажмите «Добавить» и выберите PDF — автор, класс и предмет определятся автоматически.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F916;</div><div class="gtxt"><h4>ИИ-помощник</h4><p>Кнопка с роботом слева внизу. Поможет найти книгу, подскажет как пользоваться, проанализирует имя файла.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F4C1;</div><div class="gtxt"><h4>Папка</h4><p>Подключите папку «Учебники» — новые файлы копируются туда, «Импорт из папки» забирает всё в библиотеку.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F5BC;</div><div class="gtxt"><h4>Обложки</h4><p>Создаются из первой страницы PDF. Если интернета нет — будет цветная обложка с названием.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F4BE;</div><div class="gtxt"><h4>Резервная копия</h4><p>Используйте «Экспорт» и «Импорт» для переноса библиотеки между устройствами.</p></div></div>
     </div>
     <div class="dfoot">
       <button class="btn text ripple" id="btnRetour">Пройти тур</button>
@@ -273,9 +304,7 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
     <h2>Цвет приложения</h2>
     <p style="color:var(--on-surface-variant);margin:0 0 6px">Выберите акцентный цвет:</p>
     <div class="palette" id="palette"></div>
-    <div class="dfoot">
-      <button class="btn ripple" id="btnPaletteClose">Готово</button>
-    </div>
+    <div class="dfoot"><button class="btn ripple" id="btnPaletteClose">Готово</button></div>
   </div>
 </div>
 
@@ -304,54 +333,85 @@ const fmtSize=b=>b<1024?b+' Б':b<1048576?(b/1024).toFixed(0)+' КБ':(b/1048576
 const plural=(n,f)=>{n=Math.abs(n)%100;const d=n%10;if(n>10&&n<20)return f[2];if(d>1&&d<5)return f[1];if(d===1)return f[0];return f[2]};
 const debounce=(fn,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
 
-const SUBJECTS=['Математика','Алгебра','Геометрия','Русский язык','Литература','История','Обществознание','Физика','Химия','Биология','География','Информатика','Английский язык','Окружающий мир','Музыка','ИЗО','Технология','ОБЖ','Физкультура','Астрономия','Экономика','Право'];
+const SUBJECTS=['Математика','Алгебра','Геометрия','Русский язык','Литература','История','Обществознание','Физика','Химия','Биология','География','Информатика','Английский язык','Немецкий язык','Французский язык','Окружающий мир','Музыка','ИЗО','Технология','ОБЖ','Физкультура','Астрономия','Экономика','Право'];
 
-/* ── База авторов для ИИ ── */
+/* ── Расширенная база авторов с инициалами ── */
 const AUTHORS_DB=[
-  ['Макарычев','makarychev','makarycheva','макарычев'],
-  ['Мордкович','mordkovich','мордкович'],
-  ['Атанасян','atanasyan','атанасян'],
-  ['Мерзляк','merzlyak','merzliak','мерзляк'],
-  ['Дорофеев','dorofeev','дорофеев'],
-  ['Габриелян','gabrielyan','gabrielian','габриелян'],
-  ['Пёрышкин','peryshkin','перышкин'],
-  ['Лунин','lunin','лунин'],
-  ['Каменский','kamenskiy','каменский'],
-  ['Пасечник','pasechnik','пасечник'],
-  ['Алексашкина','aleksashkina','алексашкина'],
-  ['Данилов','danilov','данилов'],
-  ['Боголюбов','bogolyubov','боголюбов'],
-  ['Садовничий','sadovnichiy','садовничий'],
-  ['Быкова','bykova','быкова'],
-  ['Верещагина','vereshchagina','верещагина'],
-  ['Афанасьева','afanaseva','афанасьева'],
-  ['Кузовлев','kuzovlev','кузовлев'],
-  ['Ладыженская','ladyzhenskaya','ладыженская'],
-  ['Баранов','baranov','баранов'],
-  ['Тростенцова','trostentsova','тростенцова'],
-  ['Коровина','korovina','коровина'],
-  ['Виленкин','vilenkin','виленкин'],
-  ['Шестаков','shestakov','шестаков'],
-  ['Просветов','prosvetov','просветов'],
-  ['Колмогоров','kolmogorov','колмогоров'],
-  ['Никольский','nikolskiy','никoльский','никoльский'],
-  ['Гейдман','geydman','гейдман'],
-  ['Рудницкая','rudnitskaya','рудницкая'],
-  ['Бунимович','bunimovich','бунимович']
+  ['Макарычев Ю. Н.','makarychev','makarycheva','макарычев'],
+  ['Мордкович А. Г.','mordkovich','mordkovich','мордкович'],
+  ['Атанасян Л. С.','atanasyan','atanasian','атанасян'],
+  ['Мерзляк А. Г.','merzlyak','merzliak','мерзляк'],
+  ['Дорофеев Г. В.','dorofeev','dorofeyev','дорофеев'],
+  ['Габриелян О. С.','gabrielyan','gabrielian','gabrielyan','габриелян'],
+  ['Пёрышкин А. В.','peryshkin','perishkin','перышкин','пёрышкин'],
+  ['Лунин А. А.','lunin','лунин'],
+  ['Каменский А. А.','kamenskiy','kamensky','каменский'],
+  ['Пасечник В. В.','pasechnik','пасечник'],
+  ['Алексашкина Л. Н.','aleksashkina','aleksashkina','алексашкина'],
+  ['Данилов А. А.','danilov','данилов'],
+  ['Боголюбов Л. Н.','bogolyubov','bogoliubov','боголюбов'],
+  ['Садовничий В. А.','sadovnichiy','садовничий'],
+  ['Быкова Н. И.','bykova','быкова'],
+  ['Верещагина И. Н.','vereshchagina','верещагина'],
+  ['Афанасьева О. В.','afanaseva','афанасьева'],
+  ['Кузовлев В. П.','kuzovlev','кузовлев'],
+  ['Ладыженская Т. А.','ladyzhenskaya','ladyzhenskaia','ладыженская'],
+  ['Баранов М. Т.','baranov','баранов'],
+  ['Тростенцова Л. А.','trostentsova','тростенцова'],
+  ['Коровина В. Я.','korovina','коровина'],
+  ['Виленкин Н. Я.','vilenkin','виленкин'],
+  ['Шестаков А. С.','shestakov','шестаков'],
+  ['Колмогоров А. Н.','kolmogorov','колмогоров'],
+  ['Никольский С. М.','nikolskiy','nikolsky','никoльский','никoльский'],
+  ['Гейдман Б. П.','geydman','гейдман'],
+  ['Рудницкая В. Н.','rudnitskaya','рудницкая'],
+  ['Бунимович Е. А.','bunimovich','бунимович'],
+  ['Петерсон Л. Г.','peterson','петерсон'],
+  ['Иченская М. А.','ichenskaya','иченская'],
+  ['Босова Л. Л.','bosova','босова'],
+  ['Поляков К. Ю.','polyakov','поляков'],
+  ['Семакин И. Г.','semakin','семакин'],
+  ['Угринович Н. Д.','ugrinovich','угринович'],
+  ['Мякишев Г. Я.','myakishev','мякишев'],
+  ['Касьянов В. А.','kasyanov','касянов'],
+  ['Генденштейн Л. Э.','gendenstein','генденштейн'],
+  ['Рымкевич А. П.','rymkevich','рымкевич'],
+  ['Новошинский И. И.','novoshinsky','новошинский'],
+  ['Рудзитис Г. Е.','rudzitis','рудзитис'],
+  ['Фельдман Ф. Г.','feldman','фельдман'],
+  ['Трацевская А. В.','trachevskaya','трацевская'],
+  ['Климанова О. А.','klimanova','климанова'],
+  ['Максаковский В. П.','maksakovskiy','максаковский'],
+  ['Алексеев А. И.','alekseev','алексеев'],
+  ['Домогацких Е. М.','domogatskikh','домогацких'],
+  ['Вахрушев А. А.','vakhrushev','вахрушев'],
+  ['Виноградова Н. Ф.','vinogradova','виноградова'],
+  ['Козлова С. А.','kozlova','козлова'],
+  ['Иванов С. В.','ivanov','иванов'],
+  ['Кузнецов А. А.','kuznetsov','кузнецов'],
+  ['Чуракова Р. Г.','churakova','чуракова'],
+  ['Соловейчик М. С.','soloveychik','соловейчик'],
+  ['Полякова А. В.','polyakova','полякова'],
+  ['Ушаков Д. В.','ushakov','ушаков'],
+  ['Львов М. Р.','lvov','львов'],
+  ['Граник Г. Г.','granik','граник'],
+  ['Бунеев Р. Н.','buneev','бунеев'],
+  ['Бунеева Е. В.','buneeva','бунеева'],
+  ['Шклярова Т. В.','shklyarova','шклярова']
 ];
 
-/* ── Словарь транслитерации ── */
-const TR={a:'а',b:'б',v:'в',w:'в',g:'г',d:'д',e:'е',yo:'ё',zh:'ж',z:'з',i:'и',y:'й',k:'к',l:'л',m:'м',n:'н',o:'о',p:'п',r:'р',s:'с',t:'т',u:'у',f:'ф',h:'х',x:'х',kh:'х',c:'ц',ts:'ц',ch:'ч',sh:'ш',sch:'щ','\'':'ъ','\u2019':'ъ',j:'ж',ju:'ю',ya:'я'};
+/* ── Словарь транслитерации (Unicode-escape для безопасности) ── */
+const TR={a:'\u0430',b:'\u0431',v:'\u0432',w:'\u0432',g:'\u0433',d:'\u0434',e:'\u0435',yo:'\u0451',zh:'\u0436',z:'\u0437',i:'\u0438',y:'\u0439',k:'\u043A',l:'\u043B',m:'\u043C',n:'\u043D',o:'\u043E',p:'\u043F',r:'\u0440',s:'\u0441',t:'\u0442',u:'\u0443',f:'\u0444',h:'\u0445',x:'\u0445',kh:'\u0445',c:'\u0446',ts:'\u0446',ch:'\u0447',sh:'\u0448',sch:'\u0449','\u02BC':'\u044A','\u2019':'\u044A',j:'\u0436',ju:'\u044E',ya:'\u044F'};
+
 function translit(s){
   return String(s||'').toLowerCase()
     .replace(/yo|zh|kh|ts|ch|sh|sch/gi,m=>TR[m.toLowerCase()]||m)
     .replace(/[a-z]/gi,c=>TR[c.toLowerCase()]||c)
-    .replace(/ьъ+/g,'')
-    .replace(/ё/g,'е');
+    .replace(/\u044C\u044A+/g,'')
+    .replace(/\u0451/g,'\u0435');
 }
-function normalize(s){return translit(s).replace(/[^а-яёa-z0-9\s]/gi,'').replace(/\s+/g,' ').trim().toLowerCase();}
+function normalize(s){return translit(s).replace(/[^\u0430-\u044F\u0451a-z0-9\s]/gi,'').replace(/\s+/g,' ').trim().toLowerCase();}
 
-/* ── ИИ-анализ имени файла ── */
 function aiParse(filename){
   const result={title:'',author:'',subject:'',grade:'',year:''};
   const base=filename.replace(/\.pdf$/i,'').replace(/[_]+/g,' ').trim();
@@ -359,11 +419,9 @@ function aiParse(filename){
   const low=normalize(base);
   const orig=base.toLowerCase();
 
-  // Год
   const ym=base.match(/\b(19|20)\d{2}\b/);
   if(ym){const y=+ym[0];if(y>=1950&&y<=2030)result.year=String(y);}
 
-  // Класс (1-11)
   const gm=base.match(/\b(1[01]|[1-9])\s*(?:класс|кл\.?)\b/i)||base.match(/(?:класс|kl|kl\.?)\s*(1[01]|[1-9])\b/i);
   if(gm){const g=+gm[1];if(g>=1&&g<=11)result.grade=g;}
   if(!result.grade){
@@ -372,28 +430,28 @@ function aiParse(filename){
       if(g>=1&&g<=11&&(result.year!==m2[0]))result.grade=g;}
   }
 
-  // Предмет
   const subjectMap=[
     ['Математика',['математик','matematik']],
     ['Алгебра',['алгебр','algebr']],
-    ['Геометрия',['геометр','геометрия','geometr','geometriya']],
-    ['Русский язык',['русск','русский','russk','russkiy','russian']],
+    ['Геометрия',['геометр','geometr','geometriya']],
+    ['Русский язык',['русск','russk','russkiy','russian']],
     ['Литература',['литератур','literatur']],
     ['История',['истор','istor','history']],
-    ['Обществознание',['обществ','обществозн','obschestv','obschestvoznan','obshchestvoznan']],
-    ['Физика',['физик','физика','phizik','phizika','physics']],
-    ['Химия',['химия','хими','himiy','himija','chemistry']],
+    ['Обществознание',['обществ','obschestv','obshchestvoznan']],
+    ['Физика',['физик','phizik','physics']],
+    ['Химия',['химия','хими','himiy','chemistry']],
     ['Биология',['биолог','biolog','biology']],
     ['География',['географ','geograf','geography']],
-    ['Информатика',['информат','informat','informatics','computer science']],
-    ['Английский язык',['английск','angliysk','english','angl']],
+    ['Информатика',['информат','informat','computer science']],
+    ['Английский язык',['английск','angliysk','english']],
     ['Немецкий язык',['немецк','nemetsk','german','deutsch']],
-    ['Окружающий мир',['окружающ','mir','okruzh','world']],
+    ['Французский язык',['французск','frantsuzsk','french']],
+    ['Окружающий мир',['окружающ','okruzh','world']],
     ['Музыка',['музык','muzik','music']],
     ['ИЗО',['изо','izo','izobrazit']],
     ['Технология',['технологи','tehnolog','technolog']],
     ['ОБЖ',['обж','obzh','bzh']],
-    ['Физкультура',['физкультур','физра','fizkult','fizra']],
+    ['Физкультура',['физкультур','fizkult','fizra']],
     ['Астрономия',['астроном','astronom']],
     ['Экономика',['экономи','ekonomi','economics']],
     ['Право',['право','pravo','law']]
@@ -405,7 +463,6 @@ function aiParse(filename){
     if(result.subject)break;
   }
 
-  // Автор (по словарю)
   for(const author of AUTHORS_DB){
     const [name,...keys]=author;
     for(const k of keys){
@@ -415,6 +472,108 @@ function aiParse(filename){
   }
 
   return result;
+}
+
+/* ── ИИ-помощник ── */
+function aiChat(userMsg){
+  const q=userMsg.toLowerCase().trim();
+  const total=books.length;
+  const subjects=[...new Set(books.map(b=>b.subject).filter(Boolean))];
+  const authors=[...new Set(books.map(b=>b.author).filter(Boolean))];
+  const grades=[...new Set(books.map(b=>b.grade).filter(Boolean))].sort((a,b)=>a-b);
+
+  // Приветствие
+  if(/привет|здравствуй|добрый|hello|hi/.test(q)){
+    return 'Привет! Я помогу тебе с библиотекой. Могу найти книгу, подсказать как пользоваться или проанализировать имя файла. Что нужно?';
+  }
+
+  // Помощь
+  if(/помощь|помоги|что ты умеешь|help/.test(q)){
+    return 'Я умею:<br>• Искать книги: <b>«найди алгебру 8 класс»</b><br>• Показывать статистику: <b>«сколько книг»</b>, <b>«какие предметы»</b><br>• Анализировать файлы: <b>«разбери файл Makarychev_8.pdf»</b><br>• Подсказывать: <b>«как добавить книгу»</b>, <b>«как сделать резервную копию»</b>';
+  }
+
+  // Поиск книги
+  const searchMatch=q.match(/найди|найти|покажи|ищу|где|есть ли\s+(.+)/);
+  if(searchMatch||/найди|найти|покажи|ищу/.test(q)){
+    const query=q.replace(/найди|найти|покажи|ищу|где|есть ли|мне|книгу|учебник|по/g,'').trim();
+    if(query){
+      const found=books.filter(b=>`${b.title} ${b.author} ${b.subject}`.toLowerCase().includes(query));
+      if(found.length){
+        let resp=`Нашёл ${found.length} ${plural(found.length,['книгу','книги','книг'])}:<br>`;
+        found.slice(0,5).forEach(b=>{
+          resp+=`• <b>${esc(b.title)}</b>${b.author?' — '+esc(b.author):''}${b.grade?' ('+b.grade+' кл)':''}<br>`;
+        });
+        if(found.length>5)resp+=`...и ещё ${found.length-5}`;
+        return resp;
+      }
+      return `Не нашёл ничего по запросу «${esc(query)}». Попробуй другое название или проверь spelling.`;
+    }
+    return 'Что именно найти? Например: <b>«найди алгебру 8 класс»</b>';
+  }
+
+  // Статистика
+  if(/сколько книг|сколько всего|статистика/.test(q)){
+    return `В библиотеке <b>${total}</b> ${plural(total,['книга','книги','книг'])}.<br>Предметов: ${subjects.length}<br>Авторов: ${authors.length}<br>Классы: ${grades.length?grades.join(', '):'—'}`;
+  }
+  if(/какие предметы|предметы/.test(q)){
+    return subjects.length?'В библиотеке есть:<br>'+subjects.map(s=>'• '+s).join('<br>'):'Пока нет предметов. Добавь первую книгу!';
+  }
+  if(/какие авторы|авторы|кто авторы/.test(q)){
+    return authors.length?'Авторы в библиотеке:<br>'+authors.slice(0,15).map(a=>'• '+a).join('<br>')+(authors.length>15?'<br>...':''):'Пока нет авторов. Добавь первую книгу!';
+  }
+  if(/какие классы|классы/.test(q)){
+    return grades.length?'Есть учебники для классов: '+grades.join(', '):'Пока нет классов. Добавь первую книгу!';
+  }
+
+  // Анализ файла
+  const fileMatch=q.match(/разбери|проанализируй|определи\s+(.+)/);
+  if(fileMatch||/разбери файл|проанализируй/.test(q)){
+    const fname=q.replace(/разбери|проанализируй|определи|файл|имя файла/gi,'').trim();
+    if(fname){
+      const info=aiParse(fname);
+      let resp=`Анализ «${esc(fname)}»:<br>`;
+      resp+=`• Название: <b>${esc(info.title)}</b><br>`;
+      resp+=`• Автор: ${info.author?'<b>'+esc(info.author)+'</b>':'не определён'}<br>`;
+      resp+=`• Предмет: ${info.subject?'<b>'+esc(info.subject)+'</b>':'не определён'}<br>`;
+      resp+=`• Класс: ${info.grade?'<b>'+info.grade+'</b>':'не определён'}<br>`;
+      resp+=`• Год: ${info.year?'<b>'+info.year+'</b>':'не определён'}`;
+      return resp;
+    }
+    return 'Пришли имя файла, например: <b>«разбери Makarychev_Algebra_8.pdf»</b>';
+  }
+
+  // Как добавить книгу
+  if(/как добавить|как загрузить|добавить книгу/.test(q)){
+    return 'Чтобы добавить книгу:<br>1. Нажми кнопку <b>«Добавить»</b> справа внизу<br>2. Выбери PDF-файл<br>3. ИИ сам определит автора, класс и предмет<br>4. Нажми <b>«Сохранить»</b><br><br>Можно выбрать сразу несколько файлов!';
+  }
+
+  // Резервная копия
+  if(/резервная копия|бэкап|backup|экспорт/.test(q)){
+    return 'Для резервной копии:<br>1. Нажми кнопку <b>«Экспорт»</b> сверху<br>2. Скачается JSON-файл со всей библиотекой<br>3. На другом устройстве нажми <b>«Импорт»</b> и выбери этот файл<br><br>Делай копию раз в неделю!';
+  }
+
+  // Как пользоваться папкой
+  if(/папка|folder/.test(q)){
+    return 'Работа с папкой:<br>1. Нажми <b>«Подключить папку»</b> сверху<br>2. Выбери папку «Учебники»<br>3. Новые PDF будут копироваться туда автоматически<br>4. <b>«Импорт из папки»</b> добавит все PDF из папки в библиотеку';
+  }
+
+  // Обложки
+  if(/обложка|обложки|cover/.test(q)){
+    return 'Обложки создаются автоматически из первой страницы PDF. Если интернета нет — будет цветная обложка с названием. Когда интернет появится, настоящие обложки подставятся сами.';
+  }
+
+  // Цвет темы
+  if(/цвет|тема|theme|палитра/.test(q)){
+    return 'Чтобы сменить цвет:<br>1. Нажми кнопку с палитрой 🎨 в шапке<br>2. Выбери один из 6 цветов<br>3. Цвет сохранится автоматически';
+  }
+
+  // APK
+  if(/apk|приложение|установить на телефон/.test(q)){
+    return 'Чтобы сделать APK:<br>1. Открой <b>pwabuilder.com</b><br>2. Вставь ссылку на сайт<br>3. Нажми <b>Package For Stores → Android</b><br>4. Скачай и установи APK на телефон';
+  }
+
+  // По умолчанию
+  return 'Не понял вопрос. Попробуй:<br>• <b>«найди алгебру»</b><br>• <b>«сколько книг»</b><br>• <b>«разбери файл имя.pdf»</b><br>• <b>«помощь»</b>';
 }
 
 let db,books=[],dirHandle=null,dirGranted=false,pdfOk=false,pdfPromise=null,manualCover=null,picked=[];
@@ -430,7 +589,6 @@ const PALETTES={
   gray:{primary:'#616161',container:'#E0E0E0',secondary:'#ECECEC'}
 };
 
-/* ── ripple ── */
 document.addEventListener('pointerdown',e=>{
   const t=e.target.closest('.ripple');if(!t)return;
   const r=document.createElement('span');r.className='rp';
@@ -446,7 +604,6 @@ function snack(msg,actLabel,actFn){
   s.classList.add('show');clearTimeout(snackT);snackT=setTimeout(()=>s.classList.remove('show'),4200);
 }
 
-/* ── IndexedDB ── */
 const rq=r=>new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
 function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open('tl3',1);
   r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('books'))d.createObjectStore('books',{keyPath:'id'});if(!d.objectStoreNames.contains('kv'))d.createObjectStore('kv')};
@@ -496,7 +653,7 @@ function phCover(b){
 }
 function wrap(x,t,X,y,mw,lh,maxL){const ws=String(t||'').split(/\s+/);let line='',n=0;
   for(const w of ws){const test=line?line+' '+w:w;
-    if(x.measureText(test).width>mw&&line){x.fillText(line,X,y);y+=lh;line=w;if(++n>=maxL){line='…';break}}else line=test;}
+    if(x.measureText(test).width>mw&&line){x.fillText(line,X,y);y+=lh;line=w;if(++n>=maxL){line='\u2026';break}}else line=test;}
   if(line&&n<maxL)x.fillText(line,X,y);}
 
 const safeName=s=>String(s).replace(/[\\/:*?"<>|]/g,'_').trim();
@@ -536,7 +693,6 @@ async function importFromFolder(){
 async function addBookFromFile(file,opts={}){
   const ai=aiParse(file.name);
   const m=Object.assign({},ai,opts.meta||{});
-  // Если в meta не передано, берём из ИИ
   if(!opts.meta?.title)m.title=m.title||file.name.replace(/\.pdf$/i,'');
   let cover=opts.cover||null,coverSrc=cover?'manual':'ph';
   if(!cover&&pdfOk){try{cover=await makeCover(file);coverSrc='pdf';}catch(e){}}
@@ -658,7 +814,46 @@ function openDlg(el){el.classList.add('open')}
 function closeDlg(el){el.classList.remove('open')}
 document.querySelectorAll('.ovl').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeDlg(o)}));
 
-/* ── Палитра цветов ── */
+/* ── ИИ Чат UI ── */
+function aiAddMsg(text,isUser){
+  const div=document.createElement('div');
+  div.className='ai-msg '+(isUser?'user':'bot');
+  div.innerHTML=isUser?esc(text):text;
+  $('#aiMsgs').appendChild(div);
+  $('#aiMsgs').scrollTop=$('#aiMsgs').scrollHeight;
+}
+function aiShowSuggest(){
+  const suggestions=books.length
+    ?['Сколько книг?','Какие предметы?','Найди алгебру','Как сделать бэкап?']
+    :['Как добавить книгу?','Что ты умеешь?','Как пользоваться папкой?'];
+  $('#aiSuggest').innerHTML=suggestions.map(s=>`<button>${s}</button>`).join('');
+}
+function aiHandle(){
+  const input=$('#aiInput').value.trim();
+  if(!input)return;
+  aiAddMsg(input,true);
+  $('#aiInput').value='';
+  setTimeout(()=>{
+    const resp=aiChat(input);
+    aiAddMsg(resp,false);
+  },300);
+}
+$('#fabAI').onclick=()=>{
+  openDlg($('#dlgAI'));
+  if(!$('#aiMsgs').children.length){
+    aiAddMsg('Привет! Я ИИ-помощник библиотеки. Могу найти книгу, показать статистику или проанализировать имя файла. Спроси что-нибудь!',false);
+    aiShowSuggest();
+  }
+};
+$('#aiSend').onclick=aiHandle;
+$('#aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')aiHandle()});
+$('#aiSuggest').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  $('#aiInput').value=b.textContent;
+  aiHandle();
+});
+
+/* ── Палитра ── */
 function applyPalette(key){
   const p=PALETTES[key];if(!p)return;
   const root=document.documentElement;
@@ -667,7 +862,6 @@ function applyPalette(key){
   root.style.setProperty('--secondary-container',p.secondary);
   localStorage.setItem('tl3_palette',key);
   renderPalette();
-  // Перерисовать обложки-заглушки
   books.filter(b=>b.coverSrc==='ph').forEach(b=>{b.cover=phCover(b);const img=document.querySelector(`[data-card="${b.id}"] img`);if(img)img.src=b.cover;});
 }
 function renderPalette(){
@@ -680,13 +874,13 @@ $('#btnPalette').onclick=()=>{renderPalette();openDlg($('#dlgPalette'))};
 $('#btnPaletteClose').onclick=()=>closeDlg($('#dlgPalette'));
 $('#palette').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;applyPalette(b.dataset.k);});
 
-/* ── Тур (с исправлением бага) ── */
+/* ── Тур ── */
 const TOUR=[
   {t:'Добро пожаловать!',d:'Это ваша библиотека учебников. Всё хранится локально — без серверов.',sel:null},
   {sel:'#searchbar',t:'Поиск',d:'Ищите по названию, автору и предмету. Фильтры — чипсами ниже.'},
   {sel:'#fab',t:'Добавление',d:'Выберите PDF — ИИ сам определит автора, класс и предмет.'},
+  {sel:'#fabAI',t:'ИИ-помощник',d:'Робот слева внизу поможет найти книгу и подскажет как пользоваться.'},
   {sel:'#btnFolder',t:'Папка',d:'Подключите папку «Учебники» — новые файлы копируются туда.'},
-  {sel:'#shelf',t:'Полка',d:'Клик по обложке — просмотр. Кнопки — скачать и удалить.'},
   {sel:'#btnPalette',t:'Цвета',d:'Выберите акцентный цвет приложения.'}
 ];
 let tStep=0;
@@ -701,9 +895,7 @@ function showStep(){
   const spot=$('#spot'),tour=$('#tour'),card=$('#tcard');
   const el=s.sel&&document.querySelector(s.sel);
   if(el){el.scrollIntoView({block:'center',behavior:'smooth'});
-    // Ждём полной отрисовки карточки перед позиционированием
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      // Сначала даём карточке отрендериться (высота)
       card.style.visibility='hidden';card.style.display='block';
       const cardH=card.offsetHeight;
       card.style.visibility='';
@@ -743,7 +935,6 @@ $('#grid').addEventListener('click',e=>{const el=e.target.closest('[data-act]');
   const{act,id}=el.dataset;
   if(act==='view')openViewer(id);if(act==='dl')downloadBook(id);if(act==='del')deleteBook(id);});
 
-/* ── Добавление с автозаполнением ИИ ── */
 function fillFromAI(file){
   const info=aiParse(file.name);
   const f=id=>$('#'+id);
@@ -753,7 +944,6 @@ function fillFromAI(file){
   if(info.subject&&wasEmpty.subject)f('fSubject').value=info.subject;
   if(info.grade&&wasEmpty.grade)f('fGrade').value=info.grade;
   if(info.year&&wasEmpty.year)f('fYear').value=info.year;
-  // Показать что определилось
   const found=[
     info.author&&`автор: ${info.author}`,
     info.subject&&`предмет: ${info.subject}`,
@@ -787,7 +977,6 @@ function setPicked(files){
   $('#pickedList').textContent=`Выбрано: ${picked.length} — ${picked.slice(0,3).map(f=>f.name).join(', ')}${picked.length>3?'…':''}`;
   if(picked.length===1)fillFromAI(picked[0]);
   else if(picked.length>1){
-    // Для нескольких файлов — агрегируем общий предмет/класс если совпадают
     const infos=picked.map(f=>aiParse(f.name));
     const commonSub=infos.every(i=>i.subject===infos[0].subject)?infos[0].subject:'';
     const commonGrade=infos.every(i=>i.grade===infos[0].grade)?infos[0].grade:'';
