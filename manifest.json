@@ -2,17 +2,17 @@
   "name": "Библиотека Учебников",
   "short_name": "Учебники",
   "description": "Офлайн библиотека с просмотром PDF",
-  "start_url": "/index.html",
+  "start_url": "/WordbookLibrary/index.html",
   "display": "standalone",
   "background_color": "#FEF7FF",
   "theme_color": "#6750A4",
   "orientation": "portrait",
   "icons": [
-  {
-    "src": "logo-512.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "any maskable"
-  }
-]
+    {
+      "src": "/WordbookLibrary/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
