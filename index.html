@@ -36,7 +36,6 @@ svg{fill:currentColor;display:block}
 .ripple{position:relative;overflow:hidden}
 .rp{position:absolute;border-radius:50%;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards;pointer-events:none}
 @keyframes rp{to{transform:scale(1);opacity:0}}
-
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--surface-container)}
 .logo{width:42px;height:42px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none}
 .logo svg{width:22px;height:22px}
@@ -47,7 +46,6 @@ svg{fill:currentColor;display:block}
 .ib:hover{background:var(--state)}
 .ib svg{width:22px;height:22px}
 .q{font-size:20px;font-weight:700}
-
 .controls{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;flex-direction:column;gap:10px}
 .searchbar{display:flex;align-items:center;gap:12px;height:56px;border-radius:28px;background:var(--surface-container-high);padding:0 10px 0 20px;transition:box-shadow .2s}
 .searchbar:focus-within{box-shadow:var(--e1)}
@@ -64,7 +62,6 @@ svg{fill:currentColor;display:block}
 .chip{flex:none;height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--on-surface-variant);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
 .chip.on{background:var(--secondary-container);border-color:transparent;color:var(--on-secondary-container);font-weight:500}
 select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--on-surface-variant);font-size:13px;padding:0 8px;outline:none}
-
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;max-width:1200px;margin:0 auto;padding:16px;width:100%}
 .book{border-radius:16px;overflow:hidden;background:var(--surface-container-high);transition:transform .25s,box-shadow .25s;animation:in .4s both;animation-delay:calc(var(--i)*30ms)}
 .book:hover{transform:translateY(-4px);box-shadow:var(--e2)}
@@ -91,13 +88,11 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .btn.tonal{background:var(--secondary-container);color:var(--on-secondary-container);box-shadow:none}
 .btn.text{background:none;color:var(--primary);box-shadow:none}
 .btn:disabled{opacity:.5;cursor:wait}
-
 .fab{position:fixed;right:20px;bottom:20px;height:56px;padding:0 20px;border-radius:16px;border:none;background:var(--primary-container);color:var(--on-primary-container);display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;box-shadow:var(--e3);cursor:pointer;z-index:30;transition:transform .2s,box-shadow .2s}
-.fab:hover{transform:translateY(-2px);box-shadow:var(--e3),0 6px 14px 4px rgba(0,0,0,.15)}
+.fab:hover{transform:translateY(-2px)}
 .fab svg{width:22px;height:22px}
 .fab-ai{position:fixed;left:20px;bottom:20px;width:56px;height:56px;border-radius:50%;border:none;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;box-shadow:var(--e3);cursor:pointer;z-index:30;font-size:24px;transition:transform .2s}
 .fab-ai:hover{transform:scale(1.08)}
-
 .ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:opacity .25s;padding:16px}
 .ovl.open{opacity:1;pointer-events:auto}
 .dlg{width:min(580px,96vw);max-height:92vh;overflow:auto;border-radius:28px;background:var(--surface-container-high);color:var(--on-surface);padding:24px;transform:scale(.95);transition:transform .25s}
@@ -119,26 +114,23 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .coverpick{display:flex;align-items:center;gap:12px;margin-top:14px}
 .coverpick img{width:52px;height:70px;object-fit:cover;border-radius:6px;box-shadow:var(--e1)}
 .dfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
-
 .palette{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .palette button{width:48px;height:48px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .2s}
 .palette button:hover{transform:scale(1.1)}
 .palette button.on{border-color:var(--on-surface);box-shadow:var(--e1)}
-
 .guide-cards{display:flex;flex-direction:column;gap:12px;margin-top:16px}
 .gcard{display:flex;gap:14px;padding:14px;background:var(--surface);border-radius:14px;border:1px solid var(--outline-variant)}
 .gcard .gicon{width:44px;height:44px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none;font-size:22px}
 .gcard .gtxt{flex:1;min-width:0}
 .gcard h4{margin:0 0 4px;font-size:14px;font-weight:600}
 .gcard p{margin:0;font-size:13px;color:var(--on-surface-variant);line-height:1.4}
-
-/* ИИ Чат */
-.ai-chat{display:flex;flex-direction:column;height:min(520px,80vh)}
+.ai-chat{display:flex;flex-direction:column;height:min(580px,85vh)}
 .ai-msgs{flex:1;overflow-y:auto;padding:8px 0;display:flex;flex-direction:column;gap:10px}
 .ai-msg{max-width:85%;padding:12px 16px;border-radius:18px;font-size:14px;line-height:1.5;animation:in .3s}
 .ai-msg.bot{background:var(--surface-container);color:var(--on-surface);align-self:flex-start;border-bottom-left-radius:6px}
 .ai-msg.user{background:var(--primary);color:var(--on-primary);align-self:flex-end;border-bottom-right-radius:6px}
 .ai-msg.bot b{color:var(--primary)}
+.ai-msg.bot .ctx{background:var(--surface);padding:8px 12px;border-radius:10px;border-left:3px solid var(--primary);margin:6px 0;font-size:13px;font-style:italic}
 .ai-input-row{display:flex;gap:8px;margin-top:12px}
 .ai-input-row input{flex:1;border:1px solid var(--outline-variant);border-radius:22px;padding:12px 18px;font:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);outline:none}
 .ai-input-row input:focus{border-color:var(--primary)}
@@ -147,14 +139,11 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .ai-suggest{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .ai-suggest button{height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--outline-variant);background:transparent;color:var(--on-surface-variant);font-size:12px;cursor:pointer}
 .ai-suggest button:hover{background:var(--state)}
-
-/* OCR Progress */
 .ocr-progress{margin-top:12px;padding:12px;background:var(--surface);border-radius:12px;border:1px solid var(--outline-variant);display:none}
 .ocr-progress.show{display:block}
 .ocr-bar{height:6px;background:var(--outline-variant);border-radius:3px;overflow:hidden;margin-top:6px}
 .ocr-fill{height:100%;background:var(--primary);border-radius:3px;transition:width .3s;width:0}
 .ocr-text{font-size:12px;color:var(--on-surface-variant);margin-top:4px}
-
 .viewer{position:fixed;inset:0;z-index:70;background:var(--surface);display:flex;flex-direction:column;transform:translateY(5%);opacity:0;pointer-events:none;transition:.28s}
 .viewer.open{transform:none;opacity:1;pointer-events:auto}
 .vbar{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--surface-container);flex-wrap:wrap}
@@ -165,11 +154,9 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 .vmsg{color:var(--on-surface-variant);padding:40px;text-align:center}
 .spin{width:40px;height:40px;border:4px solid var(--outline-variant);border-top-color:var(--primary);border-radius:50%;animation:rot .8s linear infinite;margin:60px auto}
 @keyframes rot{to{transform:rotate(360deg)}}
-
 .snack{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--inverse-surface);color:var(--inverse-on-surface);padding:14px 20px;border-radius:8px;font-size:14px;z-index:95;display:flex;gap:16px;align-items:center;max-width:92vw;transition:transform .3s;box-shadow:var(--e2)}
 .snack.show{transform:translate(-50%,0)}
 .snack button{border:none;background:none;color:var(--inverse-primary);font-weight:600;cursor:pointer;font-size:14px}
-
 #tour{position:fixed;inset:0;z-index:80;display:none}
 #tour.on{display:block}
 #tour.dim{background:rgba(0,0,0,.55)}
@@ -187,15 +174,13 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
 </style>
 </head>
 <body>
-
 <header class="topbar">
   <div class="logo"><svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v14h12V4H6Zm2 2h8v2H8V6Z"/></svg></div>
-  <div class="ttl"><h1>Библиотека учебников</h1><small id="subttl">локальная коллекция · офлайн</small></div>
+  <div class="ttl"><h1>Библиотека учебников</h1><small id="subttl">локальная коллекция \u00B7 офлайн</small></div>
   <button class="ib ripple" id="btnPalette" title="Цвет"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 2-2 2 2 0 0 0-.6-1.4c-.3-.3-.4-.6-.4-1a1.5 1.5 0 0 1 1.5-1.5H16a6 6 0 0 0 6-6c0-4.4-4.5-8-10-8ZM6.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg></button>
   <button class="ib ripple" id="btnTheme" title="Тема"><svg id="icoMoon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg><svg id="icoSun" viewBox="0 0 24 24" style="display:none"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-1-6h2v3h-2Zm0 17h2v3h-2ZM2 11h3v2H2Zm17 0h3v2h-3ZM4.2 5.6l1.4-1.4 2.1 2.1-1.4 1.4Zm12.1 12.1 1.4-1.4 2.1 2.1-1.4 1.4ZM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1Zm12.1-12.1 2.1-2.1 1.4 1.4-1.4 1.4Z"/></svg></button>
   <button class="ib ripple" id="btnHelp" title="Инструкция"><span class="q">?</span></button>
 </header>
-
 <section class="controls">
   <div class="searchbar" id="searchbar">
     <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
@@ -213,33 +198,30 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   <div class="chips" id="chipsSub"></div>
   <div class="chips" id="chipsGrade"></div>
 </section>
-
 <main id="shelf">
   <div class="grid" id="grid"></div>
   <div class="empty" id="emptyState" hidden>
     <div class="big"><svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v14h12V4H6Zm2 2h8v2H8V6Z"/></svg></div>
     <h2>На полках пока пусто</h2>
-    <p>Добавьте первый учебник — автор, класс и предмет определятся автоматически. OCR распознает текст для умного поиска.</p>
+    <p>Добавьте первый учебник — автор, класс и предмет определятся автоматически. OCR распознает первые страницы для умного поиска.</p>
     <div class="row">
       <button class="btn ripple" id="btnAddEmpty">Добавить учебник</button>
       <button class="btn tonal ripple" id="btnFolderEmpty">Подключить папку</button>
     </div>
   </div>
 </main>
-
 <button class="fab ripple" id="fab"><svg viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/></svg>Добавить</button>
 <button class="fab-ai ripple" id="fabAI" title="ИИ-помощник">&#x1F916;</button>
 
-<!-- Диалог добавления -->
 <div class="ovl" id="dlgAdd">
   <div class="dlg">
     <h2>Новый учебник</h2>
-    <div class="drop ripple" id="drop"><b>Перетащите PDF сюда</b><small>или нажмите — можно выбрать несколько. ИИ определит автора и класс сам.</small></div>
+    <div class="drop ripple" id="drop"><b>Перетащите PDF сюда</b><small>или нажмите — можно несколько. ИИ определит метаданные, OCR распознает первые 3 страницы.</small></div>
     <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden>
     <div class="picked" id="pickedList"></div>
     <div class="ai-info" id="aiInfo"></div>
     <div class="ocr-progress" id="ocrProgress">
-      <div class="ocr-text" id="ocrText">Распознавание текста...</div>
+      <div class="ocr-text" id="ocrText">Загрузка OCR-движка...</div>
       <div class="ocr-bar"><div class="ocr-fill" id="ocrFill"></div></div>
     </div>
     <div class="coverpick">
@@ -261,7 +243,6 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   </div>
 </div>
 
-<!-- ИИ Чат -->
 <div class="ovl" id="dlgAI">
   <div class="dlg ai-chat">
     <h2>&#x1F916; ИИ-помощник</h2>
@@ -274,10 +255,9 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   </div>
 </div>
 
-<!-- Просмотрщик -->
 <div class="viewer" id="viewer">
   <div class="vbar">
-    <button class="ib ripple" id="vClose" title="Закрыть (Esc)"><svg viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6Z"/></svg></button>
+    <button class="ib ripple" id="vClose" title="Закрыть"><svg viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6Z"/></svg></button>
     <div class="vttl" id="vTitle"></div>
     <span class="vmeta" id="vMeta"></span>
     <button class="ib ripple" id="vPrev" title="Назад"><svg viewBox="0 0 24 24"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12Z"/></svg></button>
@@ -289,16 +269,15 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   <div class="vstage" id="vStage"></div>
 </div>
 
-<!-- Гайд -->
 <div class="ovl" id="dlgGuide">
   <div class="dlg">
     <h2>Как пользоваться</h2>
     <div class="guide-cards">
-      <div class="gcard"><div class="gicon">&#x1F4E5;</div><div class="gtxt"><h4>Добавление + OCR</h4><p>Выберите PDF — автор, класс и предмет определятся автоматически. Первые 3 страницы распознаются для умного поиска.</p></div></div>
-      <div class="gcard"><div class="gicon">&#x1F50D;</div><div class="gtxt"><h4>Умный поиск</h4><p>Поиск работает по названию, автору И содержимому учебника. Напишите «производная» — найдутся все книги с этим термином.</p></div></div>
-      <div class="gcard"><div class="gicon">&#x1F916;</div><div class="gtxt"><h4>ИИ-помощник</h4><p>Кнопка с роботом слева внизу. Поможет найти книгу, ответит на вопросы по тексту учебников.</p></div></div>
-      <div class="gcard"><div class="gicon">&#x1F4C1;</div><div class="gtxt"><h4>Папка</h4><p>Подключите папку «Учебники» — новые файлы копируются туда, «Импорт из папки» забирает всё в библиотеку.</p></div></div>
-      <div class="gcard"><div class="gicon">&#x1F4BE;</div><div class="gtxt"><h4>Резервная копия</h4><p>Используйте «Экспорт» и «Импорт» для переноса библиотеки между устройствами.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F4E5;</div><div class="gtxt"><h4>Добавление + OCR</h4><p>Выберите PDF. ИИ определит метаданные, OCR распознает первые 3 страницы для умного поиска.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F50D;</div><div class="gtxt"><h4>Умный поиск</h4><p>Ищет по названию, автору И содержимому учебника. Напишите «производная» — найдутся книги с этим термином.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F916;</div><div class="gtxt"><h4>ИИ-помощник</h4><p>Робот слева внизу. Отвечает на вопросы по школьным темам и ищет информацию в текстах учебников.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F4C1;</div><div class="gtxt"><h4>Папка</h4><p>Подключите папку «Учебники» — новые файлы копируются туда автоматически.</p></div></div>
+      <div class="gcard"><div class="gicon">&#x1F4BE;</div><div class="gtxt"><h4>Резервная копия</h4><p>«Экспорт» сохраняет всю библиотеку с OCR-текстами. «Импорт» восстанавливает на другом устройстве.</p></div></div>
     </div>
     <div class="dfoot">
       <button class="btn text ripple" id="btnRetour">Пройти тур</button>
@@ -307,7 +286,6 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   </div>
 </div>
 
-<!-- Палитра -->
 <div class="ovl" id="dlgPalette">
   <div class="dlg">
     <h2>Цвет приложения</h2>
@@ -317,7 +295,6 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
   </div>
 </div>
 
-<!-- Тур -->
 <div id="tour"><div id="spot"></div>
   <div id="tcard"><h3 id="tTitle"></h3><p id="tText"></p>
     <div id="trow"><span id="tcnt"></span>
@@ -327,13 +304,11 @@ select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);bac
     </div>
   </div>
 </div>
-
 <div class="snack" id="snack"></div>
 <input type="file" id="importJson" accept=".json" hidden>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s);
@@ -345,74 +320,106 @@ const debounce=(fn,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f
 
 const SUBJECTS=['Математика','Алгебра','Геометрия','Русский язык','Литература','История','Обществознание','Физика','Химия','Биология','География','Информатика','Английский язык','Немецкий язык','Французский язык','Окружающий мир','Музыка','ИЗО','Технология','ОБЖ','Физкультура','Астрономия','Экономика','Право'];
 
+/* ── База знаний ИИ (70+ тем) ── */
+const KNOWLEDGE_BASE={
+  'производная':'Производная функции — предел отношения приращения функции к приращению аргумента при стремлении к нулю. Обозначается f\u2032(x). Геометрический смысл: угловой коэффициент касательной. Основные формулы: (x^n)\u2032=nx^(n-1), (sin x)\u2032=cos x, (cos x)\u2032=-sin x, (e^x)\u2032=e^x, (ln x)\u2032=1/x.',
+  'интеграл':'Интеграл — обратная операция к производной. Неопределённый интеграл — семейство первообразных. Определённый интеграл равен площади под графиком. Формула Ньютона-Лейбница связывает определённый интеграл с первообразной.',
+  'площадь круга':'S=\u03C0r\u00B2, где r — радиус. Также S=\u03C0d\u00B2/4 через диаметр. \u03C0\u22483.14159.',
+  'объём':'Объём куба V=a\u00B3, параллелепипеда V=abc, цилиндра V=\u03C0r\u00B2h, шара V=4/3\u03C0r\u00B3, конуса V=1/3\u03C0r\u00B2h, пирамиды V=1/3Sh.',
+  'периметр':'Сумма длин сторон. Прямоугольник P=2(a+b), квадрат P=4a, треугольник P=a+b+c, окружность P=2\u03C0r.',
+  'уравнение':'Равенство с переменной. Линейное ax+b=0 \u2192 x=-b/a. Квадратное ax\u00B2+bx+c=0 \u2192 x=(-b\u00B1\u221A(b\u00B2-4ac))/2a. Дискриминант D=b\u00B2-4ac.',
+  'функция':'Правило, каждому x из X ставящее в соответствие единственный y из Y. Линейная y=kx+b, квадратичная y=ax\u00B2+bx+c, показательная y=a^x.',
+  'фотосинтез':'Образование органических веществ из CO\u2082 и H\u2082O на свету при участии хлорофилла. Уравнение: 6CO\u2082+6H\u2082O\u2192C\u2086H\u2081\u2082O\u2086+6O\u2082. Происходит в хлоропластах.',
+  'клетка':'Основная единица живых организмов. Бывает прокариотическая (без ядра) и эукариотическая (с ядром). Органеллы: ядро, митохондрии, рибосомы, ЭПС, аппарат Гольджи.',
+  'днк':'Дезоксирибонуклеиновая кислота — хранит генетическую информацию. Двойная спираль из нуклеотидов A, T, G, C. Принцип комплементарности: A-T, G-C.',
+  'эволюция':'Историческое развитие живой природы. Механизмы: естественный отбор, мутации, дрейф генов, изоляция. Теория Дарвина.',
+  'сила':'Векторная величина — мера взаимодействия тел. Единица — ньютон (Н). Законы Ньютона: 1) инерция, 2) F=ma, 3) действие=противодействие.',
+  'энергия':'Мера способности совершать работу. Кинетическая E=mv\u00B2/2, потенциальная E=mgh. Закон сохранения: энергия не исчезает, а переходит из формы в форму.',
+  'электричество':'Ток — направленное движение зарядов. I=Q/t (А), U=A/q (В), R=U/I (Ом). Закон Ома I=U/R. Мощность P=UI.',
+  'химическая связь':'Взаимодействие атомов. Типы: ковалентная (общие пары e-), ионная (перенос e-), металлическая (электронный газ), водородная.',
+  'реакция химическая':'Превращение веществ. Типы: соединение (A+B\u2192AB), разложение (AB\u2192A+B), замещение (A+BC\u2192AC+B), обмен (AB+CD\u2192AD+CB).',
+  'кислота':'Вещество из H и кислотного остатка. Сильные: HCl, H\u2082SO\u2084, HNO\u2083. Слабые: H\u2082CO\u2083, CH\u2083COOH. Диссоциируют с образованием H\u207A.',
+  'основание':'Вещество из металла и OH\u207B. Сильные: NaOH, KOH. Реагируют с кислотами (нейтрализация).',
+  'соль':'Продукт реакции кислоты и основания. NaCl, CaCO\u2083, K\u2082SO\u2084.',
+  'оксид':'Соединение элемента с кислородом. Основные (Na\u2082O), кислотные (CO\u2082), амфотерные (Al\u2082O\u2083).',
+  'атом':'Наименьшая частица элемента. Ядро (протоны+нейтроны) + электроны. Заряд ядра = порядковый номер.',
+  'молекула':'Наименьшая частица вещества. H\u2082O, O\u2082, CO\u2082.',
+  'периодическая таблица':'Система Менделеева. Группы (столбцы) — похожие свойства. Периоды (строки) — одинаковое число уровней.',
+  'государство':'Политическая организация общества. Признаки: территория, население, власть, суверенитет, налоги, правовая система.',
+  'конституция':'Основной закон государства. Конституция РФ принята 12.12.1993. Высшая юридическая сила.',
+  'право':'Система общеобязательных правил, установленных государством. Отрасли: конституционное, гражданское, уголовное, трудовое.',
+  'экономика':'Наука о рациональном использовании ресурсов. Вопросы: что, как, для кого производить. Типы систем: рыночная, плановая, смешанная.',
+  'инфляция':'Устойчивое повышение общего уровня цен. Причины: избыточная эмиссия, рост издержек, рост спроса.',
+  'ввп':'Валовой внутренний продукт — суммарная стоимость товаров и услуг за год. Бывает номинальный и реальный.',
+  'рынок':'Система отношений покупателей и продавцов. Законы спроса и предложения определяют цены.',
+  'деньги':'Особый товар: мера стоимости, средство обращения, накопления и платежа.',
+  'спрос':'Количество товара, которое готовы купить. При росте цены спрос падает.',
+  'предложение':'Количество товара, которое готовы продать. При росте цены предложение растёт.',
+  'великая отечественная война':'1941-1945, СССР против нацистской Германии. 22.06.1941 — 09.05.1945. Битвы: Московская, Сталинградская, Курская, Берлинская.',
+  'революция 1917':'Февральская (свержение монархии) и Октябрьская (приход большевиков). Привела к созданию СССР в 1922.',
+  'пётр первый':'1672-1725, первый император. Реформы: флот, СПб (1703), Табель о рангах.',
+  'екатерина вторая':'1729-1796, просвещённый абсолютизм. Расширение империи, реформы.',
+  'пушкин':'1799-1837, основоположник современного русского литературного языка. «Евгений Онегин», «Капитанская дочка».',
+  'лермонтов':'1814-1841. «Герой нашего времени», «Мцыри», «Бородино».',
+  'толстой':'1828-1910. «Война и мир», «Анна Каренина».',
+  'достоевский':'1821-1881. «Преступление и наказание», «Идиот», «Братья Карамазовы».',
+  'чехов':'1860-1904. «Вишнёвый сад», «Чайка», «Три сестры», рассказы.',
+  'гоголь':'1809-1852. «Мёртвые души», «Ревизор», «Шинель».',
+  'грибоедов':'1795-1829. «Горе от ума».',
+  'островский':'1823-1886. «Гроза», «Бесприданница».',
+  'ломоносов':'1711-1765. Учёный-энциклопедист, основоположник русской науки. Закон сохранения массы.',
+  'крылов':'1769-1844. Басни: «Ворона и Лисица», «Стрекоза и Муравей».',
+  'некрасов':'1821-1878. «Кому на Руси жить хорошо».',
+  'тютчев':'1803-1873. «Silentium!», «Умом Россию не понять».',
+  'фет':'1820-1892. «Шёпот, робкое дыханье».',
+  'блок':'1880-1921. «Двенадцать», «Незнакомка».',
+  'ахматова':'1889-1966. «Реквием», сборники «Чётки», «Белая стая».',
+  'цветаева':'1892-1941. «Поэма горы», «Поэма конца».',
+  'есенин':'1895-1925. «Берёза», «Не жалею, не зову, не плачу».',
+  'маяковский':'1893-1930. «Облако в штанах», «Во весь голос».',
+  'пастернак':'1890-1960, Нобелевская премия. «Доктор Живаго».',
+  'шолохов':'1905-1984, Нобелевская премия. «Тихий Дон».',
+  'булгаков':'1891-1940. «Мастер и Маргарита», «Собачье сердце».',
+  'солженицын':'1918-2008, Нобелевская премия. «Архипелаг ГУЛАГ».',
+  'пифагор теорема':'В прямоугольном треугольнике квадрат гипотенузы равен сумме квадратов катетов: c\u00B2=a\u00B2+b\u00B2.',
+  'синус косинус':'sin\u03B1=противолежащий катет/гипотенуза, cos\u03B1=прилежащий/гипотенуза. Основное тождество: sin\u00B2\u03B1+cos\u00B2\u03B1=1.',
+  'логарифм':'log_a(b)=c означает a^c=b. Свойства: log(ab)=log a+log b, log(a/b)=log a-log b, log(a^n)=n log a.',
+  'теорема виета':'Для x\u00B2+px+q=0: x\u2081+x\u2082=-p, x\u2081\u00B7x\u2082=q.',
+  'митохондрия':'Органелла клетки — «энергетическая станция». Синтезирует АТФ в процессе клеточного дыхания.',
+  'хлоропласт':'Органелла растительной клетки, содержит хлорофилл. Место фотосинтеза.',
+  'эритроцит':'Красная клетка крови, содержит гемоглобин, переносит кислород. Не имеет ядра.',
+  'нейрон':'Нервная клетка. Состоит из тела, дендритов и аксона. Передаёт нервные импульсы.'
+};
+
+/* ── База авторов ── */
 const AUTHORS_DB=[
-  ['Макарычев Ю. Н.','makarychev','makarycheva','макарычев'],
-  ['Мордкович А. Г.','mordkovich','mordkovich','мордкович'],
-  ['Атанасян Л. С.','atanasyan','atanasian','атанасян'],
-  ['Мерзляк А. Г.','merzlyak','merzliak','мерзляк'],
-  ['Дорофеев Г. В.','dorofeev','dorofeyev','дорофеев'],
-  ['Габриелян О. С.','gabrielyan','gabrielian','габриелян'],
-  ['Пёрышкин А. В.','peryshkin','perishkin','перышкин','пёрышкин'],
-  ['Лунин А. А.','lunin','лунин'],
-  ['Каменский А. А.','kamenskiy','kamensky','каменский'],
-  ['Пасечник В. В.','pasechnik','пасечник'],
-  ['Алексашкина Л. Н.','aleksashkina','алексашкина'],
-  ['Данилов А. А.','danilov','данилов'],
-  ['Боголюбов Л. Н.','bogolyubov','боголюбов'],
-  ['Садовничий В. А.','sadovnichiy','садовничий'],
-  ['Быкова Н. И.','bykova','быкова'],
-  ['Верещагина И. Н.','vereshchagina','верещагина'],
-  ['Афанасьева О. В.','afanaseva','афанасьева'],
-  ['Кузовлев В. П.','kuzovlev','кузовлев'],
-  ['Ладыженская Т. А.','ladyzhenskaya','ладыженская'],
-  ['Баранов М. Т.','baranov','баранов'],
-  ['Тростенцова Л. А.','trostentsova','тростенцова'],
-  ['Коровина В. Я.','korovina','коровина'],
-  ['Виленкин Н. Я.','vilenkin','виленкин'],
-  ['Шестаков А. С.','shestakov','шестаков'],
-  ['Колмогоров А. Н.','kolmogorov','колмогоров'],
-  ['Никольский С. М.','nikolskiy','никoльский'],
-  ['Гейдман Б. П.','geydman','гейдман'],
-  ['Рудницкая В. Н.','rudnitskaya','рудницкая'],
-  ['Бунимович Е. А.','bunimovich','бунимович'],
-  ['Петерсон Л. Г.','peterson','петерсон'],
-  ['Босова Л. Л.','bosova','босова'],
-  ['Поляков К. Ю.','polyakov','поляков'],
-  ['Семакин И. Г.','semakin','семакин'],
-  ['Угринович Н. Д.','ugrinovich','угринович'],
-  ['Мякишев Г. Я.','myakishev','мякишев'],
-  ['Касьянов В. А.','kasyanov','касянов'],
-  ['Генденштейн Л. Э.','gendenstein','генденштейн'],
-  ['Рымкевич А. П.','rymkevich','рымкевич'],
-  ['Новошинский И. И.','novoshinsky','новошинский'],
-  ['Рудзитис Г. Е.','rudzitis','рудзитис'],
-  ['Фельдман Ф. Г.','feldman','фельдман'],
-  ['Климанова О. А.','klimanova','климанова'],
-  ['Максаковский В. П.','maksakovskiy','максаковский'],
-  ['Алексеев А. И.','alekseev','алексеев'],
-  ['Вахрушев А. А.','vakhrushev','вахрушев'],
-  ['Виноградова Н. Ф.','vinogradova','виноградова'],
-  ['Козлова С. А.','kozlova','козлова'],
-  ['Иванов С. В.','ivanov','иванов'],
-  ['Кузнецов А. А.','kuznetsov','кузнецов'],
-  ['Чуракова Р. Г.','churakova','чуракова'],
-  ['Соловейчик М. С.','soloveychik','соловейчик'],
-  ['Ушаков Д. В.','ushakov','ушаков'],
-  ['Львов М. Р.','lvov','львов'],
-  ['Граник Г. Г.','granik','граник'],
-  ['Бунеев Р. Н.','buneev','бунеев'],
-  ['Бунеева Е. В.','buneeva','бунеева'],
-  ['Шклярова Т. В.','shklyarova','шклярова']
+  ['Макарычев Ю. Н.','makarychev','макарычев'],['Мордкович А. Г.','mordkovich','мордкович'],
+  ['Атанасян Л. С.','atanasyan','атанасян'],['Мерзляк А. Г.','merzlyak','мерзляк'],
+  ['Дорофеев Г. В.','dorofeev','дорофеев'],['Габриелян О. С.','gabrielyan','габриелян'],
+  ['Пёрышкин А. В.','peryshkin','перышкин'],['Каменский А. А.','kamenskiy','каменский'],
+  ['Пасечник В. В.','pasechnik','пасечник'],['Алексашкина Л. Н.','aleksashkina','алексашкина'],
+  ['Данилов А. А.','danilov','данилов'],['Боголюбов Л. Н.','bogolyubov','боголюбов'],
+  ['Быкова Н. И.','bykova','быкова'],['Верещагина И. Н.','vereshchagina','верещагина'],
+  ['Афанасьева О. В.','afanaseva','афанасьева'],['Кузовлев В. П.','kuzovlev','кузовлев'],
+  ['Ладыженская Т. А.','ladyzhenskaya','ладыженская'],['Баранов М. Т.','baranov','баранов'],
+  ['Тростенцова Л. А.','trostentsova','тростенцова'],['Коровина В. Я.','korovina','коровина'],
+  ['Виленкин Н. Я.','vilenkin','виленкин'],['Петерсон Л. Г.','peterson','петерсон'],
+  ['Босова Л. Л.','bosova','босова'],['Поляков К. Ю.','polyakov','поляков'],
+  ['Семакин И. Г.','semakin','семакин'],['Угринович Н. Д.','ugrinovich','угринович'],
+  ['Мякишев Г. Я.','myakishev','мякишев'],['Касьянов В. А.','kasyanov','касянов'],
+  ['Генденштейн Л. Э.','gendenstein','генденштейн'],['Рымкевич А. П.','rymkevich','рымкевич'],
+  ['Новошинский И. И.','novoshinsky','новошинский'],['Рудзитис Г. Е.','rudzitis','рудзитис'],
+  ['Климанова О. А.','klimanova','климанова'],['Максаковский В. П.','maksakovskiy','максаковский'],
+  ['Алексеев А. И.','alekseev','алексеев'],['Виноградова Н. Ф.','vinogradova','виноградова'],
+  ['Иванов С. В.','ivanov','иванов'],['Кузнецов А. А.','kuznetsov','кузнецов']
 ];
 
 const TR={a:'\u0430',b:'\u0431',v:'\u0432',w:'\u0432',g:'\u0433',d:'\u0434',e:'\u0435',yo:'\u0451',zh:'\u0436',z:'\u0437',i:'\u0438',y:'\u0439',k:'\u043A',l:'\u043B',m:'\u043C',n:'\u043D',o:'\u043E',p:'\u043F',r:'\u0440',s:'\u0441',t:'\u0442',u:'\u0443',f:'\u0444',h:'\u0445',x:'\u0445',kh:'\u0445',c:'\u0446',ts:'\u0446',ch:'\u0447',sh:'\u0448',sch:'\u0449','\u02BC':'\u044A','\u2019':'\u044A',j:'\u0436',ju:'\u044E',ya:'\u044F'};
-
 function translit(s){
   return String(s||'').toLowerCase()
     .replace(/yo|zh|kh|ts|ch|sh|sch/gi,m=>TR[m.toLowerCase()]||m)
     .replace(/[a-z]/gi,c=>TR[c.toLowerCase()]||c)
-    .replace(/\u044C\u044A+/g,'')
-    .replace(/\u0451/g,'\u0435');
+    .replace(/\u044C\u044A+/g,'').replace(/\u0451/g,'\u0435');
 }
 function normalize(s){return translit(s).replace(/[^\u0430-\u044F\u0451a-z0-9\s]/gi,'').replace(/\s+/g,' ').trim().toLowerCase();}
 
@@ -420,68 +427,101 @@ function aiParse(filename){
   const result={title:'',author:'',subject:'',grade:'',year:''};
   const base=filename.replace(/\.pdf$/i,'').replace(/[_]+/g,' ').trim();
   result.title=base;
-  const low=normalize(base);
-  const orig=base.toLowerCase();
-
+  const low=normalize(base),orig=base.toLowerCase();
   const ym=base.match(/\b(19|20)\d{2}\b/);
   if(ym){const y=+ym[0];if(y>=1950&&y<=2030)result.year=String(y);}
-
-  const gm=base.match(/\b(1[01]|[1-9])\s*(?:класс|кл\.?)\b/i)||base.match(/(?:класс|kl|kl\.?)\s*(1[01]|[1-9])\b/i);
+  const gm=base.match(/\b(1[01]|[1-9])\s*(?:класс|кл\.?)\b/i)||base.match(/(?:класс|kl)\s*(1[01]|[1-9])\b/i);
   if(gm){const g=+gm[1];if(g>=1&&g<=11)result.grade=g;}
-  if(!result.grade){
-    const m2=base.match(/\b(1[01]|[1-9])\b/);
-    if(m2){const g=+m2[1];if(g>=1&&g<=11&&(result.year!==m2[0]))result.grade=g;}
-  }
-
+  if(!result.grade){const m2=base.match(/\b(1[01]|[1-9])\b/);if(m2){const g=+m2[1];if(g>=1&&g<=11&&result.year!==m2[0])result.grade=g;}}
   const subjectMap=[
     ['Математика',['математик','matematik']],['Алгебра',['алгебр','algebr']],
-    ['Геометрия',['геометр','geometr','geometriya']],['Русский язык',['русск','russk','russian']],
+    ['Геометрия',['геометр','geometr']],['Русский язык',['русск','russk','russian']],
     ['Литература',['литератур','literatur']],['История',['истор','istor','history']],
-    ['Обществознание',['обществ','obschestv','obshchestvoznan']],['Физика',['физик','phizik','physics']],
+    ['Обществознание',['обществ','obschestv']],['Физика',['физик','phizik','physics']],
     ['Химия',['химия','хими','himiy','chemistry']],['Биология',['биолог','biolog','biology']],
     ['География',['географ','geograf','geography']],['Информатика',['информат','informat']],
-    ['Английский язык',['английск','angliysk','english']],['Немецкий язык',['немецк','nemetsk','german','deutsch']],
-    ['Французский язык',['французск','frantsuzsk','french']],['Окружающий мир',['окружающ','okruzh']],
-    ['Музыка',['музык','muzik','music']],['ИЗО',['изо','izo']],
-    ['Технология',['технологи','tehnolog','technolog']],['ОБЖ',['обж','obzh']],
-    ['Физкультура',['физкультур','fizkult']],['Астрономия',['астроном','astronom']],
+    ['Английский язык',['английск','angliysk','english']],['Немецкий язык',['немецк','nemetsk','german']],
+    ['Окружающий мир',['окружающ','okruzh']],['Музыка',['музык','muzik']],['ИЗО',['изо','izo']],
+    ['Технология',['технологи','tehnolog']],['ОБЖ',['обж','obzh']],['Физкультура',['физкультур','fizkult']],
     ['Экономика',['экономи','ekonomi','economics']],['Право',['право','pravo','law']]
   ];
-  for(const[sub,keys]of subjectMap){
-    for(const k of keys){if(low.includes(k)||orig.includes(k.toLowerCase())){result.subject=sub;break;}}
-    if(result.subject)break;
-  }
-
-  for(const author of AUTHORS_DB){
-    const[name,...keys]=author;
-    for(const k of keys){if(low.includes(normalize(k))||orig.includes(k.toLowerCase())){result.author=name;break;}}
-    if(result.author)break;
-  }
+  for(const[sub,keys]of subjectMap){for(const k of keys){if(low.includes(k)||orig.includes(k.toLowerCase())){result.subject=sub;break;}}if(result.subject)break;}
+  for(const author of AUTHORS_DB){const[name,...keys]=author;for(const k of keys){if(low.includes(normalize(k))||orig.includes(k.toLowerCase())){result.author=name;break;}}if(result.author)break;}
   return result;
 }
 
-/* ── OCR через Tesseract.js ── */
-async function ocrPages(blob,pagesCount,onProgress){
-  if(typeof Tesseract==='undefined')return '';
+/* ── Tesseract.js с запасными CDN ── */
+const TESSERACT_CDNS=[
+  'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js',
+  'https://unpkg.com/tesseract.js@5/dist/tesseract.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.0.4/tesseract.min.js'
+];
+const TESSERACT_CORES=[
+  'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/worker.min.js',
+  'https://unpkg.com/tesseract.js@5/dist/worker.min.js'
+];
+const TESSERACT_LANGS={
+  rus:['https://cdn.jsdelivr.net/npm/tesseract.js-data@4.0.0/rus.traineddata.gz','https://unpkg.com/tesseract.js-data@4.0.0/rus.traineddata.gz'],
+  eng:['https://cdn.jsdelivr.net/npm/tesseract.js-data@4.0.0/eng.traineddata.gz','https://unpkg.com/tesseract.js-data@4.0.0/eng.traineddata.gz']
+};
+let tesseractPromise=null;
+function loadTesseract(){
+  if(tesseractPromise)return tesseractPromise;
+  tesseractPromise=(async()=>{
+    for(const src of TESSERACT_CDNS){
+      try{
+        if(typeof Tesseract==='undefined'){
+          await new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>{s.remove();rej()};document.head.appendChild(s);});
+        }
+        if(typeof Tesseract!=='undefined')return true;
+      }catch(e){}
+    }
+    return false;
+  })();
+  return tesseractPromise;
+}
+
+async function ocrPages(blob,maxPages,onProgress){
+  const ok=await loadTesseract();
+  if(!ok||typeof Tesseract==='undefined')return '';
   try{
     const doc=await pdfjsLib.getDocument({data:await blob.arrayBuffer()}).promise;
-    const maxPages=Math.min(pagesCount,doc.numPages);
+    const pages=Math.min(maxPages,doc.numPages);
     let allText='';
-    for(let i=1;i<=maxPages;i++){
-      if(onProgress)onProgress(i,maxPages);
+    let worker=null;
+    try{
+      worker=await Tesseract.createWorker('rus+eng',1,{
+        workerPath:TESSERACT_CORES[0],
+        corePath:'https://cdn.jsdelivr.net/npm/tesseract.js-core@5/',
+        langPath:'https://cdn.jsdelivr.net/npm/tesseract.js-data@4.0.0/'
+      });
+    }catch(e){
+      try{
+        worker=await Tesseract.createWorker('rus+eng',1,{
+          workerPath:TESSERACT_CORES[1],
+          corePath:'https://unpkg.com/tesseract.js-core@5/',
+          langPath:'https://unpkg.com/tesseract.js-data@4.0.0/'
+        });
+      }catch(e2){return '';}
+    }
+    for(let i=1;i<=pages;i++){
+      if(onProgress)onProgress(i,pages);
       const page=await doc.getPage(i);
       const vp=page.getViewport({scale:2});
       const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;
       await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
-      const result=await Tesseract.recognize(c,'rus+eng',{logger:m=>{}});
-      allText+=result.data.text+'\n';
+      try{
+        const result=await worker.recognize(c);
+        allText+=result.data.text+'\n';
+      }catch(e){}
     }
+    try{await worker.terminate();}catch(e){}
     doc.destroy();
     return allText.substring(0,50000);
   }catch(e){console.warn('OCR error:',e);return '';}
 }
 
-/* ── Умный ИИ-чат с поиском по OCR ── */
+/* ── Умный ИИ-бот: база знаний + поиск по OCR ── */
 function aiChat(userMsg){
   const q=userMsg.toLowerCase().trim();
   const total=books.length;
@@ -490,98 +530,89 @@ function aiChat(userMsg){
   const grades=[...new Set(books.map(b=>b.grade).filter(Boolean))].sort((a,b)=>a-b);
 
   if(/привет|здравствуй|добрый|hello|hi/.test(q)){
-    return 'Привет! Я помогу с библиотекой. Могу найти книгу по содержимому, подсказать как пользоваться или проанализировать имя файла.';
+    return 'Привет! Я ИИ-помощник библиотеки. Могу:<br>\u2022 Ответить на вопросы по школьным темам<br>\u2022 Найти информацию в текстах учебников<br>\u2022 Показать статистику библиотеки<br><br>Попробуй: <b>«что такое производная»</b> или <b>«найди формулу площади»</b>';
   }
   if(/помощь|помоги|что ты умеешь|help/.test(q)){
-    return 'Я умею:<br>\u2022 Искать по содержимому: <b>\u00ABнайди производную\u00BB</b><br>\u2022 Показывать статистику: <b>\u00ABсколько книг\u00BB</b><br>\u2022 Анализировать файлы: <b>\u00ABразбери Makarychev_8.pdf\u00BB</b><br>\u2022 Отвечать по тексту учебников';
+    return 'Умею:<br>\u2022 Отвечать по темам: <b>«что такое ДНК»</b>, <b>«Пифагор»</b><br>\u2022 Искать в учебниках: <b>«найди интеграл»</b><br>\u2022 Статистика: <b>«сколько книг»</b><br>\u2022 Анализ файлов: <b>«разбери файл.pdf»</b>';
   }
 
-  // Поиск по содержимому (OCR)
-  const searchMatch=q.match(/найди|найти|покажи|ищу|где|есть ли\s+(.+)/);
-  if(searchMatch||/найди|найти|покажи|ищу/.test(q)){
-    const query=q.replace(/найди|найти|покажи|ищу|где|есть ли|мне|книгу|учебник|по/g,'').trim();
-    if(query){
-      // Сначала ищем в метаданных
-      let found=books.filter(b=>`${b.title} ${b.author} ${b.subject}`.toLowerCase().includes(query));
-      // Потом ищем в OCR-тексте
-      const ocrFound=books.filter(b=>b.ocrText&&b.ocrText.toLowerCase().includes(query)&&!found.includes(b));
-      const all=[...found,...ocrFound];
-      if(all.length){
-        let resp=`Нашёл ${all.length} ${plural(all.length,['книгу','книги','книг'])}:<br>`;
-        all.slice(0,5).forEach(b=>{
-          const fromOcr=ocrFound.includes(b);
-          resp+=`\u2022 <b>${esc(b.title)}</b>${b.author?' \u2014 '+esc(b.author):''}${b.grade?' ('+b.grade+' кл)':''}${fromOcr?' \uD83D\uDD0D найдено в тексте':''}<br>`;
-        });
-        if(all.length>5)resp+=`...и ещё ${all.length-5}`;
-        return resp;
-      }
-      return `Не нашёл ничего по запросу \u00AB${esc(query)}\u00BB. Попробуй другой запрос.`;
+  // 1. Проверка базы знаний
+  let bestMatch=null,bestScore=0;
+  for(const[key,answer]of Object.entries(KNOWLEDGE_BASE)){
+    const keyWords=key.split(/\s+/).filter(w=>w.length>2);
+    const matches=keyWords.filter(w=>q.includes(w)).length;
+    const score=keyWords.length?matches/keyWords.length:0;
+    if(score>bestScore&&matches>0){bestScore=score;bestMatch={key,answer};}
+  }
+  if(bestMatch&&bestScore>=0.5){
+    let resp=`<b>${bestMatch.key.charAt(0).toUpperCase()+bestMatch.key.slice(1)}:</b><br>${bestMatch.answer}`;
+    const relevant=books.filter(b=>{
+      const txt=`${b.title} ${b.subject} ${b.author} ${b.ocrText||''}`.toLowerCase();
+      return bestMatch.key.split(/\s+/).some(w=>w.length>3&&txt.includes(w));
+    });
+    if(relevant.length){
+      resp+=`<br><br>\uD83D\uDCDA По этой теме в библиотеке:`;
+      relevant.slice(0,3).forEach(b=>{resp+=`<br>\u2022 <b>${esc(b.title)}</b>${b.author?' \u2014 '+esc(b.author):''}${b.grade?' ('+b.grade+' кл)':''}`;});
     }
-    return 'Что именно найти? Например: <b>\u00ABнайди производную\u00BB</b> или <b>\u00ABнайди алгебру 8 класс\u00BB</b>';
+    return resp;
   }
 
-  // Вопрос по содержимому учебников
-  if(/что такое|определение|формула|как вычислить|объясни|расскажи про/.test(q)){
-    const topic=q.replace(/что такое|определение|формула|как вычислить|объясни|расскажи про|мне|пожалуйста/gi,'').trim();
-    if(topic&&topic.length>2){
-      const relevant=books.filter(b=>b.ocrText&&b.ocrText.toLowerCase().includes(topic));
-      if(relevant.length){
-        let resp=`Нашёл информацию в ${relevant.length} ${plural(relevant.length,['книге','книгах','книгах'])}:<br>`;
-        relevant.slice(0,3).forEach(b=>{
-          // Извлекаем контекст вокруг найденного слова
-          const idx=b.ocrText.toLowerCase().indexOf(topic);
-          const start=Math.max(0,idx-100);
-          const end=Math.min(b.ocrText.length,idx+200);
-          const context=b.ocrText.substring(start,end).replace(/\s+/g,' ').trim();
-          resp+=`\u2022 <b>${esc(b.title)}</b>: \u00AB...${esc(context)}...\u00BB<br>`;
+  // 2. Умный поиск по OCR с контекстом
+  const searchTerms=q.replace(/что такое|определение|формула|как вычислить|объясни|расскажи про|найди|найти|покажи|ищу|где|есть ли|мне|книгу|учебник|по|про/gi,'').trim();
+  if(searchTerms&&searchTerms.length>2){
+    const ocrResults=books
+      .filter(b=>b.ocrText&&b.ocrText.toLowerCase().includes(searchTerms))
+      .map(b=>{
+        const idx=b.ocrText.toLowerCase().indexOf(searchTerms);
+        const start=Math.max(0,idx-150),end=Math.min(b.ocrText.length,idx+250);
+        const context=b.ocrText.substring(start,end).replace(/\s+/g,' ').trim();
+        return{book:b,context};
+      });
+    const metaResults=books
+      .filter(b=>`${b.title} ${b.author} ${b.subject}`.toLowerCase().includes(searchTerms))
+      .filter(b=>!ocrResults.some(r=>r.book.id===b.id));
+
+    if(ocrResults.length||metaResults.length){
+      let resp='';
+      if(ocrResults.length){
+        resp+=`<b>Найдено в текстах учебников (${ocrResults.length}):</b><br>`;
+        ocrResults.slice(0,3).forEach((r,i)=>{
+          resp+=`<br><b>${i+1}. ${esc(r.book.title)}</b>${r.book.author?' \u2014 '+esc(r.book.author):''}${r.book.grade?' ('+r.book.grade+' кл)':''}<br><div class="ctx">\u00AB...${esc(r.context)}...\u00BB</div>`;
         });
-        return resp;
       }
-      return `Не нашёл информацию о \u00AB${esc(topic)}\u00BB в распознанных текстах. Возможно, нужно добавить больше учебников или OCR ещё не завершён.`;
+      if(metaResults.length){
+        resp+=(ocrResults.length?'<br>':'')+`<b>Найдено по названию/автору:</b><br>`;
+        metaResults.slice(0,3).forEach(b=>{resp+=`\u2022 <b>${esc(b.title)}</b>${b.author?' \u2014 '+esc(b.author):''}<br>`;});
+      }
+      return resp;
     }
+    return `Не нашёл \u00AB${esc(searchTerms)}\u00BB в учебниках. Попробуй другой запрос или добавь больше книг.`;
   }
 
+  // 3. Статистика
   if(/сколько книг|сколько всего|статистика/.test(q)){
-    const withOcr=books.filter(b=>b.ocrText&&b.ocrText.length>0).length;
-    return `В библиотеке <b>${total}</b> ${plural(total,['книга','книги','книг'])}.<br>С OCR-текстом: ${withOcr}<br>Предметов: ${subjects.length}<br>Авторов: ${authors.length}`;
+    const withOcr=books.filter(b=>b.ocrText&&b.ocrText.length>50).length;
+    return `В библиотеке <b>${total}</b> ${plural(total,['книга','книги','книг'])}.<br>\u2022 С распознанным текстом: ${withOcr}<br>\u2022 Предметов: ${subjects.length}<br>\u2022 Авторов: ${authors.length}<br>\u2022 Классы: ${grades.length?grades.join(', '):'\u2014'}`;
   }
-  if(/какие предметы|предметы/.test(q)){
-    return subjects.length?'В библиотеке есть:<br>'+subjects.map(s=>'\u2022 '+s).join('<br>'):'Пока нет предметов.';
-  }
-  if(/какие авторы|авторы/.test(q)){
-    return authors.length?'Авторы:<br>'+authors.slice(0,15).map(a=>'\u2022 '+a).join('<br>')+(authors.length>15?'<br>...':''):'Пока нет авторов.';
-  }
+  if(/какие предметы|предметы/.test(q)){return subjects.length?'Есть:<br>'+subjects.map(s=>'\u2022 '+s).join('<br>'):'Пока нет предметов.';}
+  if(/какие авторы|авторы/.test(q)){return authors.length?'Авторы:<br>'+authors.slice(0,15).map(a=>'\u2022 '+a).join('<br>'):'Пока нет авторов.';}
+  if(/ocr|распознавание|текст/.test(q)){return 'OCR распознает первые 3 страницы каждого PDF через Tesseract.js. Текст сохраняется и используется для умного поиска. Работает локально.';}
+  if(/как добавить|как загрузить/.test(q)){return 'Нажми <b>«Добавить»</b> справа внизу \u2192 выбери PDF. ИИ определит метаданные, OCR распознает текст.';}
+  if(/резервная копия|бэкап|экспорт/.test(q)){return 'Нажми <b>«Экспорт»</b> \u2014 скачается JSON со всей библиотекой. На другом устройстве \u2014 <b>«Импорт»</b>.';}
+  if(/папка|folder/.test(q)){return 'Нажми <b>«Подключить папку»</b> \u2014 новые PDF будут копироваться туда. <b>«Импорт из папки»</b> \u2014 заберёт все PDF из папки.';}
 
   const fileMatch=q.match(/разбери|проанализируй|определи\s+(.+)/);
-  if(fileMatch||/разбери файл/.test(q)){
-    const fname=q.replace(/разбери|проанализируй|определи|файл|имя файла/gi,'').trim();
-    if(fname){
-      const info=aiParse(fname);
-      return `Анализ \u00AB${esc(fname)}\u00BB:<br>\u2022 Автор: ${info.author||'не определён'}<br>\u2022 Предмет: ${info.subject||'не определён'}<br>\u2022 Класс: ${info.grade||'не определён'}<br>\u2022 Год: ${info.year||'не определён'}`;
-    }
-    return 'Пришли имя файла: <b>\u00ABразбери Makarychev_Algebra_8.pdf\u00BB</b>';
+  if(fileMatch){
+    const fname=q.replace(/разбери|проанализируй|определи|файл/gi,'').trim();
+    if(fname){const info=aiParse(fname);return `Анализ \u00AB${esc(fname)}\u00BB:<br>\u2022 Автор: ${info.author||'\u2014'}<br>\u2022 Предмет: ${info.subject||'\u2014'}<br>\u2022 Класс: ${info.grade||'\u2014'}<br>\u2022 Год: ${info.year||'\u2014'}`;}
   }
 
-  if(/как добавить|как загрузить/.test(q)){
-    return 'Нажми <b>\u00ABДобавить\u00BB</b> справа внизу, выбери PDF. ИИ определит метаданные, OCR распознает текст для умного поиска.';
-  }
-  if(/резервная копия|бэкап|экспорт/.test(q)){
-    return 'Нажми <b>\u00ABЭкспорт\u00BB</b> сверху. Скачается JSON со всей библиотекой включая OCR-тексты. На другом устройстве нажми <b>\u00ABИмпорт\u00BB</b>.';
-  }
-  if(/папка|folder/.test(q)){
-    return 'Нажми <b>\u00ABПодключить папку\u00BB</b> сверху. Новые PDF будут копироваться туда. <b>\u00ABИмпорт из папки\u00BB</b> добавит все PDF из папки.';
-  }
-  if(/ocr|распознавание|текст/.test(q)){
-    return 'OCR распознаёт первые 3 страницы каждого PDF при добавлении. Текст сохраняется и используется для умного поиска и ответов на вопросы. Работает полностью локально через Tesseract.js.';
-  }
-
-  return 'Не понял вопрос. Попробуй:<br>\u2022 <b>\u00ABнайди производную\u00BB</b><br>\u2022 <b>\u00ABчто такое интеграл\u00BB</b><br>\u2022 <b>\u00ABсколько книг\u00BB</b><br>\u2022 <b>\u00ABпомощь\u00BB</b>';
+  return 'Не понял вопрос. Попробуй:<br>\u2022 <b>«что такое производная»</b><br>\u2022 <b>«найди интеграл»</b><br>\u2022 <b>«расскажи про Пушкина»</b><br>\u2022 <b>«сколько книг»</b>';
 }
 
 let db,books=[],dirHandle=null,dirGranted=false,pdfOk=false,pdfPromise=null,manualCover=null,picked=[];
 const state={q:'',sub:'',grade:'',sort:'new'};
 const view={id:null,rec:null,doc:null,page:1,pages:0,zoom:'auto',base:1,token:0};
-
 const PALETTES={
   violet:{primary:'#6750A4',container:'#EADDFF',secondary:'#E8DEF8'},
   blue:{primary:'#0061A4',container:'#D3E4FF',secondary:'#D7E3F7'},
@@ -702,22 +733,23 @@ async function addBookFromFile(file,opts={}){
 
   // OCR первых 3 страниц
   let ocrText='';
-  if(pdfOk&&typeof Tesseract!=='undefined'){
-    const prog=$('#ocrProgress');
-    const fill=$('#ocrFill');
-    const txt=$('#ocrText');
+  const prog=$('#ocrProgress'),fill=$('#ocrFill'),txt=$('#ocrText');
+  if(pdfOk){
     prog.classList.add('show');
-    txt.textContent='Распознавание текста (страница 1/3)...';
-    fill.style.width='0%';
+    txt.textContent='Загрузка OCR-движка...';
+    fill.style.width='10%';
     try{
       ocrText=await ocrPages(file,3,(cur,total)=>{
-        txt.textContent=`Распознавание текста (страница ${cur}/${total})...`;
-        fill.style.width=Math.round(cur/total*100)+'%';
+        txt.textContent=`Распознавание страницы ${cur}/${total}...`;
+        fill.style.width=(10+Math.round(cur/total*90))+'%';
       });
       fill.style.width='100%';
-      txt.textContent='OCR завершён!';
-    }catch(e){console.warn('OCR failed:',e);}
-    setTimeout(()=>prog.classList.remove('show'),1500);
+      txt.textContent=ocrText?`OCR завершён: ${ocrText.length} символов`:'OCR не удался (книга сохранена без распознавания)';
+    }catch(e){
+      console.warn('OCR failed:',e);
+      txt.textContent='OCR не удался, книга сохранена без распознавания';
+    }
+    setTimeout(()=>prog.classList.remove('show'),2500);
   }
 
   const b={id:uid(),title:m.title||file.name,author:m.author||'',subject:m.subject||'',grade:m.grade||'',year:m.year||'',size:file.size,mime:file.type||'application/pdf',fname:file.name,file,cover,coverSrc,ocrText,added:Date.now()};
@@ -730,13 +762,13 @@ function imgToCover(file){return new Promise((res,rej)=>{const img=new Image();
 
 function matches(b){
   const q=state.q.trim().toLowerCase();
-  if(!q)return true;
-  // Поиск в метаданных
+  if(!q){
+    if(state.sub&&b.subject!==state.sub)return false;
+    if(state.grade&&String(b.grade)!==String(state.grade))return false;
+    return true;
+  }
   if(`${b.title} ${b.author} ${b.subject}`.toLowerCase().includes(q))return true;
-  // Поиск в OCR-тексте
   if(b.ocrText&&b.ocrText.toLowerCase().includes(q))return true;
-  if(state.sub&&b.subject!==state.sub)return false;
-  if(state.grade&&String(b.grade)!==String(state.grade))return false;
   return false;
 }
 const sortFn=()=>({new:(a,b)=>b.added-a.added,old:(a,b)=>a.added-b.added,title:(a,b)=>a.title.localeCompare(b.title,'ru'),author:(a,b)=>(a.author||'я').localeCompare(b.author||'я','ru')}[state.sort]);
@@ -850,8 +882,8 @@ function aiAddMsg(text,isUser){
 }
 function aiShowSuggest(){
   const suggestions=books.length
-    ?['Сколько книг?','Найди производную','Что такое интеграл?','Какие предметы?']
-    :['Как добавить книгу?','Что ты умеешь?','Как работает OCR?'];
+    ?['Сколько книг?','Что такое производная?','Формула площади круга','Найди интеграл']
+    :['Как добавить книгу?','Что ты умеешь?','Что такое фотосинтез?'];
   $('#aiSuggest').innerHTML=suggestions.map(s=>`<button>${s}</button>`).join('');
 }
 function aiHandle(){
@@ -859,12 +891,12 @@ function aiHandle(){
   if(!input)return;
   aiAddMsg(input,true);
   $('#aiInput').value='';
-  setTimeout(()=>{aiAddMsg(aiChat(input),false);},300);
+  setTimeout(()=>{aiAddMsg(aiChat(input),false);},150);
 }
 $('#fabAI').onclick=()=>{
   openDlg($('#dlgAI'));
   if(!$('#aiMsgs').children.length){
-    aiAddMsg('Привет! Я ИИ-помощник. Могу искать по содержимому учебников, отвечать на вопросы по тексту и помогать с библиотекой.',false);
+    aiAddMsg('Привет! Я ИИ-помощник. Могу ответить на вопросы по школьным темам и найти информацию в текстах учебников. Спроси что-нибудь!',false);
     aiShowSuggest();
   }
 };
@@ -893,10 +925,10 @@ $('#btnPaletteClose').onclick=()=>closeDlg($('#dlgPalette'));
 $('#palette').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;applyPalette(b.dataset.k);});
 
 const TOUR=[
-  {t:'Добро пожаловать!',d:'Библиотека с OCR и умным поиском. Всё хранится локально.',sel:null},
+  {t:'Добро пожаловать!',d:'Библиотека учебников с OCR и ИИ-помощником. Всё локально.',sel:null},
   {sel:'#searchbar',t:'Умный поиск',d:'Ищет по названию, автору И содержимому учебников через OCR.'},
-  {sel:'#fab',t:'Добавление',d:'Выберите PDF — метаданные определятся сами, первые 3 страницы распознаются для поиска.'},
-  {sel:'#fabAI',t:'ИИ-помощник',d:'Робот слева внизу. Спрашивайте что угодно по содержимому учебников.'},
+  {sel:'#fab',t:'Добавление',d:'Выберите PDF — метаданные определятся сами, первые 3 страницы распознаются.'},
+  {sel:'#fabAI',t:'ИИ-помощник',d:'Робот слева внизу. Отвечает на вопросы по школьным темам и ищет в учебниках.'},
   {sel:'#btnFolder',t:'Папка',d:'Подключите папку \u00ABУчебники\u00BB для автоматического копирования.'},
   {sel:'#btnPalette',t:'Цвета',d:'Выберите акцентный цвет приложения.'}
 ];
