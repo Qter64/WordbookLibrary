@@ -318,7 +318,20 @@ async function ocrPages(blob,maxPages,onProgress){
     let allText='';
     let worker=null;
     try{
-      worker=await Tesseract.createWorker('rus+eng',1,{workerPath:'lib/tesseract-worker.min.js',corePath:'lib/',langPath:'lib/',gzip:true});
+      worker=await Tesseract.createWorker({
+        logger: m => {
+          if(m.status === 'recognizing text') {
+            const pct = Math.round(m.progress * 100);
+            if(onProgress) onProgress(i, pages, pct);
+          }
+        },
+        workerPath: 'lib/tesseract-worker.min.js',
+        corePath: 'lib/',
+        langPath: 'lib/',
+        gzip: true
+      });
+      await worker.loadLanguage('rus+eng');
+      await worker.initialize('rus+eng');
     }catch(e){console.warn('Tesseract worker failed:',e);return '';}
     for(let i=1;i<=pages;i++){
       if(onProgress)onProgress(i,pages);
