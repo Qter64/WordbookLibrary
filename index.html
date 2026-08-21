@@ -326,9 +326,9 @@ async function ocrPages(blob,maxPages,onProgress){
           }
         },
         workerPath: 'lib/tesseract-worker.min.js',
-        corePath: 'lib/',
+        corePath: 'lib/tesseract-core-simd.wasm.js',
         langPath: 'lib/',
-        gzip: true
+        cacheMethod: 'none'
       });
       await worker.loadLanguage('rus+eng');
       await worker.initialize('rus+eng');
