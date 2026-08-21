@@ -6,8 +6,8 @@
 <meta name="color-scheme" content="light dark">
 <title>Библиотека учебников</title>
 <style>
-:root{--f:'Roboto',system-ui,sans-serif;--primary:#6750A4;--on-primary:#FFF;--primary-container:#EADDFF;--on-primary-container:#21005D;--secondary-container:#E8DEF8;--on-secondary-container:#1D192B;--surface:#FEF7FF;--surface-dim:#DED8E1;--surface-container:#F3EDF7;--surface-container-high:#ECE6F0;--surface-container-highest:#E6E0E9;--on-surface:#1D1B20;--on-surface-variant:#49454F;--outline:#79747E;--outline-variant:#CAC4D0;--inverse-surface:#322F35;--inverse-on-surface:#F5EFF7;--inverse-primary:#D0BCFF;--error:#B3261E;--state:rgba(29,27,32,.08);--e1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);--e2:0 1px 2px rgba(0,0,0,.3),0 2px 6px 2px rgba(0,0,0,.15);--e3:0 1px 3px rgba(0,0,0,.3),0 4px 8px 3px rgba(0,0,0,.15)}
-html[data-theme="dark"]{--primary:#D0BCFF;--on-primary:#381E72;--primary-container:#4F378B;--on-primary-container:#EADDFF;--secondary-container:#4A4458;--on-secondary-container:#E8DEF8;--surface:#141218;--surface-dim:#0F0D13;--surface-container:#211F26;--surface-container-high:#2B2930;--surface-container-highest:#36343B;--on-surface:#E6E0E9;--on-surface-variant:#CAC4D0;--outline:#938F99;--outline-variant:#49454F;--inverse-surface:#E6E0E9;--inverse-on-surface:#322F35;--inverse-primary:#6750A4;--error:#F2B8B5;--state:rgba(230,224,233,.1)}
+:root{--f:'Roboto',system-ui,sans-serif;--primary:#6750A4;--on-primary:#FFF;--primary-container:#EADDFF;--on-primary-container:#21005D;--secondary-container:#E8DEF8;--on-secondary-container:#1D192B;--surface:#FEF7FF;--surface-dim:#DED8E1;--surface-container:#F3EDF7;--surface-container-high:#ECE6F0;--surface-container-highest:#E6E0E9;--on-surface:#1D1B20;--on-surface-variant:#49454F;--outline:#79747E;--outline-variant:#CAC4D0;--inverse-surface:#322F35;--inverse-on-surface:#F5EFF7;--inverse-primary:#D0BCFF;--error:#B3261E;--state:rgba(29,27,32,.08);--e1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);--e2:0 1px 2px rgba(0,0,0,.3),0 2px 6px 2px rgba(0,0,0,.15);--e3:0 1px 3px rgba(0,0,0,.3),0 4px 8px 3px rgba(0,0,0,.15);--md3-elevation-1:0px 1px 3px 1px rgba(0,0,0,0.15);--md3-elevation-2:0px 2px 6px 2px rgba(0,0,0,0.15);--md3-elevation-3:0px 4px 8px 3px rgba(0,0,0,0.15)}
+html[data-theme="dark"]{--primary:#D0BCFF;--on-primary:#381E72;--primary-container:#4F378B;--on-primary-container:#EADDFF;--secondary-container:#4A4458;--on-secondary-container:#E8DEF8;--surface:#141218;--surface-dim:#0F0D13;--surface-container:#211F26;--surface-container-high:#2B2930;--surface-container-highest:#36343B;--on-surface:#E6E0E9;--on-surface-variant:#CAC4D0;--outline:#938F99;--outline-variant:#49454F;--inverse-surface:#E6E0E9;--inverse-on-surface:#322F35;--inverse-primary:#6750A4;--error:#F2B8B5;--state:rgba(230,224,233,.1)}.primary-container-text{color:#21005D}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{margin:0;font-family:var(--f);background:var(--surface);color:var(--on-surface);min-height:100vh}button{font-family:var(--f)}svg{fill:currentColor;display:block}
 .ripple{position:relative;overflow:hidden}.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards;pointer-events:none}@keyframes rp{to{transform:scale(1);opacity:0}}
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--surface-container)}.logo{width:42px;height:42px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none}.logo svg{width:22px;height:22px}.ttl{flex:1;min-width:0}.ttl h1{margin:0;font-size:20px;font-weight:600}.ttl small{display:block;font-size:12px;color:var(--on-surface-variant)}.ib{width:44px;height:44px;border-radius:50%;border:none;background:transparent;color:var(--on-surface-variant);display:grid;place-items:center;cursor:pointer;flex:none}.ib:hover{background:var(--state)}.ib svg{width:22px;height:22px}.q{font-size:20px;font-weight:700}
@@ -16,7 +16,7 @@ html[data-theme="dark"]{--primary:#D0BCFF;--on-primary:#381E72;--primary-contain
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{flex:none;height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--on-surface-variant);font-size:13px;cursor:pointer}.chip.on{background:var(--secondary-container);border-color:transparent;color:var(--on-secondary-container);font-weight:500}select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--on-surface-variant);font-size:13px;padding:0 8px;outline:none}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;max-width:1200px;margin:0 auto;padding:16px;width:100%}.book{border-radius:16px;overflow:hidden;background:var(--surface-container-high);transition:transform .25s,box-shadow .25s;animation:in .4s both;animation-delay:calc(var(--i)*30ms)}.book:hover{transform:translateY(-4px);box-shadow:var(--e2)}@keyframes in{from{opacity:0;transform:translateY(14px)}}
 .cover{position:relative;aspect-ratio:3/4;width:100%;border:none;padding:0;cursor:pointer;background:var(--surface-container-highest);display:block}.cover img{width:100%;height:100%;object-fit:cover;display:block}.badge{position:absolute;top:8px;right:8px;background:var(--primary);color:var(--on-primary);font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px;box-shadow:var(--e1)}.ai-badge{position:absolute;top:8px;left:8px;background:var(--secondary-container);color:var(--on-secondary-container);font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;box-shadow:var(--e1);display:flex;align-items:center;gap:4px}
-.binfo{padding:12px 14px 4px}.btitle{font-size:14px;font-weight:500;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}.bauth{font-size:12px;color:var(--on-surface-variant);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.binfo{padding:12px 14px 4px}.btitle{font-size:14px;font-weight:500;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}.bauth{font-size:12px;color:var(--on-surface-variant);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4}.bauth small{display:inline;font-size:10px;color:var(--on-primary-container);font-weight:500;margin-left:4px}html[data-theme="dark"] .bauth small{color:#EADDFF}
 .bact{display:flex;gap:4px;padding:6px 8px 10px;flex-wrap:wrap}.sib{width:38px;height:38px;border-radius:50%;border:none;background:transparent;color:var(--primary);display:grid;place-items:center;cursor:pointer}.sib:hover{background:var(--state)}.sib.danger{color:var(--error)}.sib svg{width:20px;height:20px}.btn-download{height:28px;padding:0 10px;border-radius:14px;border:1px solid var(--outline);background:var(--surface);color:var(--on-surface);font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px}.btn-download:hover{background:var(--state)}
 .empty{max-width:560px;margin:40px auto;text-align:center;padding:0 20px}.empty .big{width:96px;height:96px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;margin:0 auto 20px}.empty .big svg{width:44px;height:44px}.empty h2{font-size:22px;font-weight:600;margin:0 0 8px}.empty p{color:var(--on-surface-variant);margin:0 0 22px;line-height:1.5}.empty .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .btn{height:44px;padding:0 24px;border-radius:22px;border:none;background:var(--primary);color:var(--on-primary);font-size:14px;font-weight:600;cursor:pointer;box-shadow:var(--e1)}.btn:hover{box-shadow:var(--e2)}.btn.tonal{background:var(--secondary-container);color:var(--on-secondary-container);box-shadow:none}.btn.text{background:none;color:var(--primary);box-shadow:none}.btn:disabled{opacity:.5;cursor:wait}
@@ -286,27 +286,75 @@ function normalize(s){return translit(s).replace(/[^\u0430-\u044F\u0451a-z0-9\s]
 function aiParse(filename){
   const result={title:'',author:'',subject:'',grade:'',year:''};
   const base=filename.replace(/\.pdf$/i,'').replace(/[_]+/g,' ').trim();
-  result.title=base;
   const low=normalize(base),orig=base.toLowerCase();
-  const ym=base.match(/\b(19|20)\d{2}\b/);
-  if(ym){const y=+ym[0];if(y>=1950&&y<=2030)result.year=String(y);}
-  const gm=base.match(/\b(1[01]|[1-9])\s*(?:\u043A\u043B\u0430\u0441\u0441|\u043A\u043B\.?)\b/i)||base.match(/(?:\u043A\u043B\u0430\u0441\u0441|kl)\s*(1[01]|[1-9])\b/i);
+  
+  // Извлекаем все годы (4 цифры начиная с 19 или 20)
+  const allYears=base.match(/\b(19|20)\d{2}\b/g)||[];
+  // Берём наибольший год как год издания (меньший может быть ГОСТ)
+  let maxYear=null,maxY=0;
+  for(const yStr of allYears){const y=+yStr;if(y>=1950&&y<=2030&&y>maxY){maxY=y;maxYear=yStr;}}
+  if(maxYear)result.year=maxYear;
+  
+  // Определяем класс
+  const gm=base.match(/\b(1[01]|[1-9])\s*(?:класс|кл\.?)\b/i)||base.match(/(?:класс|kl)\s*(1[01]|[1-9])\b/i);
   if(gm){const g=+gm[1];if(g>=1&&g<=11)result.grade=g;}
-  if(!result.grade){const m2=base.match(/\b(1[01]|[1-9])\b/);if(m2){const g=+m2[1];if(g>=1&&g<=11&&result.year!==m2[0])result.grade=g;}}
-  const subjectMap=[
-    ['\u041C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u043A\u0430',['\u043C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u043A','matematik']],['\u0410\u043B\u0433\u0435\u0431\u0440\u0430',['\u0430\u043B\u0433\u0435\u0431\u0440','algebr']],
-    ['\u0413\u0435\u043E\u043C\u0435\u0442\u0440\u0438\u044F',['\u0433\u0435\u043E\u043C\u0435\u0442\u0440','geometr']],['\u0420\u0443\u0441\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A',['\u0440\u0443\u0441\u0441\u043A','russk','russian']],
-    ['\u041B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u0430',['\u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440','literatur']],['\u0418\u0441\u0442\u043E\u0440\u0438\u044F',['\u0438\u0441\u0442\u043E\u0440','istor','history']],
-    ['\u041E\u0431\u0449\u0435\u0441\u0442\u0432\u043E\u0437\u043D\u0430\u043D\u0438\u0435',['\u043E\u0431\u0449\u0435\u0441\u0442\u0432','obschestv']],['\u0424\u0438\u0437\u0438\u043A\u0430',['\u0444\u0438\u0437\u0438\u043A','phizik','physics']],
-    ['\u0425\u0438\u043C\u0438\u044F',['\u0445\u0438\u043C\u0438\u044F','\u0445\u0438\u043C\u0438','himiy','chemistry']],['\u0411\u0438\u043E\u043B\u043E\u0433\u0438\u044F',['\u0431\u0438\u043E\u043B\u043E\u0433','biolog','biology']],
-    ['\u0413\u0435\u043E\u0433\u0440\u0430\u0444\u0438\u044F',['\u0433\u0435\u043E\u0433\u0440\u0430\u0444','geograf','geography']],['\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0442\u0438\u043A\u0430',['\u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0442','informat']],
-    ['\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A',['\u0430\u043D\u0433\u043B\u0438\u0439\u0441\u043A','angliysk','english']],['\u041D\u0435\u043C\u0435\u0446\u043A\u0438\u0439 \u044F\u0437\u044B\u043A',['\u043D\u0435\u043C\u0435\u0446\u043A','nemetsk','german']],
-    ['\u041E\u043A\u0440\u0443\u0436\u0430\u044E\u0449\u0438\u0439 \u043C\u0438\u0440',['\u043E\u043A\u0440\u0443\u0436\u0430\u044E\u0449','okruzh']],['\u041C\u0443\u0437\u044B\u043A\u0430',['\u043C\u0443\u0437\u044B\u043A','muzik']],['\u0418\u0417\u041E',['\u0438\u0437\u043E','izo']],
-    ['\u0422\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438\u044F',['\u0442\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438','tehnolog']],['\u041E\u0411\u0416',['\u043E\u0431\u0436','obzh']],['\u0424\u0438\u0437\u043A\u0443\u043B\u044C\u0442\u0443\u0440\u0430',['\u0444\u0438\u0437\u043A\u0443\u043B\u044C\u0442\u0443\u0440','fizkult']],
-    ['\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u043A\u0430',['\u044D\u043A\u043E\u043D\u043E\u043C\u0438','ekonomi','economics']],['\u041F\u0440\u0430\u0432\u043E',['\u043F\u0440\u0430\u0432\u043E','pravo','law']]
-  ];
-  for(const[sub,keys]of subjectMap){for(const k of keys){if(low.includes(k)||orig.includes(k.toLowerCase())){result.subject=sub;break;}}if(result.subject)break;}
+  if(!result.grade){const m2=base.match(/\b(1[01]|[1-9])\b/g);if(m2){for(const num of m2){const g=+num;if(g>=1&&g<=11&&num!==result.year){result.grade=g;break;}}}}
+  
+  // Сначала ищем автора - это важно для определения предмета
   for(const author of AUTHORS_DB){const[name,...keys]=author;for(const k of keys){if(low.includes(normalize(k))||orig.includes(k.toLowerCase())){result.author=name;break;}}if(result.author)break;}
+  
+  // Определяем предмет: сначала по ключевым словам, потом по автору
+  const subjectByAuthor={
+    'Макарычев Ю. Н.':'Алгебра','Мордкович А. Г.':'Алгебра','Атанасян Л. С.':'Геометрия',
+    'Мерзляк А. Г.':'Математика','Дорофеев Г. В.':'Математика','Виленкин Н. Я.':'Математика',
+    'Петерсон Л. Г.':'Математика','Габриелян О. С.':'Химия','Пёрышкин А. В.':'Физика',
+    'Каменский А. А.':'Биология','Пасечник В. В.':'Биология','Алексашина Л. Н.':'История',
+    'Данилов А. А.':'История','Боголюбов Л. Н.':'Обществознание','Быкова Н. И.':'Английский язык',
+    'Верещагина И. Н.':'Английский язык','Афанасьева О. В.':'Английский язык','Кузовлев В. П.':'Английский язык',
+    'Ладыженская Т. А.':'Русский язык','Баранов М. Т.':'Русский язык','Тростенцова Л. А.':'Русский язык',
+    'Коровина В. Я.':'Литература','Босова Л. Л.':'Информатика','Поляков К. Ю.':'Информатика',
+    'Семакин И. Г.':'Информатика','Угринович Н. Д.':'Информатика','Мякишев Г. Я.':'Физика',
+    'Касьянов В. А.':'Физика','Генденштейн Л. Э.':'Физика','Рымкевич А. П.':'Физика',
+    'Новошинский И. И.':'Химия','Рудзитис Г. Е.':'Химия','Климанова О. А.':'Литература',
+    'Максаковский В. П.':'География','Алексеев А. И.':'История','Виноградова Н. Ф.':'Окружающий мир',
+    'Иванов С. В.':'Русский язык','Кузнецов А. А.':'История'
+  };
+  
+  const subjectMap=[
+    ['Математика',['математик','matematik']],['Алгебра',['алгебр','algebr']],
+    ['Геометрия',['геометр','geometr']],['Русский язык',['русск','russk','russian']],
+    ['Литература',['литератур','literatur']],['История',['истор','istor','history']],
+    ['Обществознание',['обществ','obschestv']],['Физика',['физик','phizik','physics']],
+    ['Химия',['химия','хими','himiy','chemistry']],['Биология',['биолог','biolog','biology']],
+    ['География',['географ','geograf','geography']],['Информатика',['информат','informat']],
+    ['Английский язык',['английск','angliysk','english']],['Немецкий язык',['немецк','nemetsk','german']],
+    ['Окружающий мир',['окружающ','okruzh']],['Музыка',['музык','muzik']],['ИЗО',['изо','izo']],
+    ['Технология',['технолог','tehnolog']],['ОБЖ',['обж','obzh']],['Физкультура',['физкультур','fizkult']],
+    ['Экономика',['эконом','ekonomi','economics']],['Право',['право','pravo','law']]
+  ];
+  
+  // Сначала ищем по ключевым словам в названии
+  for(const[sub,keys]of subjectMap){for(const k of keys){if(low.includes(k)||orig.includes(k.toLowerCase())){result.subject=sub;break;}}if(result.subject)break;}
+  
+  // Если предмет не найден, но есть автор - определяем по автору
+  if(!result.subject&&result.author&&subjectByAuthor[result.author]){
+    result.subject=subjectByAuthor[result.author];
+  }
+  
+  // Генерируем красивое название учебника
+  if(result.author||result.subject||result.grade){
+    let titleParts=[];
+    if(result.subject)titleParts.push(result.subject);
+    if(result.grade)titleParts.push(result.grade+' класс');
+    if(result.author){
+      const shortAuthor=result.author.split(' ').slice(0,2).join(' ');
+      titleParts.push(shortAuthor);
+    }
+    result.title=titleParts.join(' • ');
+  }else{
+    result.title=base;
+  }
+  
   return result;
 }
 
@@ -409,7 +457,7 @@ async function addBookFromFile(file,opts={}){
 function imgToCover(file){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>{const w=600,h=w*img.height/img.width,c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',.85));URL.revokeObjectURL(img.src)};img.onerror=rej;img.src=URL.createObjectURL(file);});}
 function matches(b){const q=state.q.trim().toLowerCase();if(!q){if(state.sub&&b.subject!==state.sub)return false;if(state.grade&&String(b.grade)!==String(state.grade))return false;return true;}if((b.title+' '+b.author+' '+b.subject).toLowerCase().includes(q))return true;if(b.ocrText&&b.ocrText.toLowerCase().includes(q))return true;return false;}
 const sortFn=()=>({new:(a,b)=>b.added-a.added,old:(a,b)=>a.added-b.added,title:(a,b)=>a.title.localeCompare(b.title,'ru'),author:(a,b)=>(a.author||'\u044F').localeCompare(b.author||'\u044F','ru')}[state.sort]);
-function cardHTML(b,i){const hasOcr=b.ocrText&&b.ocrText.trim().length>0;const aiBadge=hasOcr?'<span class="ai-badge">🤖 AI Ready</span>':'';const dlTxtBtn=hasOcr?'<button class="btn-download" onclick="downloadTxt(\''+b.id+'\')" title="Скачать TXT">📄 TXT</button>':'';return '<article class="book" data-card="'+b.id+'" style="--i:'+i+'"><button class="cover" data-act="view" data-id="'+b.id+'" title="Открыть просмотр"><img src="'+b.cover+'" alt="" loading="lazy">'+aiBadge+(b.grade?'<span class="badge">'+esc(b.grade)+' КЛ</span>':'')+'</button><div class="binfo"><div class="btitle">'+esc(b.title)+'</div><div class="bauth">'+esc(b.author||'Автор не указан')+' · '+fmtSize(b.size)+'</div></div><div class="bact">'+dlTxtBtn+'<button class="sib ripple" data-act="dl" data-id="'+b.id+'" title="Скачать PDF"><svg viewBox="0 0 24 24"><path d="M11 3h2v10l3.5-3.5 1.4 1.4L12 16.8 6.1 10.9l1.4-1.4L11 13V3Zm-6 16h14v2H5v-2Z"/></svg></button><button class="sib danger ripple" data-act="del" data-id="'+b.id+'" title="Удалить"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 2h5v2H3V5h5l1-2ZM5 8h14l-1.2 13H6.2L5 8Z"/></svg></button></div></article>';}
+function cardHTML(b,i){const hasOcr=b.ocrText&&b.ocrText.trim().length>0;const aiBadge=hasOcr?'<span class="ai-badge">🤖 AI Ready</span>':'';const dlTxtBtn=hasOcr?'<button class="btn-download" onclick="downloadTxt(\''+b.id+'\')" title="Скачать TXT">📄 TXT</button>':'';return '<article class="book" data-card="'+b.id+'" style="--i:'+i+'"><button class="cover" data-act="view" data-id="'+b.id+'" title="Открыть просмотр"><img src="'+b.cover+'" alt="" loading="lazy">'+aiBadge+(b.grade?'<span class="badge">'+esc(b.grade)+' КЛ</span>':'')+'</button><div class="binfo"><div class="btitle">'+esc(b.title)+'</div><div class="bauth">'+esc(b.author||'Автор не указан')+(b.subject?' · <small>'+esc(b.subject)+'</small>':'')+' · '+fmtSize(b.size)+'</div></div><div class="bact">'+dlTxtBtn+'<button class="sib ripple" data-act="dl" data-id="'+b.id+'" title="Скачать PDF"><svg viewBox="0 0 24 24"><path d="M11 3h2v10l3.5-3.5 1.4 1.4L12 16.8 6.1 10.9l1.4-1.4L11 13V3Zm-6 16h14v2H5v-2Z"/></svg></button><button class="sib danger ripple" data-act="del" data-id="'+b.id+'" title="Удалить"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 2h5v2H3V5h5l1-2ZM5 8h14l-1.2 13H6.2L5 8Z"/></svg></button></div></article>';}
 function buildChips(){const chip=(v,l,on)=>'<button class="chip ripple '+(on?'on':'')+'" data-v="'+esc(v)+'">'+(on?'\u2713 ':'')+l+'</button>';const subs=[...new Set(books.map(b=>b.subject).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru'));const grades=[...new Set(books.map(b=>b.grade).filter(Boolean))].sort((a,b)=>a-b);$('#chipsSub').innerHTML=chip('','\u0412\u0441\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B',!state.sub)+subs.map(s=>chip(s,esc(s),state.sub===s)).join('');$('#chipsGrade').innerHTML=chip('','\u0412\u0441\u0435 \u043A\u043B\u0430\u0441\u0441\u044B',!state.grade)+grades.map(g=>chip(g,esc(g)+' \u043A\u043B\u0430\u0441\u0441',String(state.grade)===String(g))).join('');}
 function render(){const list=books.filter(matches).sort(sortFn());$('#stats').textContent=books.length+' '+plural(books.length,['\u043A\u043D\u0438\u0433\u0430','\u043A\u043D\u0438\u0433\u0438','\u043A\u043D\u0438\u0433'])+' \u00B7 '+fmtSize(books.reduce((s,b)=>s+(b.size||0),0));$('#emptyState').hidden=books.length>0;$('#grid').hidden=!list.length&&!!books.length;if(!list.length&&books.length)snack('\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E');const groups=new Map();list.forEach(b=>{const k=b.grade?+b.grade:0;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(b)});$('#grid').innerHTML=[...groups.keys()].sort((a,b)=>a-b).map(k=>groups.get(k).map((b,i)=>cardHTML(b,i)).join('')).join('');}
 function refresh(){buildChips();render();}
