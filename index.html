@@ -768,6 +768,30 @@ function aiParse(filename){
 
 }
 
+// Анализ OCR текста для автозаполнения полей
+function analyzeOcrText(fullText,pages){
+  const result={title:'',categories:''};
+  if(!fullText||!pages.length)return result;
+  const firstPageText=pages[0]?.text||'';
+  const lines=firstPageText.split(/\n+/).map(l=>l.trim()).filter(l=>l.length>5&&l.length<80);
+  if(lines.length>0){result.title=lines[0].replace(/[^\w\sа-яА-ЯёЁ\-]/g,'').trim();}
+  const cats=[];
+  const low=(fullText+' '+firstPageText).toLowerCase();
+  if(/алгебр|геометр|математик/.test(low))cats.push('Математика');
+  if(/физик|механик|оптик|термодинамик/.test(low))cats.push('Физика');
+  if(/химич|органич|неорганич/.test(low))cats.push('Химия');
+  if(/биолог|генетик|эколог|ботаник|зоолог/.test(low))cats.push('Биология');
+  if(/историч|древн|средневеков|революц|войн/.test(low))cats.push('История');
+  if(/литератур|писатель|поэт|стихотвор|роман/.test(low))cats.push('Литература');
+  if(/русск язык|грамматик|орфограф|пунктуаци/.test(low))cats.push('Русский язык');
+  if(/английск|english|foreign language/.test(low))cats.push('Иностранный язык');
+  if(/географ|карт|природ|климат|регион/.test(low))cats.push('География');
+  if(/обществознан|правов|экономик|политик|социальн/.test(low))cats.push('Обществознание');
+  if(/информатик|программир|алгоритм|компьютер/.test(low))cats.push('Информатика');
+  result.categories=cats.join(',');
+  return result;
+}
+
 
 
 async function ocrPages(blob,maxPages,firstPageNum,onProgress){
