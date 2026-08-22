@@ -369,14 +369,7 @@ async function ocrPages(blob,maxPages,onProgress){
       worker=await Tesseract.createWorker({
         workerPath: 'lib/tesseract-worker.min.js',
         corePath: 'lib/tesseract-core-simd.wasm.js',
-        langPath: 'lib/',
         cacheMethod: 'none'
-      });
-      worker.on('progress', m => {
-        if(m.status === 'recognizing text' && onProgress) {
-          const pct = Math.round(m.progress * 100);
-          onProgress(i, pages, pct);
-        }
       });
       await worker.loadLanguage('rus+eng');
       await worker.initialize('rus+eng');
