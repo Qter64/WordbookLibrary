@@ -364,26 +364,35 @@ async function ocrPages(blob,maxPages,onProgress){
     const doc=await pdfjsLib.getDocument({data:await blob.arrayBuffer()}).promise;
     const pages=Math.min(maxPages,doc.numPages);
     let allText='';
-    let worker=null;
-    try{
-      worker=await Tesseract.createWorker({
-        logger: m => console.log('Tesseract:',m),
-        workerPath: 'lib/tesseract-worker.min.js',
-        langPath: 'lib',
-        corePath: 'lib/tesseract-core-simd.wasm.js'
-      });
-      await worker.loadLanguage('rus+eng');
-      await worker.initialize('rus+eng');
-    }catch(e){console.warn('Tesseract worker failed:',e);return '';}
+    
+    // Tesseract v5 - создаём воркера с указанием путей к локальным файлам
+    const worker=await Tesseract.createWorker({
+      logger: m => {
+        console.log('Tesseract:',m);
+        if(onProgress && m.status==='recognizing text'){
+          // Прогресс внутри страницы
+        }
+      },
+      workerPath: 'lib/tesseract-worker.min.js',
+      langPath: 'lib/',
+      corePath: 'lib/tesseract-core-simd.wasm.js'
+    });
+    
+    await worker.loadLanguage('rus+eng');
+    await worker.initialize('rus+eng');
+    
     for(let i=1;i<=pages;i++){
       if(onProgress)onProgress(i,pages);
       const page=await doc.getPage(i);
       const vp=page.getViewport({scale:2});
       const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;
       await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
-      try{const result=await worker.recognize(c);allText+=result.data.text+'\n';}catch(e){console.warn('OCR page error:',e);}
+      try{
+        const result=await worker.recognize(c);
+        allText+=result.data.text+'\n';
+      }catch(e){console.warn('OCR page error:',e);}
     }
-    try{await worker.terminate();}catch(e){}
+    await worker.terminate();
     doc.destroy();
     return allText.substring(0,50000);
   }catch(e){console.warn('OCR error:',e);return '';}
