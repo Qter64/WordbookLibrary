@@ -1,506 +1,1052 @@
 <!DOCTYPE html>
+
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="color-scheme" content="light dark">
+
 <title>Библиотека учебников</title>
+
 <style>
+
 :root{--f:'Roboto',system-ui,sans-serif;--primary:#6750A4;--on-primary:#FFF;--primary-container:#EADDFF;--on-primary-container:#21005D;--secondary-container:#E8DEF8;--on-secondary-container:#1D192B;--surface:#FEF7FF;--surface-dim:#DED8E1;--surface-container:#F3EDF7;--surface-container-high:#ECE6F0;--surface-container-highest:#E6E0E9;--on-surface:#1D1B20;--on-surface-variant:#49454F;--outline:#79747E;--outline-variant:#CAC4D0;--inverse-surface:#322F35;--inverse-on-surface:#F5EFF7;--inverse-primary:#D0BCFF;--error:#B3261E;--state:rgba(29,27,32,.08);--e1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);--e2:0 1px 2px rgba(0,0,0,.3),0 2px 6px 2px rgba(0,0,0,.15);--e3:0 1px 3px rgba(0,0,0,.3),0 4px 8px 3px rgba(0,0,0,.15);--md3-elevation-1:0px 1px 3px 1px rgba(0,0,0,0.15);--md3-elevation-2:0px 2px 6px 2px rgba(0,0,0,0.15);--md3-elevation-3:0px 4px 8px 3px rgba(0,0,0,0.15)}
+
 html[data-theme="dark"]{--primary:#D0BCFF;--on-primary:#381E72;--primary-container:#4F378B;--on-primary-container:#EADDFF;--secondary-container:#4A4458;--on-secondary-container:#E8DEF8;--surface:#141218;--surface-dim:#0F0D13;--surface-container:#211F26;--surface-container-high:#2B2930;--surface-container-highest:#36343B;--on-surface:#E6E0E9;--on-surface-variant:#CAC4D0;--outline:#938F99;--outline-variant:#49454F;--inverse-surface:#E6E0E9;--inverse-on-surface:#322F35;--inverse-primary:#6750A4;--error:#F2B8B5;--state:rgba(230,224,233,.1)}.primary-container-text{color:#21005D}
+
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{margin:0;font-family:var(--f);background:var(--surface);color:var(--on-surface);min-height:100vh}button{font-family:var(--f)}svg{fill:currentColor;display:block}
+
 .ripple{position:relative;overflow:hidden}.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.2;transform:scale(0);animation:rp .55s ease-out forwards;pointer-events:none}@keyframes rp{to{transform:scale(1);opacity:0}}
+
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--surface-container)}.logo{width:42px;height:42px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none}.logo svg{width:22px;height:22px}.ttl{flex:1;min-width:0}.ttl h1{margin:0;font-size:20px;font-weight:600}.ttl small{display:block;font-size:12px;color:var(--on-surface-variant)}.ib{width:44px;height:44px;border-radius:50%;border:none;background:transparent;color:var(--on-surface-variant);display:grid;place-items:center;cursor:pointer;flex:none}.ib:hover{background:var(--state)}.ib svg{width:22px;height:22px}.q{font-size:20px;font-weight:700}
+
 .controls{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;flex-direction:column;gap:10px}.searchbar{display:flex;align-items:center;gap:12px;height:56px;border-radius:28px;background:var(--surface-container-high);padding:0 10px 0 20px}.searchbar:focus-within{box-shadow:var(--e1)}.searchbar svg{width:22px;height:22px;color:var(--on-surface-variant);flex:none}.searchbar input{flex:1;border:none;outline:none;background:transparent;font:inherit;font-size:16px;color:var(--on-surface)}.searchbar input::placeholder{color:var(--on-surface-variant)}
+
 .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tbtn{height:36px;padding:0 16px;border-radius:18px;border:none;background:var(--secondary-container);color:var(--on-secondary-container);font-size:13px;font-weight:500;cursor:pointer}.tbtn:hover{box-shadow:var(--e1)}.tbtn.outl{background:transparent;border:1px solid var(--outline);color:var(--primary)}#stats{margin-left:auto;font-size:12px;color:var(--on-surface-variant)}
+
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{flex:none;height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--on-surface-variant);font-size:13px;cursor:pointer}.chip.on{background:var(--secondary-container);border-color:transparent;color:var(--on-secondary-container);font-weight:500}select.sortsel{height:32px;border-radius:8px;border:1px solid var(--outline);background:transparent;color:var(--on-surface-variant);font-size:13px;padding:0 8px;outline:none}
+
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;max-width:1200px;margin:0 auto;padding:16px;width:100%}.book{border-radius:16px;overflow:hidden;background:var(--surface-container-high);transition:transform .25s,box-shadow .25s;animation:in .4s both;animation-delay:calc(var(--i)*30ms)}.book:hover{transform:translateY(-4px);box-shadow:var(--e2)}@keyframes in{from{opacity:0;transform:translateY(14px)}}
+
 .cover{position:relative;aspect-ratio:3/4;width:100%;border:none;padding:0;cursor:pointer;background:var(--surface-container-highest);display:block}.cover img{width:100%;height:100%;object-fit:cover;display:block}.badge{position:absolute;top:8px;right:8px;background:var(--primary);color:var(--on-primary);font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px;box-shadow:var(--e1)}.ai-badge{position:absolute;top:8px;left:8px;background:var(--secondary-container);color:var(--on-secondary-container);font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;box-shadow:var(--e1);display:flex;align-items:center;gap:4px}
+
 .binfo{padding:12px 14px 4px}.btitle{font-size:14px;font-weight:500;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}.bauth{font-size:12px;color:var(--on-surface-variant);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4}.bauth small{display:inline;font-size:10px;color:var(--on-primary-container);font-weight:500;margin-left:4px}html[data-theme="dark"] .bauth small{color:#EADDFF}
+
 .bact{display:flex;gap:4px;padding:6px 8px 10px;flex-wrap:wrap}.sib{width:38px;height:38px;border-radius:50%;border:none;background:transparent;color:var(--primary);display:grid;place-items:center;cursor:pointer}.sib:hover{background:var(--state)}.sib.danger{color:var(--error)}.sib svg{width:20px;height:20px}.btn-download{height:28px;padding:0 10px;border-radius:14px;border:1px solid var(--outline);background:var(--surface);color:var(--on-surface);font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px}.btn-download:hover{background:var(--state)}
+
 .empty{max-width:560px;margin:40px auto;text-align:center;padding:0 20px}.empty .big{width:96px;height:96px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;margin:0 auto 20px}.empty .big svg{width:44px;height:44px}.empty h2{font-size:22px;font-weight:600;margin:0 0 8px}.empty p{color:var(--on-surface-variant);margin:0 0 22px;line-height:1.5}.empty .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
 .btn{height:44px;padding:0 24px;border-radius:22px;border:none;background:var(--primary);color:var(--on-primary);font-size:14px;font-weight:600;cursor:pointer;box-shadow:var(--e1)}.btn:hover{box-shadow:var(--e2)}.btn.tonal{background:var(--secondary-container);color:var(--on-secondary-container);box-shadow:none}.btn.text{background:none;color:var(--primary);box-shadow:none}.btn:disabled{opacity:.5;cursor:wait}
+
 .fab{position:fixed;right:20px;bottom:20px;height:56px;padding:0 20px;border-radius:16px;border:none;background:var(--primary-container);color:var(--on-primary-container);display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;box-shadow:var(--e3);cursor:pointer;z-index:30}.fab svg{width:22px;height:22px}.fab-ai{position:fixed;left:20px;bottom:20px;width:56px;height:56px;border-radius:50%;border:none;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;box-shadow:var(--e3);cursor:pointer;z-index:30;font-size:24px}
+
 .ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:opacity .25s;padding:16px}.ovl.open{opacity:1;pointer-events:auto}.dlg{width:min(580px,96vw);max-height:92vh;overflow:auto;border-radius:28px;background:var(--surface-container-high);color:var(--on-surface);padding:24px;transform:scale(.95);transition:transform .25s}.ovl.open .dlg{transform:scale(1)}.dlg h2{font-size:22px;font-weight:600;margin:0 0 18px}
+
 .drop{border:2px dashed var(--outline);border-radius:20px;padding:26px 16px;text-align:center;cursor:pointer;background:var(--surface-container)}.drop:hover,.drop.over{border-color:var(--primary);background:var(--primary-container)}.drop b{display:block;margin-bottom:4px}.drop small{color:var(--on-surface-variant)}
+
 .picked{margin-top:10px;font-size:13px;color:var(--on-surface-variant);word-break:break-all}.ai-info{margin-top:8px;padding:10px 12px;background:var(--primary-container);color:var(--on-primary-container);border-radius:12px;font-size:12px;line-height:1.4;display:none}.ai-info.show{display:block;animation:in .3s}
+
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:500;color:var(--on-surface-variant)}.field input,.field select,.field textarea{font:inherit;font-size:14px;color:var(--on-surface);background:var(--surface);border:1px solid var(--outline-variant);border-radius:12px;padding:10px 12px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary)}
+
 .coverpick{display:flex;align-items:center;gap:12px;margin-top:14px}.coverpick img{width:52px;height:70px;object-fit:cover;border-radius:6px;box-shadow:var(--e1)}.dfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
+
 .palette{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.palette button{width:48px;height:48px;border-radius:50%;border:3px solid transparent;cursor:pointer}.palette button.on{border-color:var(--on-surface);box-shadow:var(--e1)}
+
 .guide-cards{display:flex;flex-direction:column;gap:12px;margin-top:16px}.gcard{display:flex;gap:14px;padding:14px;background:var(--surface);border-radius:14px;border:1px solid var(--outline-variant)}.gcard .gicon{width:44px;height:44px;border-radius:50%;background:var(--primary-container);color:var(--on-primary-container);display:grid;place-items:center;flex:none;font-size:22px}.gcard .gtxt{flex:1;min-width:0}.gcard h4{margin:0 0 4px;font-size:14px;font-weight:600}.gcard p{margin:0;font-size:13px;color:var(--on-surface-variant);line-height:1.4}
+
 .ai-chat{display:flex;flex-direction:column;height:min(580px,85vh)}.ai-msgs{flex:1;overflow-y:auto;padding:8px 0;display:flex;flex-direction:column;gap:10px}.ai-msg{max-width:85%;padding:12px 16px;border-radius:18px;font-size:14px;line-height:1.5;animation:in .3s}.ai-msg.bot{background:var(--surface-container);color:var(--on-surface);align-self:flex-start;border-bottom-left-radius:6px}.ai-msg.user{background:var(--primary);color:var(--on-primary);align-self:flex-end;border-bottom-right-radius:6px}.ai-msg.bot b{color:var(--primary)}.ai-msg.bot .ctx{background:var(--surface);padding:8px 12px;border-radius:10px;border-left:3px solid var(--primary);margin:6px 0;font-size:13px;font-style:italic}
+
 .ai-input-row{display:flex;gap:8px;margin-top:12px}.ai-input-row input{flex:1;border:1px solid var(--outline-variant);border-radius:22px;padding:12px 18px;font:inherit;font-size:14px;background:var(--surface);color:var(--on-surface);outline:none}.ai-input-row input:focus{border-color:var(--primary)}.ai-input-row button{width:48px;height:48px;border-radius:50%;border:none;background:var(--primary);color:var(--on-primary);cursor:pointer;display:grid;place-items:center}.ai-input-row button svg{width:20px;height:20px}
+
 .ai-suggest{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.ai-suggest button{height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--outline-variant);background:transparent;color:var(--on-surface-variant);font-size:12px;cursor:pointer}.ai-suggest button:hover{background:var(--state)}
+
 .ocr-progress{margin-top:12px;padding:12px;background:var(--surface);border-radius:12px;border:1px solid var(--outline-variant);display:none}.ocr-progress.show{display:block}.ocr-bar{height:6px;background:var(--outline-variant);border-radius:3px;overflow:hidden;margin-top:6px}.ocr-fill{height:100%;background:var(--primary);border-radius:3px;transition:width .3s;width:0}.ocr-text{font-size:12px;color:var(--on-surface-variant);margin-top:4px}
+
 .viewer{position:fixed;inset:0;z-index:70;background:var(--surface);display:flex;flex-direction:column;transform:translateY(5%);opacity:0;pointer-events:none;transition:.28s}.viewer.open{transform:none;opacity:1;pointer-events:auto}.vbar{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--surface-container);flex-wrap:wrap}.vttl{flex:1;min-width:120px;font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vmeta{font-size:12px;color:var(--on-surface-variant)}.vstage{flex:1;overflow:auto;background:var(--surface-dim);display:flex;flex-direction:column;align-items:center;gap:16px;padding:16px}.vstage canvas{max-width:100%;box-shadow:var(--e3);border-radius:2px;background:#fff}.vmsg{color:var(--on-surface-variant);padding:40px;text-align:center}.spin{width:40px;height:40px;border:4px solid var(--outline-variant);border-top-color:var(--primary);border-radius:50%;animation:rot .8s linear infinite;margin:60px auto}@keyframes rot{to{transform:rotate(360deg)}}.vsearch-results{position:absolute;bottom:60px;right:20px;background:var(--surface-container-high);border-radius:8px;padding:12px;max-height:300px;overflow-y:auto;box-shadow:var(--e3);min-width:250px;z-index:100}.vsearch-results h4{margin:0 0 8px;font-size:13px;color:var(--on-surface-variant)}.vsearch-item{padding:6px 8px;border-radius:4px;cursor:pointer;font-size:12px;margin-bottom:4px}.vsearch-item:hover{background:var(--primary-fixed)}.vsearch-item.active{background:var(--primary);color:var(--on-primary)}.search-input{background:var(--surface-container-highest);border:none;border-radius:18px;padding:6px 14px;font-size:13px;color:var(--on-surface);outline:none}
+
 .snack{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--inverse-surface);color:var(--inverse-on-surface);padding:14px 20px;border-radius:8px;font-size:14px;z-index:95;display:flex;gap:16px;align-items:center;max-width:92vw;transition:transform .3s;box-shadow:var(--e2)}.snack.show{transform:translate(-50%,0)}.snack button{border:none;background:none;color:var(--inverse-primary);font-weight:600;cursor:pointer;font-size:14px}
+
 #tour{position:fixed;inset:0;z-index:80;display:none}#tour.on{display:block}#tour.dim{background:rgba(0,0,0,.55)}#spot{position:fixed;border-radius:24px;box-shadow:0 0 0 100vmax rgba(0,0,0,.55);transition:all .35s ease;pointer-events:none;display:none;z-index:1}#tcard{position:fixed;width:min(360px,92vw);background:var(--surface-container-high);color:var(--on-surface);border-radius:22px;padding:20px;z-index:2;box-shadow:var(--e3)}#tcard h3{margin:0 0 8px;font-size:17px;font-weight:600}#tcard p{margin:0 0 14px;font-size:13px;line-height:1.5;color:var(--on-surface-variant)}#trow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}#tcnt{margin-right:auto;font-size:12px;color:var(--on-surface-variant);min-width:40px}
+
 @media(max-width:640px){.grid{grid-template-columns:repeat(auto-fill,minmax(136px,1fr));gap:12px;padding:12px}.frow{grid-template-columns:1fr}#stats{display:none}}
+
 </style>
+
 </head>
+
 <body>
+
 <header class="topbar">
+
   <div class="logo"><svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v14h12V4H6Zm2 2h8v2H8V6Z"/></svg></div>
+
   <div class="ttl"><h1>Библиотека учебников</h1><small id="subttl">локальная коллекция &#xB7; офлайн</small></div>
+
   <button class="ib ripple" id="btnPalette" title="Цвет"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 2-2 2 2 0 0 0-.6-1.4c-.3-.3-.4-.6-.4-1a1.5 1.5 0 0 1 1.5-1.5H16a6 6 0 0 0 6-6c0-4.4-4.5-8-10-8ZM6.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg></button>
+
   <button class="ib ripple" id="btnTheme" title="Тема"><svg id="icoMoon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg><svg id="icoSun" viewBox="0 0 24 24" style="display:none"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-1-6h2v3h-2Zm0 17h2v3h-2ZM2 11h3v2H2Zm17 0h3v2h-3ZM4.2 5.6l1.4-1.4 2.1 2.1-1.4 1.4Zm12.1 12.1 1.4-1.4 2.1 2.1-1.4 1.4ZM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1Zm12.1-12.1 2.1-2.1 1.4 1.4-1.4 1.4Z"/></svg></button>
+
   <button class="ib ripple" id="btnHelp" title="Инструкция"><span class="q">?</span></button>
+
 </header>
+
 <section class="controls">
+
   <div class="searchbar" id="searchbar">
+
     <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
+
     <input id="inpSearch" type="text" placeholder="Поиск по названию, автору и содержимому..." autocomplete="off">
+
     <button class="ib" id="btnClear" style="display:none" title="Очистить"><svg viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6Z"/></svg></button>
+
   </div>
+
   <div class="actions">
+
     <button class="tbtn ripple" id="btnFolder">Подключить папку</button>
+
     <button class="tbtn ripple" id="btnFromFolder">Импорт из папки</button>
+
     <button class="tbtn outl ripple" id="btnExport">Экспорт</button>
+
     <button class="tbtn outl ripple" id="btnImportJson">Импорт</button>
+
     <select class="sortsel" id="selSort"><option value="new">Сначала новые</option><option value="old">Сначала старые</option><option value="title">По названию</option><option value="author">По автору</option></select>
+
     <span id="stats"></span>
+
   </div>
+
   <div class="chips" id="chipsSub"></div>
+
   <div class="chips" id="chipsGrade"></div>
+
   <div class="chips" id="chipsCategories"></div>
+
 </section>
+
 <main id="shelf">
+
   <div class="grid" id="grid"></div>
+
   <div class="empty" id="emptyState" hidden>
+
     <div class="big"><svg viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v14h12V4H6Zm2 2h8v2H8V6Z"/></svg></div>
+
     <h2>На полках пока пусто</h2>
+
     <p>Добавьте первый учебник. ИИ определит автора и класс, OCR распознает первые 3 страницы для умного поиска. Всё локально, без интернета.</p>
+
     <div class="row">
+
       <button class="btn ripple" id="btnAddEmpty">Добавить учебник</button>
+
       <button class="btn tonal ripple" id="btnFolderEmpty">Подключить папку</button>
+
     </div>
+
   </div>
+
 </main>
+
 <button class="fab ripple" id="fab"><svg viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/></svg>Добавить</button>
+
 <button class="fab-ai ripple" id="fabAI" title="ИИ-помощник">&#x1F916;</button>
 
+
+
 <div class="ovl" id="dlgAdd">
+
   <div class="dlg">
+
     <h2>Новый учебник</h2>
+
     <div class="drop ripple" id="drop"><b>Перетащите PDF сюда</b><small>или нажмите &#x2014; можно несколько. ИИ определит метаданные, OCR распознает первые 3 страницы.</small></div>
+
     <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden>
+
     <div class="picked" id="pickedList"></div>
+
     <div class="ai-info" id="aiInfo"></div>
+
     <div class="ocr-progress" id="ocrProgress">
+
       <div class="ocr-text" id="ocrText">Распознавание текста...</div>
+
       <div class="ocr-bar"><div class="ocr-fill" id="ocrFill"></div></div>
+
     </div>
+
     <div class="coverpick">
+
       <img id="coverPrev" hidden alt="">
+
       <button class="tbtn outl ripple" id="btnCover">Своя обложка</button>
+
       <input type="file" id="coverInput" accept="image/*" hidden>
+
     </div>
+
     <div class="frow">
+
       <div class="field full"><label>Название *</label><input id="fTitle" placeholder="Алгебра. 8 класс"></div>
+
       <div class="field"><label>Автор</label><input id="fAuthor" placeholder="Макарычев Ю. Н."></div>
+
       <div class="field"><label>Предмет</label><input id="fSubject" list="subjList"><datalist id="subjList"></datalist></div>
+
       <div class="field"><label>Класс</label><select id="fGrade"><option value="">&#x2014;</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>
+
       <div class="field"><label>Год</label><input id="fYear" placeholder="2023"></div>
+
       <div class="field"><label>Первая стр.</label><input type="number" id="fFirstPage" placeholder="1" min="1" value="1" title="Если обложка не считается, укажите 2 или 3"></div>
+
       <div class="field full"><label>Категории (через запятую)</label><input id="fCategories" placeholder="алгебра, математика, школьная программа" title="Введите категории через запятую"></div>
+
     </div>
+
     <div class="dfoot">
+
       <button class="btn text ripple" id="btnCancelAdd">Отмена</button>
+
       <button class="btn ripple" id="btnSave">Сохранить</button>
+
     </div>
+
   </div>
+
 </div>
+
+
+
+<div class="ovl" id="dlgEditBook">
+
+  <div class="dlg">
+
+    <h2>Редактирование учебника</h2>
+
+    <div class="ai-info show" id="editOcrPreview" style="margin-bottom:12px;max-height:100px;overflow-y:auto;font-size:11px;"></div>
+
+    <div class="frow">
+
+      <div class="field full"><label>Название *</label><input id="eTitle"></div>
+
+      <div class="field"><label>Автор</label><input id="eAuthor"></div>
+
+      <div class="field"><label>Предмет</label><input id="eSubject" list="subjList"></div>
+
+      <div class="field"><label>Класс</label><select id="eGrade"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></div>
+
+      <div class="field"><label>Год</label><input id="eYear"></div>
+
+      <div class="field"><label>Страница начала</label><input type="number" id="eFirstPage" min="1" value="1"></div>
+
+      <div class="field full"><label>Категории (через запятую)</label><input id="eCategories" placeholder="алгебра, математика, 8 класс"></div>
+
+    </div>
+
+    <div class="dfoot">
+
+      <button class="btn text ripple" id="btnCancelEdit">Отмена</button>
+
+      <button class="btn ripple" id="btnConfirmEdit">Применить</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 
 <div class="ovl" id="dlgAI">
+
   <div class="dlg ai-chat">
+
     <h2>&#x1F916; ИИ-помощник <small style="font-size:11px;color:var(--on-surface-variant);font-weight:400">локальный &#xB7; без интернета</small></h2>
+
     <div class="ai-msgs" id="aiMsgs"></div>
+
     <div class="ai-suggest" id="aiSuggest"></div>
+
     <div class="ai-input-row">
+
       <input id="aiInput" type="text" placeholder="Спросите что-нибудь..." autocomplete="off">
+
       <button id="aiSend" title="Отправить"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+
     </div>
+
   </div>
+
 </div>
+
+
 
 <div class="viewer" id="viewer">
+
   <div class="vbar">
+
     <button class="ib ripple" id="vClose" title="Закрыть"><svg viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6Z"/></svg></button>
+
     <div class="vttl" id="vTitle"></div>
+
     <span class="vmeta" id="vMeta"></span>
+
     <button class="ib ripple" id="vPrev" title="Назад"><svg viewBox="0 0 24 24"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12Z"/></svg></button>
+
     <span class="vmeta" id="vPage">&#x2014;</span>
+
     <button class="ib ripple" id="vNext" title="Вперёд"><svg viewBox="0 0 24 24"><path d="M8.6 5.4 10 4l8 8-8 8-1.4-1.4L15.2 12Z"/></svg></button>
+
     <select class="sortsel" id="vZoom"><option value="auto">По ширине</option><option value="1">100%</option><option value="1.5">150%</option><option value="2">200%</option></select>
+
     <button class="tbtn ripple" id="vDownload">Скачать</button>
+
     <input type="text" class="search-input" id="vSearch" placeholder="Поиск по тексту..." style="margin-left:auto;min-width:180px;">
+
     <button class="ib ripple" id="vFind" title="Найти"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
+
   </div>
+
   <div class="vstage" id="vStage"></div>
+
   <div class="vsearch-results" id="vSearchResults" hidden></div>
+
 </div>
+
+
 
 <div class="ovl" id="dlgGuide">
+
   <div class="dlg">
+
     <h2>Как пользоваться</h2>
+
     <div class="guide-cards">
+
       <div class="gcard"><div class="gicon">&#x1F4E5;</div><div class="gtxt"><h4>Добавление + OCR</h4><p>Выберите PDF. ИИ определит метаданные, локальный OCR распознает первые 3 страницы.</p></div></div>
+
       <div class="gcard"><div class="gicon">&#x1F50D;</div><div class="gtxt"><h4>Умный поиск</h4><p>Ищет по названию, автору И содержимому учебника через OCR.</p></div></div>
+
       <div class="gcard"><div class="gicon">&#x1F916;</div><div class="gtxt"><h4>Локальный ИИ</h4><p>Работает без интернета. Отвечает по 70+ темам из базы знаний + ищет в текстах учебников.</p></div></div>
+
       <div class="gcard"><div class="gicon">&#x1F4C1;</div><div class="gtxt"><h4>Папка</h4><p>Подключите папку &#xAB;Учебники&#xBB; &#x2014; новые файлы копируются туда автоматически.</p></div></div>
+
       <div class="gcard"><div class="gicon">&#x1F4BE;</div><div class="gtxt"><h4>Резервная копия</h4><p>&#xAB;Экспорт&#xBB; сохраняет всю библиотеку с OCR-текстами. &#xAB;Импорт&#xBB; восстанавливает на другом устройстве.</p></div></div>
+
     </div>
+
     <div class="dfoot">
+
       <button class="btn text ripple" id="btnRetour">Пройти тур</button>
+
       <button class="btn ripple" id="btnGuideClose">Понятно</button>
+
     </div>
+
   </div>
+
 </div>
+
+
 
 <div class="ovl" id="dlgPalette">
+
   <div class="dlg">
+
     <h2>Цвет приложения</h2>
+
     <p style="color:var(--on-surface-variant);margin:0 0 6px">Выберите акцентный цвет:</p>
+
     <div class="palette" id="palette"></div>
+
     <div class="dfoot"><button class="btn ripple" id="btnPaletteClose">Готово</button></div>
+
   </div>
+
 </div>
+
+
 
 <div id="tour"><div id="spot"></div>
+
   <div id="tcard"><h3 id="tTitle"></h3><p id="tText"></p>
+
     <div id="trow"><span id="tcnt"></span>
+
       <button class="btn text ripple" id="tSkip">Пропустить</button>
+
       <button class="btn text ripple" id="tBack">Назад</button>
+
       <button class="btn ripple" id="tNext">Далее</button>
+
     </div>
+
   </div>
+
 </div>
+
 <div class="snack" id="snack"></div>
+
 <input type="file" id="importJson" accept=".json" hidden>
 
+
+
 <!-- ЛОКАЛЬНЫЕ библиотеки (без CDN, без интернета) -->
+
 <script src="lib/pdf.min.js"></script>
+
 <script src="lib/pdf.worker.min.js"></script>
+
 <script src="lib/tesseract.min.js"></script>
 
+
+
 <script>
+
 (()=>{'use strict';
+
 const $=s=>document.querySelector(s);
+
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+
 const fmtSize=b=>b<1024?b+' \u0411':b<1048576?(b/1024).toFixed(0)+' \u041A\u0411':(b/1048576).toFixed(1)+' \u041C\u0411';
+
 const plural=(n,f)=>{n=Math.abs(n)%100;const d=n%10;if(n>10&&n<20)return f[2];if(d>1&&d<5)return f[1];if(d===1)return f[0];return f[2]};
+
 const debounce=(fn,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+
+
 
 const SUBJECTS=['\u041C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u043A\u0430','\u0410\u043B\u0433\u0435\u0431\u0440\u0430','\u0413\u0435\u043E\u043C\u0435\u0442\u0440\u0438\u044F','\u0420\u0443\u0441\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A','\u041B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u0430','\u0418\u0441\u0442\u043E\u0440\u0438\u044F','\u041E\u0431\u0449\u0435\u0441\u0442\u0432\u043E\u0437\u043D\u0430\u043D\u0438\u0435','\u0424\u0438\u0437\u0438\u043A\u0430','\u0425\u0438\u043C\u0438\u044F','\u0411\u0438\u043E\u043B\u043E\u0433\u0438\u044F','\u0413\u0435\u043E\u0433\u0440\u0430\u0444\u0438\u044F','\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0442\u0438\u043A\u0430','\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A','\u041D\u0435\u043C\u0435\u0446\u043A\u0438\u0439 \u044F\u0437\u044B\u043A','\u0424\u0440\u0430\u043D\u0446\u0443\u0437\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A','\u041E\u043A\u0440\u0443\u0436\u0430\u044E\u0449\u0438\u0439 \u043C\u0438\u0440','\u041C\u0443\u0437\u044B\u043A\u0430','\u0418\u0417\u041E','\u0422\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438\u044F','\u041E\u0411\u0416','\u0424\u0438\u0437\u043A\u0443\u043B\u044C\u0442\u0443\u0440\u0430','\u0410\u0441\u0442\u0440\u043E\u043D\u043E\u043C\u0438\u044F','\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u043A\u0430','\u041F\u0440\u0430\u0432\u043E'];
 
+
+
 const KNOWLEDGE_BASE={
+
   '\u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u0430\u044F':'\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u0430\u044F \u0444\u0443\u043D\u043A\u0446\u0438\u0438 \u2014 \u043F\u0440\u0435\u0434\u0435\u043B \u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F \u043F\u0440\u0438\u0440\u0430\u0449\u0435\u043D\u0438\u044F \u0444\u0443\u043D\u043A\u0446\u0438\u0438 \u043A \u043F\u0440\u0438\u0440\u0430\u0449\u0435\u043D\u0438\u044E \u0430\u0440\u0433\u0443\u043C\u0435\u043D\u0442\u0430 \u043F\u0440\u0438 \u0441\u0442\u0440\u0435\u043C\u043B\u0435\u043D\u0438\u0438 \u043A \u043D\u0443\u043B\u044E. \u041E\u0431\u043E\u0437\u043D\u0430\u0447\u0430\u0435\u0442\u0441\u044F f\u2032(x). \u0413\u0435\u043E\u043C\u0435\u0442\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0441\u043C\u044B\u0441\u043B: \u0443\u0433\u043B\u043E\u0432\u043E\u0439 \u043A\u043E\u044D\u0444\u0444\u0438\u0446\u0438\u0435\u043D\u0442 \u043A\u0430\u0441\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0439. \u0424\u043E\u0440\u043C\u0443\u043B\u044B: (x^n)\u2032=nx^(n-1), (sin x)\u2032=cos x, (cos x)\u2032=-sin x, (e^x)\u2032=e^x, (ln x)\u2032=1/x.',
+
   '\u0438\u043D\u0442\u0435\u0433\u0440\u0430\u043B':'\u0418\u043D\u0442\u0435\u0433\u0440\u0430\u043B \u2014 \u043E\u0431\u0440\u0430\u0442\u043D\u0430\u044F \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044F \u043A \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u043E\u0439. \u041D\u0435\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D\u043D\u044B\u0439 \u0438\u043D\u0442\u0435\u0433\u0440\u0430\u043B \u2014 \u0441\u0435\u043C\u0435\u0439\u0441\u0442\u0432\u043E \u043F\u0435\u0440\u0432\u043E\u043E\u0431\u0440\u0430\u0437\u043D\u044B\u0445. \u041E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D\u043D\u044B\u0439 \u0438\u043D\u0442\u0435\u0433\u0440\u0430\u043B \u0440\u0430\u0432\u0435\u043D \u043F\u043B\u043E\u0449\u0430\u0434\u0438 \u043F\u043E\u0434 \u0433\u0440\u0430\u0444\u0438\u043A\u043E\u043C. \u0424\u043E\u0440\u043C\u0443\u043B\u0430 \u041D\u044C\u044E\u0442\u043E\u043D\u0430-\u041B\u0435\u0439\u0431\u043D\u0438\u0446\u0430 \u0441\u0432\u044F\u0437\u044B\u0432\u0430\u0435\u0442 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D\u043D\u044B\u0439 \u0438\u043D\u0442\u0435\u0433\u0440\u0430\u043B \u0441 \u043F\u0435\u0440\u0432\u043E\u043E\u0431\u0440\u0430\u0437\u043D\u043E\u0439.',
+
   '\u043F\u043B\u043E\u0449\u0430\u0434\u044C \u043A\u0440\u0443\u0433\u0430':'S=\u03C0r\u00B2, \u0433\u0434\u0435 r \u2014 \u0440\u0430\u0434\u0438\u0443\u0441. \u0422\u0430\u043A\u0436\u0435 S=\u03C0d\u00B2/4 \u0447\u0435\u0440\u0435\u0437 \u0434\u0438\u0430\u043C\u0435\u0442\u0440. \u03C0\u22483.14159.',
+
   '\u043E\u0431\u044A\u0451\u043C':'\u041A\u0443\u0431 V=a\u00B3, \u043F\u0430\u0440\u0430\u043B\u043B\u0435\u043B\u0435\u043F\u0438\u043F\u0435\u0434 V=abc, \u0446\u0438\u043B\u0438\u043D\u0434\u0440 V=\u03C0r\u00B2h, \u0448\u0430\u0440 V=4/3\u03C0r\u00B3, \u043A\u043E\u043D\u0443\u0441 V=1/3\u03C0r\u00B2h, \u043F\u0438\u0440\u0430\u043C\u0438\u0434\u0430 V=1/3Sh.',
+
   '\u043F\u0435\u0440\u0438\u043C\u0435\u0442\u0440':'\u0421\u0443\u043C\u043C\u0430 \u0434\u043B\u0438\u043D \u0441\u0442\u043E\u0440\u043E\u043D. \u041F\u0440\u044F\u043C\u043E\u0443\u0433\u043E\u043B\u044C\u043D\u0438\u043A P=2(a+b), \u043A\u0432\u0430\u0434\u0440\u0430\u0442 P=4a, \u0442\u0440\u0435\u0443\u0433\u043E\u043B\u044C\u043D\u0438\u043A P=a+b+c, \u043E\u043A\u0440\u0443\u0436\u043D\u043E\u0441\u0442\u044C P=2\u03C0r.',
+
   '\u0443\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435':'\u0420\u0430\u0432\u0435\u043D\u0441\u0442\u0432\u043E \u0441 \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439. \u041B\u0438\u043D\u0435\u0439\u043D\u043E\u0435 ax+b=0 \u2192 x=-b/a. \u041A\u0432\u0430\u0434\u0440\u0430\u0442\u043D\u043E\u0435 ax\u00B2+bx+c=0 \u2192 x=(-b\u00B1\u221A(b\u00B2-4ac))/2a. \u0414\u0438\u0441\u043A\u0440\u0438\u043C\u0438\u043D\u0430\u043D\u0442 D=b\u00B2-4ac.',
+
   '\u0444\u0443\u043D\u043A\u0446\u0438\u044F':'\u041F\u0440\u0430\u0432\u0438\u043B\u043E, \u043A\u0430\u0436\u0434\u043E\u043C\u0443 x \u0438\u0437 X \u0441\u0442\u0430\u0432\u044F\u0449\u0435\u0435 \u0432 \u0441\u043E\u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0438\u0435 \u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439 y \u0438\u0437 Y. \u041B\u0438\u043D\u0435\u0439\u043D\u0430\u044F y=kx+b, \u043A\u0432\u0430\u0434\u0440\u0430\u0442\u0438\u0447\u043D\u0430\u044F y=ax\u00B2+bx+c.',
+
   '\u0444\u043E\u0442\u043E\u0441\u0438\u043D\u0442\u0435\u0437':'\u041E\u0431\u0440\u0430\u0437\u043E\u0432\u0430\u043D\u0438\u0435 \u043E\u0440\u0433\u0430\u043D\u0438\u0447\u0435\u0441\u043A\u0438\u0445 \u0432\u0435\u0449\u0435\u0441\u0442\u0432 \u0438\u0437 CO\u2082 \u0438 H\u2082O \u043D\u0430 \u0441\u0432\u0435\u0442\u0443 \u043F\u0440\u0438 \u0443\u0447\u0430\u0441\u0442\u0438\u0438 \u0445\u043B\u043E\u0440\u043E\u0444\u0438\u043B\u043B\u0430. \u0423\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435: 6CO\u2082+6H\u2082O\u2192C\u2086H\u2081\u2082O\u2086+6O\u2082. \u041F\u0440\u043E\u0438\u0441\u0445\u043E\u0434\u0438\u0442 \u0432 \u0445\u043B\u043E\u0440\u043E\u043F\u043B\u0430\u0441\u0442\u0430\u0445.',
+
   '\u043A\u043B\u0435\u0442\u043A\u0430':'\u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F \u0435\u0434\u0438\u043D\u0438\u0446\u0430 \u0436\u0438\u0432\u044B\u0445 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u043E\u0432. \u0411\u044B\u0432\u0430\u0435\u0442 \u043F\u0440\u043E\u043A\u0430\u0440\u0438\u043E\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F (\u0431\u0435\u0437 \u044F\u0434\u0440\u0430) \u0438 \u044D\u0443\u043A\u0430\u0440\u0438\u043E\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F (\u0441 \u044F\u0434\u0440\u043E\u043C). \u041E\u0440\u0433\u0430\u043D\u0435\u043B\u043B\u044B: \u044F\u0434\u0440\u043E, \u043C\u0438\u0442\u043E\u0445\u043E\u043D\u0434\u0440\u0438\u0438, \u0440\u0438\u0431\u043E\u0441\u043E\u043C\u044B, \u042D\u041F\u0421, \u0430\u043F\u043F\u0430\u0440\u0430\u0442 \u0413\u043E\u043B\u044C\u0434\u0436\u0438.',
+
   '\u0434\u043D\u043A':'\u0414\u0435\u0437\u043E\u043A\u0441\u0438\u0440\u0438\u0431\u043E\u043D\u0443\u043A\u043B\u0435\u0438\u043D\u043E\u0432\u0430\u044F \u043A\u0438\u0441\u043B\u043E\u0442\u0430 \u2014 \u0445\u0440\u0430\u043D\u0438\u0442 \u0433\u0435\u043D\u0435\u0442\u0438\u0447\u0435\u0441\u043A\u0443\u044E \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E. \u0414\u0432\u043E\u0439\u043D\u0430\u044F \u0441\u043F\u0438\u0440\u0430\u043B\u044C \u0438\u0437 \u043D\u0443\u043A\u043B\u0435\u043E\u0442\u0438\u0434\u043E\u0432 A, T, G, C. \u041F\u0440\u0438\u043D\u0446\u0438\u043F \u043A\u043E\u043C\u043F\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u0440\u043D\u043E\u0441\u0442\u0438: A-T, G-C.',
+
   '\u044D\u0432\u043E\u043B\u044E\u0446\u0438\u044F':'\u0418\u0441\u0442\u043E\u0440\u0438\u0447\u0435\u0441\u043A\u043E\u0435 \u0440\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u0436\u0438\u0432\u043E\u0439 \u043F\u0440\u0438\u0440\u043E\u0434\u044B. \u041C\u0435\u0445\u0430\u043D\u0438\u0437\u043C\u044B: \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439 \u043E\u0442\u0431\u043E\u0440, \u043C\u0443\u0442\u0430\u0446\u0438\u0438, \u0434\u0440\u0435\u0439\u0444 \u0433\u0435\u043D\u043E\u0432, \u0438\u0437\u043E\u043B\u044F\u0446\u0438\u044F. \u0422\u0435\u043E\u0440\u0438\u044F \u0414\u0430\u0440\u0432\u0438\u043D\u0430.',
+
   '\u0441\u0438\u043B\u0430':'\u0412\u0435\u043A\u0442\u043E\u0440\u043D\u0430\u044F \u0432\u0435\u043B\u0438\u0447\u0438\u043D\u0430 \u2014 \u043C\u0435\u0440\u0430 \u0432\u0437\u0430\u0438\u043C\u043E\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F \u0442\u0435\u043B. \u0415\u0434\u0438\u043D\u0438\u0446\u0430 \u2014 \u043D\u044C\u044E\u0442\u043E\u043D (\u041D). \u0417\u0430\u043A\u043E\u043D\u044B \u041D\u044C\u044E\u0442\u043E\u043D\u0430: 1) \u0438\u043D\u0435\u0440\u0446\u0438\u044F, 2) F=ma, 3) \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435=\u043F\u0440\u043E\u0442\u0438\u0432\u043E\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435.',
+
   '\u044D\u043D\u0435\u0440\u0433\u0438\u044F':'\u041C\u0435\u0440\u0430 \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0438 \u0441\u043E\u0432\u0435\u0440\u0448\u0430\u0442\u044C \u0440\u0430\u0431\u043E\u0442\u0443. \u041A\u0438\u043D\u0435\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F E=mv\u00B2/2, \u043F\u043E\u0442\u0435\u043D\u0446\u0438\u0430\u043B\u044C\u043D\u0430\u044F E=mgh. \u0417\u0430\u043A\u043E\u043D \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F: \u044D\u043D\u0435\u0440\u0433\u0438\u044F \u043D\u0435 \u0438\u0441\u0447\u0435\u0437\u0430\u0435\u0442, \u0430 \u043F\u0435\u0440\u0435\u0445\u043E\u0434\u0438\u0442 \u0438\u0437 \u0444\u043E\u0440\u043C\u044B \u0432 \u0444\u043E\u0440\u043C\u0443.',
+
   '\u044D\u043B\u0435\u043A\u0442\u0440\u0438\u0447\u0435\u0441\u0442\u0432\u043E':'\u0422\u043E\u043A \u2014 \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043D\u043E\u0435 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u0437\u0430\u0440\u044F\u0434\u043E\u0432. I=Q/t (\u0410), U=A/q (\u0412), R=U/I (\u041E\u043C). \u0417\u0430\u043A\u043E\u043D \u041E\u043C\u0430 I=U/R. \u041C\u043E\u0449\u043D\u043E\u0441\u0442\u044C P=UI.',
+
   '\u0445\u0438\u043C\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0441\u0432\u044F\u0437\u044C':'\u0412\u0437\u0430\u0438\u043C\u043E\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u0430\u0442\u043E\u043C\u043E\u0432. \u0422\u0438\u043F\u044B: \u043A\u043E\u0432\u0430\u043B\u0435\u043D\u0442\u043D\u0430\u044F (\u043E\u0431\u0449\u0438\u0435 \u043F\u0430\u0440\u044B e-), \u0438\u043E\u043D\u043D\u0430\u044F (\u043F\u0435\u0440\u0435\u043D\u043E\u0441 e-), \u043C\u0435\u0442\u0430\u043B\u043B\u0438\u0447\u0435\u0441\u043A\u0430\u044F (\u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u044B\u0439 \u0433\u0430\u0437), \u0432\u043E\u0434\u043E\u0440\u043E\u0434\u043D\u0430\u044F.',
+
   '\u0440\u0435\u0430\u043A\u0446\u0438\u044F \u0445\u0438\u043C\u0438\u0447\u0435\u0441\u043A\u0430\u044F':'\u041F\u0440\u0435\u0432\u0440\u0430\u0449\u0435\u043D\u0438\u0435 \u0432\u0435\u0449\u0435\u0441\u0442\u0432. \u0422\u0438\u043F\u044B: \u0441\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435 (A+B\u2192AB), \u0440\u0430\u0437\u043B\u043E\u0436\u0435\u043D\u0438\u0435 (AB\u2192A+B), \u0437\u0430\u043C\u0435\u0449\u0435\u043D\u0438\u0435 (A+BC\u2192AC+B), \u043E\u0431\u043C\u0435\u043D (AB+CD\u2192AD+CB).',
+
   '\u043A\u0438\u0441\u043B\u043E\u0442\u0430':'\u0412\u0435\u0449\u0435\u0441\u0442\u0432\u043E \u0438\u0437 H \u0438 \u043A\u0438\u0441\u043B\u043E\u0442\u043D\u043E\u0433\u043E \u043E\u0441\u0442\u0430\u0442\u043A\u0430. \u0421\u0438\u043B\u044C\u043D\u044B\u0435: HCl, H\u2082SO\u2084, HNO\u2083. \u0421\u043B\u0430\u0431\u044B\u0435: H\u2082CO\u2083, CH\u2083COOH.',
+
   '\u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0438\u0435':'\u0412\u0435\u0449\u0435\u0441\u0442\u0432\u043E \u0438\u0437 \u043C\u0435\u0442\u0430\u043B\u043B\u0430 \u0438 OH\u207B. \u0421\u0438\u043B\u044C\u043D\u044B\u0435: NaOH, KOH. \u0420\u0435\u0430\u0433\u0438\u0440\u0443\u044E\u0442 \u0441 \u043A\u0438\u0441\u043B\u043E\u0442\u0430\u043C\u0438 (\u043D\u0435\u0439\u0442\u0440\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F).',
+
   '\u0441\u043E\u043B\u044C':'\u041F\u0440\u043E\u0434\u0443\u043A\u0442 \u0440\u0435\u0430\u043A\u0446\u0438\u0438 \u043A\u0438\u0441\u043B\u043E\u0442\u044B \u0438 \u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0438\u044F. NaCl, CaCO\u2083, K\u2082SO\u2084.',
+
   '\u043E\u043A\u0441\u0438\u0434':'\u0421\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430 \u0441 \u043A\u0438\u0441\u043B\u043E\u0440\u043E\u0434\u043E\u043C. \u041E\u0441\u043D\u043E\u0432\u043D\u044B\u0435 (Na\u2082O), \u043A\u0438\u0441\u043B\u043E\u0442\u043D\u044B\u0435 (CO\u2082), \u0430\u043C\u0444\u043E\u0442\u0435\u0440\u043D\u044B\u0435 (Al\u2082O\u2083).',
+
   '\u0430\u0442\u043E\u043C':'\u041D\u0430\u0438\u043C\u0435\u043D\u044C\u0448\u0430\u044F \u0447\u0430\u0441\u0442\u0438\u0446\u0430 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430. \u042F\u0434\u0440\u043E (\u043F\u0440\u043E\u0442\u043E\u043D\u044B+\u043D\u0435\u0439\u0442\u0440\u043E\u043D\u044B) + \u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u044B.',
+
   '\u043C\u043E\u043B\u0435\u043A\u0443\u043B\u0430':'\u041D\u0430\u0438\u043C\u0435\u043D\u044C\u0448\u0430\u044F \u0447\u0430\u0441\u0442\u0438\u0446\u0430 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u0430. H\u2082O, O\u2082, CO\u2082.',
+
   '\u043F\u0435\u0440\u0438\u043E\u0434\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0442\u0430\u0431\u043B\u0438\u0446\u0430':'\u0421\u0438\u0441\u0442\u0435\u043C\u0430 \u041C\u0435\u043D\u0434\u0435\u043B\u0435\u0435\u0432\u0430. \u0413\u0440\u0443\u043F\u043F\u044B (\u0441\u0442\u043E\u043B\u0431\u0446\u044B) \u2014 \u043F\u043E\u0445\u043E\u0436\u0438\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430. \u041F\u0435\u0440\u0438\u043E\u0434\u044B (\u0441\u0442\u0440\u043E\u043A\u0438) \u2014 \u043E\u0434\u0438\u043D\u0430\u043A\u043E\u0432\u043E\u0435 \u0447\u0438\u0441\u043B\u043E \u0443\u0440\u043E\u0432\u043D\u0435\u0439.',
+
   '\u0433\u043E\u0441\u0443\u0434\u0430\u0440\u0441\u0442\u0432\u043E':'\u041F\u043E\u043B\u0438\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u0430\u0446\u0438\u044F \u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430. \u041F\u0440\u0438\u0437\u043D\u0430\u043A\u0438: \u0442\u0435\u0440\u0440\u0438\u0442\u043E\u0440\u0438\u044F, \u043D\u0430\u0441\u0435\u043B\u0435\u043D\u0438\u0435, \u0432\u043B\u0430\u0441\u0442\u044C, \u0441\u0443\u0432\u0435\u0440\u0435\u043D\u0438\u0442\u0435\u0442, \u043D\u0430\u043B\u043E\u0433\u0438, \u043F\u0440\u0430\u0432\u043E\u0432\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430.',
+
   '\u043A\u043E\u043D\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u044F':'\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0437\u0430\u043A\u043E\u043D \u0433\u043E\u0441\u0443\u0434\u0430\u0440\u0441\u0442\u0432\u0430. \u041A\u043E\u043D\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u044F \u0420\u0424 \u043F\u0440\u0438\u043D\u044F\u0442\u0430 12.12.1993. \u0412\u044B\u0441\u0448\u0430\u044F \u044E\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0441\u0438\u043B\u0430.',
+
   '\u043F\u0440\u0430\u0432\u043E':'\u0421\u0438\u0441\u0442\u0435\u043C\u0430 \u043E\u0431\u0449\u0435\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0430\u0432\u0438\u043B, \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044B\u0445 \u0433\u043E\u0441\u0443\u0434\u0430\u0440\u0441\u0442\u0432\u043E\u043C. \u041E\u0442\u0440\u0430\u0441\u043B\u0438: \u043A\u043E\u043D\u0441\u0442\u0438\u0442\u0443\u0446\u0438\u043E\u043D\u043D\u043E\u0435, \u0433\u0440\u0430\u0436\u0434\u0430\u043D\u0441\u043A\u043E\u0435, \u0443\u0433\u043E\u043B\u043E\u0432\u043D\u043E\u0435, \u0442\u0440\u0443\u0434\u043E\u0432\u043E\u0435.',
+
   '\u044D\u043A\u043E\u043D\u043E\u043C\u0438\u043A\u0430':'\u041D\u0430\u0443\u043A\u0430 \u043E \u0440\u0430\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u043E\u043C \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0438 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432. \u0412\u043E\u043F\u0440\u043E\u0441\u044B: \u0447\u0442\u043E, \u043A\u0430\u043A, \u0434\u043B\u044F \u043A\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u044C.',
+
   '\u0438\u043D\u0444\u043B\u044F\u0446\u0438\u044F':'\u0423\u0441\u0442\u043E\u0439\u0447\u0438\u0432\u043E\u0435 \u043F\u043E\u0432\u044B\u0448\u0435\u043D\u0438\u0435 \u043E\u0431\u0449\u0435\u0433\u043E \u0443\u0440\u043E\u0432\u043D\u044F \u0446\u0435\u043D. \u041F\u0440\u0438\u0447\u0438\u043D\u044B: \u0438\u0437\u0431\u044B\u0442\u043E\u0447\u043D\u0430\u044F \u044D\u043C\u0438\u0441\u0441\u0438\u044F, \u0440\u043E\u0441\u0442 \u0438\u0437\u0434\u0435\u0440\u0436\u0435\u043A, \u0440\u043E\u0441\u0442 \u0441\u043F\u0440\u043E\u0441\u0430.',
+
   '\u0432\u0432\u043F':'\u0412\u0430\u043B\u043E\u0432\u043E\u0439 \u0432\u043D\u0443\u0442\u0440\u0435\u043D\u043D\u0438\u0439 \u043F\u0440\u043E\u0434\u0443\u043A\u0442 \u2014 \u0441\u0443\u043C\u043C\u0430\u0440\u043D\u0430\u044F \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0442\u043E\u0432\u0430\u0440\u043E\u0432 \u0438 \u0443\u0441\u043B\u0443\u0433 \u0437\u0430 \u0433\u043E\u0434.',
+
   '\u0440\u044B\u043D\u043E\u043A':'\u0421\u0438\u0441\u0442\u0435\u043C\u0430 \u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0439 \u043F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u0435\u0439 \u0438 \u043F\u0440\u043E\u0434\u0430\u0432\u0446\u043E\u0432. \u0417\u0430\u043A\u043E\u043D\u044B \u0441\u043F\u0440\u043E\u0441\u0430 \u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u044F \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u044E\u0442 \u0446\u0435\u043D\u044B.',
+
   '\u0434\u0435\u043D\u044C\u0433\u0438':'\u041E\u0441\u043E\u0431\u044B\u0439 \u0442\u043E\u0432\u0430\u0440: \u043C\u0435\u0440\u0430 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u0438, \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u043E \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u044F, \u043D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u0438\u044F \u0438 \u043F\u043B\u0430\u0442\u0435\u0436\u0430.',
+
   '\u0441\u043F\u0440\u043E\u0441':'\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u0433\u043E\u0442\u043E\u0432\u044B \u043A\u0443\u043F\u0438\u0442\u044C. \u041F\u0440\u0438 \u0440\u043E\u0441\u0442\u0435 \u0446\u0435\u043D\u044B \u0441\u043F\u0440\u043E\u0441 \u043F\u0430\u0434\u0430\u0435\u0442.',
+
   '\u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435':'\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u0433\u043E\u0442\u043E\u0432\u044B \u043F\u0440\u043E\u0434\u0430\u0442\u044C. \u041F\u0440\u0438 \u0440\u043E\u0441\u0442\u0435 \u0446\u0435\u043D\u044B \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0440\u0430\u0441\u0442\u0451\u0442.',
+
   '\u0432\u0435\u043B\u0438\u043A\u0430\u044F \u043E\u0442\u0435\u0447\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u0432\u043E\u0439\u043D\u0430':'1941-1945, \u0421\u0421\u0421\u0420 \u043F\u0440\u043E\u0442\u0438\u0432 \u043D\u0430\u0446\u0438\u0441\u0442\u0441\u043A\u043E\u0439 \u0413\u0435\u0440\u043C\u0430\u043D\u0438\u0438. 22.06.1941 \u2014 09.05.1945. \u0411\u0438\u0442\u0432\u044B: \u041C\u043E\u0441\u043A\u043E\u0432\u0441\u043A\u0430\u044F, \u0421\u0442\u0430\u043B\u0438\u043D\u0433\u0440\u0430\u0434\u0441\u043A\u0430\u044F, \u041A\u0443\u0440\u0441\u043A\u0430\u044F, \u0411\u0435\u0440\u043B\u0438\u043D\u0441\u043A\u0430\u044F.',
+
   '\u0440\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F 1917':'\u0424\u0435\u0432\u0440\u0430\u043B\u044C\u0441\u043A\u0430\u044F (\u0441\u0432\u0435\u0440\u0436\u0435\u043D\u0438\u0435 \u043C\u043E\u043D\u0430\u0440\u0445\u0438\u0438) \u0438 \u041E\u043A\u0442\u044F\u0431\u0440\u044C\u0441\u043A\u0430\u044F (\u043F\u0440\u0438\u0445\u043E\u0434 \u0431\u043E\u043B\u044C\u0448\u0435\u0432\u0438\u043A\u043E\u0432). \u041F\u0440\u0438\u0432\u0435\u043B\u0430 \u043A \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044E \u0421\u0421\u0421\u0420 \u0432 1922.',
+
   '\u043F\u0451\u0442\u0440 \u043F\u0435\u0440\u0432\u044B\u0439':'1672-1725, \u043F\u0435\u0440\u0432\u044B\u0439 \u0438\u043C\u043F\u0435\u0440\u0430\u0442\u043E\u0440. \u0420\u0435\u0444\u043E\u0440\u043C\u044B: \u0444\u043B\u043E\u0442, \u0421\u041F\u0431 (1703), \u0422\u0430\u0431\u0435\u043B\u044C \u043E \u0440\u0430\u043D\u0433\u0430\u0445.',
+
   '\u0435\u043A\u0430\u0442\u0435\u0440\u0438\u043D\u0430 \u0432\u0442\u043E\u0440\u0430\u044F':'1729-1796, \u043F\u0440\u043E\u0441\u0432\u0435\u0449\u0451\u043D\u043D\u044B\u0439 \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u0438\u0437\u043C. \u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435 \u0438\u043C\u043F\u0435\u0440\u0438\u0438, \u0440\u0435\u0444\u043E\u0440\u043C\u044B.',
+
   '\u043F\u0443\u0448\u043A\u0438\u043D':'1799-1837, \u043E\u0441\u043D\u043E\u0432\u043E\u043F\u043E\u043B\u043E\u0436\u043D\u0438\u043A \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0433\u043E \u0440\u0443\u0441\u0441\u043A\u043E\u0433\u043E \u043B\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u043D\u043E\u0433\u043E \u044F\u0437\u044B\u043A\u0430. \u00AB\u0415\u0432\u0433\u0435\u043D\u0438\u0439 \u041E\u043D\u0435\u0433\u0438\u043D\u00BB, \u00AB\u041A\u0430\u043F\u0438\u0442\u0430\u043D\u0441\u043A\u0430\u044F \u0434\u043E\u0447\u043A\u0430\u00BB.',
+
   '\u043B\u0435\u0440\u043C\u043E\u043D\u0442\u043E\u0432':'1814-1841. \u00AB\u0413\u0435\u0440\u043E\u0439 \u043D\u0430\u0448\u0435\u0433\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438\u00BB, \u00AB\u041C\u0446\u044B\u0440\u0438\u00BB, \u00AB\u0411\u043E\u0440\u043E\u0434\u0438\u043D\u043E\u00BB.',
+
   '\u0442\u043E\u043B\u0441\u0442\u043E\u0439':'1828-1910. \u00AB\u0412\u043E\u0439\u043D\u0430 \u0438 \u043C\u0438\u0440\u00BB, \u00AB\u0410\u043D\u043D\u0430 \u041A\u0430\u0440\u0435\u043D\u0438\u043D\u0430\u00BB.',
+
   '\u0434\u043E\u0441\u0442\u043E\u0435\u0432\u0441\u043A\u0438\u0439':'1821-1881. \u00AB\u041F\u0440\u0435\u0441\u0442\u0443\u043F\u043B\u0435\u043D\u0438\u0435 \u0438 \u043D\u0430\u043A\u0430\u0437\u0430\u043D\u0438\u0435\u00BB, \u00AB\u0418\u0434\u0438\u043E\u0442\u00BB, \u00AB\u0411\u0440\u0430\u0442\u044C\u044F \u041A\u0430\u0440\u0430\u043C\u0430\u0437\u043E\u0432\u044B\u00BB.',
+
   '\u0447\u0435\u0445\u043E\u0432':'1860-1904. \u00AB\u0412\u0438\u0448\u043D\u0451\u0432\u044B\u0439 \u0441\u0430\u0434\u00BB, \u00AB\u0427\u0430\u0439\u043A\u0430\u00BB, \u00AB\u0422\u0440\u0438 \u0441\u0435\u0441\u0442\u0440\u044B\u00BB.',
+
   '\u0433\u043E\u0433\u043E\u043B\u044C':'1809-1852. \u00AB\u041C\u0451\u0440\u0442\u0432\u044B\u0435 \u0434\u0443\u0448\u0438\u00BB, \u00AB\u0420\u0435\u0432\u0438\u0437\u043E\u0440\u00BB, \u00AB\u0428\u0438\u043D\u0435\u043B\u044C\u00BB.',
+
   '\u0433\u0440\u0438\u0431\u043E\u0435\u0434\u043E\u0432':'1795-1829. \u00AB\u0413\u043E\u0440\u0435 \u043E\u0442 \u0443\u043C\u0430\u00BB.',
+
   '\u043E\u0441\u0442\u0440\u043E\u0432\u0441\u043A\u0438\u0439':'1823-1886. \u00AB\u0413\u0440\u043E\u0437\u0430\u00BB, \u00AB\u0411\u0435\u0441\u043F\u0440\u0438\u0434\u0430\u043D\u043D\u0438\u0446\u0430\u00BB.',
+
   '\u043B\u043E\u043C\u043E\u043D\u043E\u0441\u043E\u0432':'1711-1765. \u0423\u0447\u0451\u043D\u044B\u0439-\u044D\u043D\u0446\u0438\u043A\u043B\u043E\u043F\u0435\u0434\u0438\u0441\u0442, \u043E\u0441\u043D\u043E\u0432\u043E\u043F\u043E\u043B\u043E\u0436\u043D\u0438\u043A \u0440\u0443\u0441\u0441\u043A\u043E\u0439 \u043D\u0430\u0443\u043A\u0438. \u0417\u0430\u043A\u043E\u043D \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F \u043C\u0430\u0441\u0441\u044B.',
+
   '\u043A\u0440\u044B\u043B\u043E\u0432':'1769-1844. \u0411\u0430\u0441\u043D\u0438: \u00AB\u0412\u043E\u0440\u043E\u043D\u0430 \u0438 \u041B\u0438\u0441\u0438\u0446\u0430\u00BB, \u00AB\u0421\u0442\u0440\u0435\u043A\u043E\u0437\u0430 \u0438 \u041C\u0443\u0440\u0430\u0432\u0435\u0439\u00BB.',
+
   '\u043D\u0435\u043A\u0440\u0430\u0441\u043E\u0432':'1821-1878. \u00AB\u041A\u043E\u043C\u0443 \u043D\u0430 \u0420\u0443\u0441\u0438 \u0436\u0438\u0442\u044C \u0445\u043E\u0440\u043E\u0448\u043E\u00BB.',
+
   '\u0442\u044E\u0442\u0447\u0435\u0432':'1803-1873. \u00ABSsilentium!\u00BB, \u00AB\u0423\u043C\u043E\u043C \u0420\u043E\u0441\u0441\u0438\u044E \u043D\u0435 \u043F\u043E\u043D\u044F\u0442\u044C\u00BB.',
+
   '\u0444\u0435\u0442':'1820-1892. \u00AB\u0428\u0451\u043F\u043E\u0442, \u0440\u043E\u0431\u043A\u043E\u0435 \u0434\u044B\u0445\u0430\u043D\u044C\u0435\u00BB.',
+
   '\u0431\u043B\u043E\u043A':'1880-1921. \u00AB\u0414\u0432\u0435\u043D\u0430\u0434\u0446\u0430\u0442\u044C\u00BB, \u00AB\u041D\u0435\u0437\u043D\u0430\u043A\u043E\u043C\u043A\u0430\u00BB.',
+
   '\u0430\u0445\u043C\u0430\u0442\u043E\u0432\u0430':'1889-1966. \u00AB\u0420\u0435\u043A\u0432\u0438\u0435\u043C\u00BB, \u0441\u0431\u043E\u0440\u043D\u0438\u043A\u0438 \u00AB\u0427\u0451\u0442\u043A\u0438\u00BB, \u00AB\u0411\u0435\u043B\u0430\u044F \u0441\u0442\u0430\u044F\u00BB.',
+
   '\u0446\u0432\u0435\u0442\u0430\u0435\u0432\u0430':'1892-1941. \u00AB\u041F\u043E\u044D\u043C\u0430 \u0433\u043E\u0440\u044B\u00BB, \u00AB\u041F\u043E\u044D\u043C\u0430 \u043A\u043E\u043D\u0446\u0430\u00BB.',
+
   '\u0435\u0441\u0435\u043D\u0438\u043D':'1895-1925. \u00AB\u0411\u0435\u0440\u0451\u0437\u0430\u00BB, \u00AB\u041D\u0435 \u0436\u0430\u043B\u0435\u044E, \u043D\u0435 \u0437\u043E\u0432\u0443, \u043D\u0435 \u043F\u043B\u0430\u0447\u0443\u00BB.',
+
   '\u043C\u0430\u044F\u043A\u043E\u0432\u0441\u043A\u0438\u0439':'1893-1930. \u00AB\u041E\u0431\u043B\u0430\u043A\u043E \u0432 \u0448\u0442\u0430\u043D\u0430\u0445\u00BB, \u00AB\u0412\u043E \u0432\u0435\u0441\u044C \u0433\u043E\u043B\u043E\u0441\u00BB.',
+
   '\u043F\u0430\u0441\u0442\u0435\u0440\u043D\u0430\u043A':'1890-1960, \u041D\u043E\u0431\u0435\u043B\u0435\u0432\u0441\u043A\u0430\u044F \u043F\u0440\u0435\u043C\u0438\u044F. \u00AB\u0414\u043E\u043A\u0442\u043E\u0440 \u0416\u0438\u0432\u0430\u0433\u043E\u00BB.',
+
   '\u0448\u043E\u043B\u043E\u0445\u043E\u0432':'1905-1984, \u041D\u043E\u0431\u0435\u043B\u0435\u0432\u0441\u043A\u0430\u044F \u043F\u0440\u0435\u043C\u0438\u044F. \u00AB\u0422\u0438\u0445\u0438\u0439 \u0414\u043E\u043D\u00BB.',
+
   '\u0431\u0443\u043B\u0433\u0430\u043A\u043E\u0432':'1891-1940. \u00AB\u041C\u0430\u0441\u0442\u0435\u0440 \u0438 \u041C\u0430\u0440\u0433\u0430\u0440\u0438\u0442\u0430\u00BB, \u00AB\u0421\u043E\u0431\u0430\u0447\u044C\u0435 \u0441\u0435\u0440\u0434\u0446\u0435\u00BB.',
+
   '\u0441\u043E\u043B\u0436\u0435\u043D\u0438\u0446\u044B\u043D':'1918-2008, \u041D\u043E\u0431\u0435\u043B\u0435\u0432\u0441\u043A\u0430\u044F \u043F\u0440\u0435\u043C\u0438\u044F. \u00AB\u0410\u0440\u0445\u0438\u043F\u0435\u043B\u0430\u0433 \u0413\u0423\u041B\u0410\u0413\u00BB.',
+
   '\u043F\u0438\u0444\u0430\u0433\u043E\u0440 \u0442\u0435\u043E\u0440\u0435\u043C\u0430':'\u0412 \u043F\u0440\u044F\u043C\u043E\u0443\u0433\u043E\u043B\u044C\u043D\u043E\u043C \u0442\u0440\u0435\u0443\u0433\u043E\u043B\u044C\u043D\u0438\u043A\u0435 \u043A\u0432\u0430\u0434\u0440\u0430\u0442 \u0433\u0438\u043F\u043E\u0442\u0435\u043D\u0443\u0437\u044B \u0440\u0430\u0432\u0435\u043D \u0441\u0443\u043C\u043C\u0435 \u043A\u0432\u0430\u0434\u0440\u0430\u0442\u043E\u0432 \u043A\u0430\u0442\u0435\u0442\u043E\u0432: c\u00B2=a\u00B2+b\u00B2.',
+
   '\u0441\u0438\u043D\u0443\u0441 \u043A\u043E\u0441\u0438\u043D\u0443\u0441':'sin\u03B1=\u043F\u0440\u043E\u0442\u0438\u0432\u043E\u043B\u0435\u0436\u0430\u0449\u0438\u0439/\u0433\u0438\u043F\u043E\u0442\u0435\u043D\u0443\u0437\u0430, cos\u03B1=\u043F\u0440\u0438\u043B\u0435\u0436\u0430\u0449\u0438\u0439/\u0433\u0438\u043F\u043E\u0442\u0435\u043D\u0443\u0437\u0430. sin\u00B2\u03B1+cos\u00B2\u03B1=1.',
+
   '\u043B\u043E\u0433\u0430\u0440\u0438\u0444\u043C':'log_a(b)=c \u043E\u0437\u043D\u0430\u0447\u0430\u0435\u0442 a^c=b. log(ab)=log a+log b, log(a/b)=log a-log b, log(a^n)=n log a.',
+
   '\u043C\u0438\u0442\u043E\u0445\u043E\u043D\u0434\u0440\u0438\u044F':'\u041E\u0440\u0433\u0430\u043D\u0435\u043B\u043B\u0430 \u043A\u043B\u0435\u0442\u043A\u0438 \u2014 \u00AB\u044D\u043D\u0435\u0440\u0433\u0435\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0441\u0442\u0430\u043D\u0446\u0438\u044F\u00BB. \u0421\u0438\u043D\u0442\u0435\u0437\u0438\u0440\u0443\u0435\u0442 \u0410\u0422\u0424 \u0432 \u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0435 \u043A\u043B\u0435\u0442\u043E\u0447\u043D\u043E\u0433\u043E \u0434\u044B\u0445\u0430\u043D\u0438\u044F.',
+
   '\u0445\u043B\u043E\u0440\u043E\u043F\u043B\u0430\u0441\u0442':'\u041E\u0440\u0433\u0430\u043D\u0435\u043B\u043B\u0430 \u0440\u0430\u0441\u0442\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0439 \u043A\u043B\u0435\u0442\u043A\u0438, \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u0442 \u0445\u043B\u043E\u0440\u043E\u0444\u0438\u043B\u043B. \u041C\u0435\u0441\u0442\u043E \u0444\u043E\u0442\u043E\u0441\u0438\u043D\u0442\u0435\u0437\u0430.',
+
   '\u044D\u0440\u0438\u0442\u0440\u043E\u0446\u0438\u0442':'\u041A\u0440\u0430\u0441\u043D\u0430\u044F \u043A\u043B\u0435\u0442\u043A\u0430 \u043A\u0440\u043E\u0432\u0438, \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u0442 \u0433\u0435\u043C\u043E\u0433\u043B\u043E\u0431\u0438\u043D, \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u043A\u0438\u0441\u043B\u043E\u0440\u043E\u0434. \u041D\u0435 \u0438\u043C\u0435\u0435\u0442 \u044F\u0434\u0440\u0430.',
+
   '\u043D\u0435\u0439\u0440\u043E\u043D':'\u041D\u0435\u0440\u0432\u043D\u0430\u044F \u043A\u043B\u0435\u0442\u043A\u0430. \u0422\u0435\u043B\u043E, \u0434\u0435\u043D\u0434\u0440\u0438\u0442\u044B, \u0430\u043A\u0441\u043E\u043D. \u041F\u0435\u0440\u0435\u0434\u0430\u0451\u0442 \u043D\u0435\u0440\u0432\u043D\u044B\u0435 \u0438\u043C\u043F\u0443\u043B\u044C\u0441\u044B.'
+
 };
 
+
+
 const AUTHORS_DB=[
+
   ['\u041C\u0430\u043A\u0430\u0440\u044B\u0447\u0435\u0432 \u042E. \u041D.','makarychev','\u043C\u0430\u043A\u0430\u0440\u044B\u0447\u0435\u0432'],['\u041C\u043E\u0440\u0434\u043A\u043E\u0432\u0438\u0447 \u0410. \u0413.','mordkovich','\u043C\u043E\u0440\u0434\u043A\u043E\u0432\u0438\u0447'],
+
   ['\u0410\u0442\u0430\u043D\u0430\u0441\u044F\u043D \u041B. \u0421.','atanasyan','\u0430\u0442\u0430\u043D\u0430\u0441\u044F\u043D'],['\u041C\u0435\u0440\u0437\u043B\u044F\u043A \u0410. \u0413.','merzlyak','\u043C\u0435\u0440\u0437\u043B\u044F\u043A'],
+
   ['\u0414\u043E\u0440\u043E\u0444\u0435\u0435\u0432 \u0413. \u0412.','dorofeev','\u0434\u043E\u0440\u043E\u0444\u0435\u0435\u0432'],['\u0413\u0430\u0431\u0440\u0438\u0435\u043B\u044F\u043D \u041E. \u0421.','gabrielyan','\u0433\u0430\u0431\u0440\u0438\u0435\u043B\u044F\u043D'],
+
   ['\u041F\u0451\u0440\u044B\u0448\u043A\u0438\u043D \u0410. \u0412.','peryshkin','\u043F\u0435\u0440\u044B\u0448\u043A\u0438\u043D'],['\u041A\u0430\u043C\u0435\u043D\u0441\u043A\u0438\u0439 \u0410. \u0410.','kamenskiy','\u043A\u0430\u043C\u0435\u043D\u0441\u043A\u0438\u0439'],
+
   ['\u041F\u0430\u0441\u0435\u0447\u043D\u0438\u043A \u0412. \u0412.','pasechnik','\u043F\u0430\u0441\u0435\u0447\u043D\u0438\u043A'],['\u0410\u043B\u0435\u043A\u0441\u0430\u0448\u043A\u0438\u043D\u0430 \u041B. \u041D.','aleksashkina','\u0430\u043B\u0435\u043A\u0441\u0430\u0448\u043A\u0438\u043D\u0430'],
+
   ['\u0414\u0430\u043D\u0438\u043B\u043E\u0432 \u0410. \u0410.','danilov','\u0434\u0430\u043D\u0438\u043B\u043E\u0432'],['\u0411\u043E\u0433\u043E\u043B\u044E\u0431\u043E\u0432 \u041B. \u041D.','bogolyubov','\u0431\u043E\u0433\u043E\u043B\u044E\u0431\u043E\u0432'],
+
   ['\u0411\u044B\u043A\u043E\u0432\u0430 \u041D. \u0418.','bykova','\u0431\u044B\u043A\u043E\u0432\u0430'],['\u0412\u0435\u0440\u0435\u0449\u0430\u0433\u0438\u043D\u0430 \u0418. \u041D.','vereshchagina','\u0432\u0435\u0440\u0435\u0449\u0430\u0433\u0438\u043D\u0430'],
+
   ['\u0410\u0444\u0430\u043D\u0430\u0441\u044C\u0435\u0432\u0430 \u041E. \u0412.','afanaseva','\u0430\u0444\u0430\u043D\u0430\u0441\u044C\u0435\u0432\u0430'],['\u041A\u0443\u0437\u043E\u0432\u043B\u0435\u0432 \u0412. \u041F.','kuzovlev','\u043A\u0443\u0437\u043E\u0432\u043B\u0435\u0432'],
+
   ['\u041B\u0430\u0434\u044B\u0436\u0435\u043D\u0441\u043A\u0430\u044F \u0422. \u0410.','ladyzhenskaya','\u043B\u0430\u0434\u044B\u0436\u0435\u043D\u0441\u043A\u0430\u044F'],['\u0411\u0430\u0440\u0430\u043D\u043E\u0432 \u041C. \u0422.','baranov','\u0431\u0430\u0440\u0430\u043D\u043E\u0432'],
+
   ['\u0422\u0440\u043E\u0441\u0442\u0435\u043D\u0446\u043E\u0432\u0430 \u041B. \u0410.','trostentsova','\u0442\u0440\u043E\u0441\u0442\u0435\u043D\u0446\u043E\u0432\u0430'],['\u041A\u043E\u0440\u043E\u0432\u0438\u043D\u0430 \u0412. \u042F.','korovina','\u043A\u043E\u0440\u043E\u0432\u0438\u043D\u0430'],
+
   ['\u0412\u0438\u043B\u0435\u043D\u043A\u0438\u043D \u041D. \u042F.','vilenkin','\u0432\u0438\u043B\u0435\u043D\u043A\u0438\u043D'],['\u041F\u0435\u0442\u0435\u0440\u0441\u043E\u043D \u041B. \u0413.','peterson','\u043F\u0435\u0442\u0435\u0440\u0441\u043E\u043D'],
+
   ['\u0411\u043E\u0441\u043E\u0432\u0430 \u041B. \u041B.','bosova','\u0431\u043E\u0441\u043E\u0432\u0430'],['\u041F\u043E\u043B\u044F\u043A\u043E\u0432 \u041A. \u042E.','polyakov','\u043F\u043E\u043B\u044F\u043A\u043E\u0432'],
+
   ['\u0421\u0435\u043C\u0430\u043A\u0438\u043D \u0418. \u0413.','semakin','\u0441\u0435\u043C\u0430\u043A\u0438\u043D'],['\u0423\u0433\u0440\u0438\u043D\u043E\u0432\u0438\u0447 \u041D. \u0414.','ugrinovich','\u0443\u0433\u0440\u0438\u043D\u043E\u0432\u0438\u0447'],
+
   ['\u041C\u044F\u043A\u0438\u0448\u0435\u0432 \u0413. \u042F.','myakishev','\u043C\u044F\u043A\u0438\u0448\u0435\u0432'],['\u041A\u0430\u0441\u044C\u044F\u043D\u043E\u0432 \u0412. \u0410.','kasyanov','\u043A\u0430\u0441\u044C\u044F\u043D\u043E\u0432'],
+
   ['\u0413\u0435\u043D\u0434\u0435\u043D\u0448\u0442\u0435\u0439\u043D \u041B. \u042D.','gendenstein','\u0433\u0435\u043D\u0434\u0435\u043D\u0448\u0442\u0435\u0439\u043D'],['\u0420\u044B\u043C\u043A\u0435\u0432\u0438\u0447 \u0410. \u041F.','rymkevich','\u0440\u044B\u043C\u043A\u0435\u0432\u0438\u0447'],
+
   ['\u041D\u043E\u0432\u043E\u0448\u0438\u043D\u0441\u043A\u0438\u0439 \u0418. \u0418.','novoshinsky','\u043D\u043E\u0432\u043E\u0448\u0438\u043D\u0441\u043A\u0438\u0439'],['\u0420\u0443\u0434\u0437\u0438\u0442\u0438\u0441 \u0413. \u0415.','rudzitis','\u0440\u0443\u0434\u0437\u0438\u0442\u0438\u0441'],
+
   ['\u041A\u043B\u0438\u043C\u0430\u043D\u043E\u0432\u0430 \u041E. \u0410.','klimanova','\u043A\u043B\u0438\u043C\u0430\u043D\u043E\u0432\u0430'],['\u041C\u0430\u043A\u0441\u0430\u043A\u043E\u0432\u0441\u043A\u0438\u0439 \u0412. \u041F.','maksakovskiy','\u043C\u0430\u043A\u0441\u0430\u043A\u043E\u0432\u0441\u043A\u0438\u0439'],
+
   ['\u0410\u043B\u0435\u043A\u0441\u0435\u0435\u0432 \u0410. \u0418.','alekseev','\u0430\u043B\u0435\u043A\u0441\u0435\u0435\u0432'],['\u0412\u0438\u043D\u043E\u0433\u0440\u0430\u0434\u043E\u0432\u0430 \u041D. \u0424.','vinogradova','\u0432\u0438\u043D\u043E\u0433\u0440\u0430\u0434\u043E\u0432\u0430'],
+
   ['\u0418\u0432\u0430\u043D\u043E\u0432 \u0421. \u0412.','ivanov','\u0438\u0432\u0430\u043D\u043E\u0432'],['\u041A\u0443\u0437\u043D\u0435\u0446\u043E\u0432 \u0410. \u0410.','kuznetsov','\u043A\u0443\u0437\u043D\u0435\u0446\u043E\u0432']
+
 ];
 
+
+
 const TR={a:'\u0430',b:'\u0431',v:'\u0432',w:'\u0432',g:'\u0433',d:'\u0434',e:'\u0435',yo:'\u0451',zh:'\u0436',z:'\u0437',i:'\u0438',y:'\u0439',k:'\u043A',l:'\u043B',m:'\u043C',n:'\u043D',o:'\u043E',p:'\u043F',r:'\u0440',s:'\u0441',t:'\u0442',u:'\u0443',f:'\u0444',h:'\u0445',x:'\u0445',kh:'\u0445',c:'\u0446',ts:'\u0446',ch:'\u0447',sh:'\u0448',sch:'\u0449','\u02BC':'\u044A','\u2019':'\u044A',j:'\u0436',ju:'\u044E',ya:'\u044F'};
+
 function translit(s){return String(s||'').toLowerCase().replace(/yo|zh|kh|ts|ch|sh|sch/gi,m=>TR[m.toLowerCase()]||m).replace(/[a-z]/gi,c=>TR[c.toLowerCase()]||c).replace(/\u044C\u044A+/g,'').replace(/\u0451/g,'\u0435');}
+
 function normalize(s){return translit(s).replace(/[^\u0430-\u044F\u0451a-z0-9\s]/gi,'').replace(/\s+/g,' ').trim().toLowerCase();}
 
+
+
 function aiParse(filename){
+
   const result={title:'',author:'',subject:'',grade:'',year:''};
+
   const base=filename.replace(/\.pdf$/i,'').replace(/[_]+/g,' ').trim();
+
   const low=normalize(base),orig=base.toLowerCase();
+
   
+
   // Извлекаем все годы (4 цифры начиная с 19 или 20)
+
   const allYears=base.match(/\b(19|20)\d{2}\b/g)||[];
+
   // Берём наибольший год как год издания (меньший может быть ГОСТ)
+
   let maxYear=null,maxY=0;
+
   for(const yStr of allYears){const y=+yStr;if(y>=1950&&y<=2030&&y>maxY){maxY=y;maxYear=yStr;}}
+
   if(maxYear)result.year=maxYear;
+
   
+
   // Определяем класс
+
   const gm=base.match(/\b(1[01]|[1-9])\s*(?:класс|кл\.?)\b/i)||base.match(/(?:класс|kl)\s*(1[01]|[1-9])\b/i);
+
   if(gm){const g=+gm[1];if(g>=1&&g<=11)result.grade=g;}
+
   if(!result.grade){const m2=base.match(/\b(1[01]|[1-9])\b/g);if(m2){for(const num of m2){const g=+num;if(g>=1&&g<=11&&num!==result.year){result.grade=g;break;}}}}
+
   
+
   // Сначала ищем автора - это важно для определения предмета
+
   for(const author of AUTHORS_DB){const[name,...keys]=author;for(const k of keys){if(low.includes(normalize(k))||orig.includes(k.toLowerCase())){result.author=name;break;}}if(result.author)break;}
+
   
+
   // Определяем предмет: сначала по ключевым словам, потом по автору
+
   const subjectByAuthor={
+
     'Макарычев Ю. Н.':'Алгебра','Мордкович А. Г.':'Алгебра','Атанасян Л. С.':'Геометрия',
+
     'Мерзляк А. Г.':'Математика','Дорофеев Г. В.':'Математика','Виленкин Н. Я.':'Математика',
+
     'Петерсон Л. Г.':'Математика','Габриелян О. С.':'Химия','Пёрышкин А. В.':'Физика',
+
     'Каменский А. А.':'Биология','Пасечник В. В.':'Биология','Алексашина Л. Н.':'История',
+
     'Данилов А. А.':'История','Боголюбов Л. Н.':'Обществознание','Быкова Н. И.':'Английский язык',
+
     'Верещагина И. Н.':'Английский язык','Афанасьева О. В.':'Английский язык','Кузовлев В. П.':'Английский язык',
+
     'Ладыженская Т. А.':'Русский язык','Баранов М. Т.':'Русский язык','Тростенцова Л. А.':'Русский язык',
+
     'Коровина В. Я.':'Литература','Босова Л. Л.':'Информатика','Поляков К. Ю.':'Информатика',
+
     'Семакин И. Г.':'Информатика','Угринович Н. Д.':'Информатика','Мякишев Г. Я.':'Физика',
+
     'Касьянов В. А.':'Физика','Генденштейн Л. Э.':'Физика','Рымкевич А. П.':'Физика',
+
     'Новошинский И. И.':'Химия','Рудзитис Г. Е.':'Химия','Климанова О. А.':'Литература',
+
     'Максаковский В. П.':'География','Алексеев А. И.':'История','Виноградова Н. Ф.':'Окружающий мир',
+
     'Иванов С. В.':'Русский язык','Кузнецов А. А.':'История'
+
   };
+
   
+
   const subjectMap=[
+
     ['Математика',['математик','matematik']],['Алгебра',['алгебр','algebr']],
+
     ['Геометрия',['геометр','geometr']],['Русский язык',['русск','russk','russian']],
+
     ['Литература',['литератур','literatur']],['История',['истор','istor','history']],
+
     ['Обществознание',['обществ','obschestv']],['Физика',['физик','phizik','physics']],
+
     ['Химия',['химия','хими','himiy','chemistry']],['Биология',['биолог','biolog','biology']],
+
     ['География',['географ','geograf','geography']],['Информатика',['информат','informat']],
+
     ['Английский язык',['английск','angliysk','english']],['Немецкий язык',['немецк','nemetsk','german']],
+
     ['Окружающий мир',['окружающ','okruzh']],['Музыка',['музык','muzik']],['ИЗО',['изо','izo']],
+
     ['Технология',['технолог','tehnolog']],['ОБЖ',['обж','obzh']],['Физкультура',['физкультур','fizkult']],
+
     ['Экономика',['эконом','ekonomi','economics']],['Право',['право','pravo','law']]
+
   ];
+
   
+
   // Сначала ищем по ключевым словам в названии
+
   for(const[sub,keys]of subjectMap){for(const k of keys){if(low.includes(k)||orig.includes(k.toLowerCase())){result.subject=sub;break;}}if(result.subject)break;}
+
   
+
   // Если предмет не найден, но есть автор - определяем по автору
+
   if(!result.subject&&result.author&&subjectByAuthor[result.author]){
+
     result.subject=subjectByAuthor[result.author];
+
   }
+
   
+
   // Генерируем красивое название учебника
+
   if(result.author||result.subject||result.grade){
+
     let titleParts=[];
+
     if(result.subject)titleParts.push(result.subject);
+
     if(result.grade)titleParts.push(result.grade+' класс');
+
     if(result.author){
+
       const shortAuthor=result.author.split(' ').slice(0,2).join(' ');
+
       titleParts.push(shortAuthor);
+
     }
+
     result.title=titleParts.join(' • ');
+
   }else{
+
     result.title=base;
+
   }
+
   
+
   return result;
+
 }
+
+
 
 async function ocrPages(blob,maxPages,firstPageNum,onProgress){
+
   if(typeof Tesseract==='undefined')return null;
+
   try{
+
     const doc=await pdfjsLib.getDocument({data:await blob.arrayBuffer()}).promise;
+
     const startPage=Math.max(1,firstPageNum||1);
+
     const pages=Math.min(maxPages,doc.numPages-startPage+1);
+
     let allText='';
+
     const pageTexts=[];
+
     
+
     // Tesseract v5 - создаём воркера с языком сразу
+
     const worker=await Tesseract.createWorker('rus+eng', 1, {
+
       workerPath: 'lib/tesseract-worker.min.js',
+
       corePath: 'lib/tesseract-core-simd.wasm.js'
+
     });
+
     
+
     for(let i=0;i<pages;i++){
+
       const pageNum=startPage+i;
+
       if(onProgress)onProgress(i+1,pages);
+
       const page=await doc.getPage(pageNum);
+
       const vp=page.getViewport({scale:2});
+
       const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;
+
       await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
+
       try{
+
         const result=await worker.recognize(c);
+
         const text=result.data.text||'';
+
         allText+=text+'\n';
+
         pageTexts.push({page:pageNum,text:text});
+
       }catch(e){console.warn('OCR page error:',e);pageTexts.push({page:pageNum,text:''});}
+
     }
+
     await worker.terminate();
+
     doc.destroy();
+
     
+
     // Сохраняем текст с разметкой по страницам
+
     const ocrData={fullText:allText.substring(0,50000),pages:pageTexts,startPage:startPage};
+
     console.log('OCR завершён, страниц:',pageTexts.length,'начиная с:',startPage);
+
     return ocrData;
+
   }catch(e){console.warn('OCR error:',e);return null;}
+
 }
+
+
 
 function aiChat(userMsg){
+
   const q=userMsg.toLowerCase().trim();
+
   const total=books.length;
+
   const subjects=[...new Set(books.map(b=>b.subject).filter(Boolean))];
+
   const authors=[...new Set(books.map(b=>b.author).filter(Boolean))];
+
   const grades=[...new Set(books.map(b=>b.grade).filter(Boolean))].sort((a,b)=>a-b);
+
   if(/\u043F\u0440\u0438\u0432\u0435\u0442|\u0437\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439|\u0434\u043E\u0431\u0440\u044B\u0439|hello|hi/.test(q))return '\u041F\u0440\u0438\u0432\u0435\u0442! \u042F \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u0439 \u0418\u0418-\u043F\u043E\u043C\u043E\u0449\u043D\u0438\u043A \u2014 \u0440\u0430\u0431\u043E\u0442\u0430\u044E \u0431\u0435\u0437 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430. \u041C\u043E\u0433\u0443:<br>\u2022 \u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C \u043D\u0430 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E 70+ \u0448\u043A\u043E\u043B\u044C\u043D\u044B\u043C \u0442\u0435\u043C\u0430\u043C<br>\u2022 \u041D\u0430\u0439\u0442\u0438 \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u0432 \u0442\u0435\u043A\u0441\u0442\u0430\u0445 \u0442\u0432\u043E\u0438\u0445 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u043E\u0432 (\u0447\u0435\u0440\u0435\u0437 OCR)<br>\u2022 \u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0443 \u0431\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0438<br><br>\u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439: <b>\u00AB\u0447\u0442\u043E \u0442\u0430\u043A\u043E\u0435 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u0430\u044F\u00BB</b> \u0438\u043B\u0438 <b>\u00AB\u043D\u0430\u0439\u0434\u0438 \u0438\u043D\u0442\u0435\u0433\u0440\u0430\u043B\u00BB</b>';
+
   if(/\u043F\u043E\u043C\u043E\u0449\u044C|\u043F\u043E\u043C\u043E\u0433\u0438|\u0447\u0442\u043E \u0442\u044B \u0443\u043C\u0435\u0435\u0448\u044C|help/.test(q))return '\u0423\u043C\u0435\u044E (\u0432\u0441\u0451 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E, \u0431\u0435\u0437 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430):<br>\u2022 \u041E\u0442\u0432\u0435\u0447\u0430\u0442\u044C \u043F\u043E \u0442\u0435\u043C\u0430\u043C: <b>\u00AB\u0447\u0442\u043E \u0442\u0430\u043A\u043E\u0435 \u0414\u041D\u041A\u00BB</b>, <b>\u00AB\u041F\u0438\u0444\u0430\u0433\u043E\u0440\u00BB</b>, <b>\u00AB\u041F\u0443\u0448\u043A\u0438\u043D\u00BB</b><br>\u2022 \u0418\u0441\u043A\u0430\u0442\u044C \u0432 \u0442\u0435\u043A\u0441\u0442\u0430\u0445 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u043E\u0432: <b>\u00AB\u043D\u0430\u0439\u0434\u0438 \u0444\u043E\u0440\u043C\u0443\u043B\u0443 \u043F\u043B\u043E\u0449\u0430\u0434\u0438\u00BB</b><br>\u2022 \u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430: <b>\u00AB\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043A\u043D\u0438\u0433\u00BB</b>, <b>\u00AB\u043A\u0430\u043A\u0438\u0435 \u0430\u0432\u0442\u043E\u0440\u044B\u00BB</b><br>\u2022 \u0410\u043D\u0430\u043B\u0438\u0437 \u0444\u0430\u0439\u043B\u043E\u0432: <b>\u00AB\u0440\u0430\u0437\u0431\u0435\u0440\u0438 \u0444\u0430\u0439\u043B.pdf\u00BB</b>';
+
   let bestMatch=null,bestScore=0;
+
   for(const[key,answer]of Object.entries(KNOWLEDGE_BASE)){const keyWords=key.split(/\s+/).filter(w=>w.length>2);const matches=keyWords.filter(w=>q.includes(w)).length;const score=keyWords.length?matches/keyWords.length:0;if(score>bestScore&&matches>0){bestScore=score;bestMatch={key,answer};}}
+
   if(bestMatch&&bestScore>=0.5){let resp='<b>'+bestMatch.key.charAt(0).toUpperCase()+bestMatch.key.slice(1)+':</b><br>'+bestMatch.answer;const relevant=books.filter(b=>{const txt=(b.title+' '+b.subject+' '+b.author+' '+(b.ocrText||'')).toLowerCase();return bestMatch.key.split(/\s+/).some(w=>w.length>3&&txt.includes(w));});if(relevant.length){resp+='<br><br>\uD83D\uDCDA \u041F\u043E \u044D\u0442\u043E\u0439 \u0442\u0435\u043C\u0435 \u0432 \u0431\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0435:';relevant.slice(0,3).forEach(b=>{resp+='<br>\u2022 <b>'+esc(b.title)+'</b>'+(b.author?' \u2014 '+esc(b.author):'')+(b.grade?' ('+b.grade+' \u043A\u043B)':'');});}return resp;}
+
   const searchTerms=q.replace(/\u0447\u0442\u043E \u0442\u0430\u043A\u043E\u0435|\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435|\u0444\u043E\u0440\u043C\u0443\u043B\u0430|\u043A\u0430\u043A \u0432\u044B\u0447\u0438\u0441\u043B\u0438\u0442\u044C|\u043E\u0431\u044A\u044F\u0441\u043D\u0438|\u0440\u0430\u0441\u0441\u043A\u0430\u0436\u0438 \u043F\u0440\u043E|\u043D\u0430\u0439\u0434\u0438|\u043D\u0430\u0439\u0442\u0438|\u043F\u043E\u043A\u0430\u0436\u0438|\u0438\u0449\u0443|\u0433\u0434\u0435|\u0435\u0441\u0442\u044C \u043B\u0438|\u043C\u043D\u0435|\u043A\u043D\u0438\u0433\u0443|\u0443\u0447\u0435\u0431\u043D\u0438\u043A|\u043F\u043E|\u043F\u0440\u043E/gi,'').trim();
+
   if(searchTerms&&searchTerms.length>2){
+
     const ocrResults=books.filter(b=>b.ocrText&&b.ocrText.toLowerCase().includes(searchTerms)).map(b=>{const idx=b.ocrText.toLowerCase().indexOf(searchTerms);const start=Math.max(0,idx-150),end=Math.min(b.ocrText.length,idx+250);return{book:b,context:b.ocrText.substring(start,end).replace(/\s+/g,' ').trim()};});
+
     const metaResults=books.filter(b=>(b.title+' '+b.author+' '+b.subject).toLowerCase().includes(searchTerms)).filter(b=>!ocrResults.some(r=>r.book.id===b.id));
+
     if(ocrResults.length||metaResults.length){let resp='';if(ocrResults.length){resp+='<b>\u041D\u0430\u0439\u0434\u0435\u043D\u043E \u0432 \u0442\u0435\u043A\u0441\u0442\u0430\u0445 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u043E\u0432 ('+ocrResults.length+'):</b><br>';ocrResults.slice(0,3).forEach((r,i)=>{resp+='<br><b>'+(i+1)+'. '+esc(r.book.title)+'</b>'+(r.book.author?' \u2014 '+esc(r.book.author):'')+(r.book.grade?' ('+r.book.grade+' \u043A\u043B)':'')+'<br><div class="ctx">\u00AB...'+esc(r.context)+'...\u00BB</div>';});}if(metaResults.length){resp+=(ocrResults.length?'<br>':'')+'<b>\u041D\u0430\u0439\u0434\u0435\u043D\u043E \u043F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E/\u0430\u0432\u0442\u043E\u0440\u0443:</b><br>';metaResults.slice(0,3).forEach(b=>{resp+='\u2022 <b>'+esc(b.title)+'</b>'+(b.author?' \u2014 '+esc(b.author):'')+'<br>';});}return resp;}
+
     return '\u041D\u0435 \u043D\u0430\u0448\u0451\u043B \u00AB'+esc(searchTerms)+'\u00BB \u0432 \u0431\u0430\u0437\u0435 \u0437\u043D\u0430\u043D\u0438\u0439 \u0438 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u0430\u0445. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439 \u0434\u0440\u0443\u0433\u043E\u0439 \u0437\u0430\u043F\u0440\u043E\u0441 \u0438\u043B\u0438 \u0434\u043E\u0431\u0430\u0432\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043A\u043D\u0438\u0433.';}
+
   if(/\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043A\u043D\u0438\u0433|\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0432\u0441\u0435\u0433\u043E|\u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430/.test(q)){const withOcr=books.filter(b=>b.ocrText&&b.ocrText.length>50).length;return '\u0412 \u0431\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0435 <b>'+total+'</b> '+plural(total,['\u043A\u043D\u0438\u0433\u0430','\u043A\u043D\u0438\u0433\u0438','\u043A\u043D\u0438\u0433'])+'.<br>\u2022 \u0421 \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u043D\u043D\u044B\u043C \u0442\u0435\u043A\u0441\u0442\u043E\u043C: '+withOcr+'<br>\u2022 \u041F\u0440\u0435\u0434\u043C\u0435\u0442\u043E\u0432: '+subjects.length+'<br>\u2022 \u0410\u0432\u0442\u043E\u0440\u043E\u0432: '+authors.length+'<br>\u2022 \u041A\u043B\u0430\u0441\u0441\u044B: '+(grades.length?grades.join(', '):'\u2014');}
+
   if(/\u043A\u0430\u043A\u0438\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B|\u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B/.test(q))return subjects.length?'\u0415\u0441\u0442\u044C:<br>'+subjects.map(s=>'\u2022 '+s).join('<br>'):'\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u043E\u0432.';
+
   if(/\u043A\u0430\u043A\u0438\u0435 \u0430\u0432\u0442\u043E\u0440\u044B|\u0430\u0432\u0442\u043E\u0440\u044B/.test(q))return authors.length?'\u0410\u0432\u0442\u043E\u0440\u044B:<br>'+authors.slice(0,15).map(a=>'\u2022 '+a).join('<br>'):'\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0430\u0432\u0442\u043E\u0440\u043E\u0432.';
+
   if(/ocr|\u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0432\u0430\u043D\u0438\u0435|\u0442\u0435\u043A\u0441\u0442/.test(q))return 'OCR \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0435\u0442 \u043F\u0435\u0440\u0432\u044B\u0435 3 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043A\u0430\u0436\u0434\u043E\u0433\u043E PDF \u0447\u0435\u0440\u0435\u0437 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u0439 Tesseract.js (\u0444\u0430\u0439\u043B\u044B \u0432 lib/). \u0422\u0435\u043A\u0441\u0442 \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0441\u044F \u0438 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F \u0434\u043B\u044F \u0443\u043C\u043D\u043E\u0433\u043E \u043F\u043E\u0438\u0441\u043A\u0430. \u0420\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u0431\u0435\u0437 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430.';
+
   if(/\u043A\u0430\u043A \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C|\u043A\u0430\u043A \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C/.test(q))return '\u041D\u0430\u0436\u043C\u0438 <b>\u00AB\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C\u00BB</b> \u0441\u043F\u0440\u0430\u0432\u0430 \u0432\u043D\u0438\u0437\u0443 \u2192 \u0432\u044B\u0431\u0435\u0440\u0438 PDF. \u0418\u0418 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442 \u043C\u0435\u0442\u0430\u0434\u0430\u043D\u043D\u044B\u0435, OCR \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0435\u0442 \u0442\u0435\u043A\u0441\u0442. \u0412\u0441\u0451 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E.';
+
   if(/\u0440\u0435\u0437\u0435\u0440\u0432\u043D\u0430\u044F \u043A\u043E\u043F\u0438\u044F|\u0431\u044D\u043A\u0430\u043F|\u044D\u043A\u0441\u043F\u043E\u0440\u0442/.test(q))return '\u041D\u0430\u0436\u043C\u0438 <b>\u00AB\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u00BB</b> \u2014 \u0441\u043A\u0430\u0447\u0430\u0435\u0442\u0441\u044F JSON \u0441\u043E \u0432\u0441\u0435\u0439 \u0431\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u043E\u0439. \u041D\u0430 \u0434\u0440\u0443\u0433\u043E\u043C \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0435 \u2014 <b>\u00AB\u0418\u043C\u043F\u043E\u0440\u0442\u00BB</b>.';
+
   if(/\u043F\u0430\u043F\u043A\u0430|folder/.test(q))return '\u041D\u0430\u0436\u043C\u0438 <b>\u00AB\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u0430\u043F\u043A\u0443\u00BB</b> \u2014 \u043D\u043E\u0432\u044B\u0435 PDF \u0431\u0443\u0434\u0443\u0442 \u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0441\u044F \u0442\u0443\u0434\u0430. <b>\u00AB\u0418\u043C\u043F\u043E\u0440\u0442 \u0438\u0437 \u043F\u0430\u043F\u043A\u0438\u00BB</b> \u2014 \u0437\u0430\u0431\u0435\u0440\u0451\u0442 \u0432\u0441\u0435 PDF \u0438\u0437 \u043F\u0430\u043F\u043A\u0438.';
+
   const fileMatch=q.match(/\u0440\u0430\u0437\u0431\u0435\u0440\u0438|\u043F\u0440\u043E\u0430\u043D\u0430\u043B\u0438\u0437\u0438\u0440\u0443\u0439|\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\s+(.+)/);
+
   if(fileMatch){const fname=q.replace(/\u0440\u0430\u0437\u0431\u0435\u0440\u0438|\u043F\u0440\u043E\u0430\u043D\u0430\u043B\u0438\u0437\u0438\u0440\u0443\u0439|\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438|\u0444\u0430\u0439\u043B/gi,'').trim();if(fname){const info=aiParse(fname);return '\u0410\u043D\u0430\u043B\u0438\u0437 \u00AB'+esc(fname)+'\u00BB:<br>\u2022 \u0410\u0432\u0442\u043E\u0440: '+(info.author||'\u2014')+'<br>\u2022 \u041F\u0440\u0435\u0434\u043C\u0435\u0442: '+(info.subject||'\u2014')+'<br>\u2022 \u041A\u043B\u0430\u0441\u0441: '+(info.grade||'\u2014')+'<br>\u2022 \u0413\u043E\u0434: '+(info.year||'\u2014');}}
+
   return '\u041D\u0435 \u043F\u043E\u043D\u044F\u043B \u0432\u043E\u043F\u0440\u043E\u0441. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439:<br>\u2022 <b>\u00AB\u0447\u0442\u043E \u0442\u0430\u043A\u043E\u0435 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u0430\u044F\u00BB</b><br>\u2022 <b>\u00AB\u043D\u0430\u0439\u0434\u0438 \u0438\u043D\u0442\u0435\u0433\u0440\u0430\u043B\u00BB</b><br>\u2022 <b>\u00AB\u0440\u0430\u0441\u0441\u043A\u0430\u0436\u0438 \u043F\u0440\u043E \u041F\u0443\u0448\u043A\u0438\u043D\u0430\u00BB</b><br>\u2022 <b>\u00AB\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043A\u043D\u0438\u0433\u00BB</b><br>\u2022 <b>\u00AB\u043F\u043E\u043C\u043E\u0449\u044C\u00BB</b>';
+
 }
+
+
 
 let db,books=[],dirHandle=null,dirGranted=false,pdfOk=false,manualCover=null,picked=[];
+
 const state={q:'',sub:'',grade:'',sort:'new'};
+
 const view={id:null,rec:null,doc:null,page:1,pages:0,zoom:'auto',base:1,token:0};
+
 const PALETTES={violet:{primary:'#6750A4',container:'#EADDFF',secondary:'#E8DEF8'},blue:{primary:'#0061A4',container:'#D3E4FF',secondary:'#D7E3F7'},green:{primary:'#386A20',container:'#CDECC6',secondary:'#DCE5D0'},pink:{primary:'#984061',container:'#FFD9E2',secondary:'#F8D9E0'},orange:{primary:'#A23F16',container:'#FFD8CE',secondary:'#F8DFD5'},gray:{primary:'#616161',container:'#E0E0E0',secondary:'#ECECEC'}};
 
+
+
 document.addEventListener('pointerdown',e=>{const t=e.target.closest('.ripple');if(!t)return;const r=document.createElement('span');r.className='rp';const rc=t.getBoundingClientRect(),d=Math.max(rc.width,rc.height)*2;r.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-rc.left-d/2)+'px;top:'+(e.clientY-rc.top-d/2)+'px';t.appendChild(r);setTimeout(()=>r.remove(),600);});
+
 let snackT;function snack(msg,actLabel,actFn){const s=$('#snack');s.innerHTML='';s.append(Object.assign(document.createElement('span'),{textContent:msg}));if(actLabel){const b=document.createElement('button');b.textContent=actLabel;b.onclick=()=>{s.classList.remove('show');actFn&&actFn()};s.append(b);}s.classList.add('show');clearTimeout(snackT);snackT=setTimeout(()=>s.classList.remove('show'),4200);}
+
 const rq=r=>new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+
 function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open('tl3',1);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('books'))d.createObjectStore('books',{keyPath:'id'});if(!d.objectStoreNames.contains('kv'))d.createObjectStore('kv')};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+
 const bs=(m='readonly')=>db.transaction('books',m).objectStore('books');
+
 const ks=(m='readonly')=>db.transaction('kv',m).objectStore('kv');
+
 function ensurePdf(){if(typeof pdfjsLib==='undefined'){pdfOk=false;return Promise.resolve(false);}pdfOk=true;try{pdfjsLib.GlobalWorkerOptions.workerSrc='lib/pdf.worker.min.js'}catch(e){}return Promise.resolve(true);}
+
 async function makeCover(blob){if(!pdfOk)return null;const doc=await pdfjsLib.getDocument({data:await blob.arrayBuffer()}).promise;const page=await doc.getPage(1);const vp=page.getViewport({scale:Math.min(3,640/page.getViewport({scale:1}).width)});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;doc.destroy();return c.toDataURL('image/jpeg',.85);}
+
 function phCover(b){const W=600,H=800,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');const primary=getComputedStyle(document.documentElement).getPropertyValue('--primary').trim()||'#6750A4';const container=getComputedStyle(document.documentElement).getPropertyValue('--primary-container').trim()||'#EADDFF';const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,container);g.addColorStop(1,'#ffffff');x.fillStyle=g;x.fillRect(0,0,W,H);x.fillStyle=primary;x.fillRect(0,0,26,H);x.globalAlpha=.12;x.beginPath();x.arc(W-90,130,150,0,7);x.fill();x.globalAlpha=1;x.fillStyle=primary;x.font='600 26px Roboto,sans-serif';x.textAlign='left';x.fillText(String(b.subject||'\u0423\u0427\u0415\u0411\u041D\u0418\u041A').toUpperCase(),60,110);x.fillStyle='#1D1B20';x.font='700 44px Roboto,sans-serif';wrap(x,b.title,60,200,W-120,56,6);if(b.grade){x.fillStyle=primary;x.beginPath();x.arc(W-90,H-100,56,0,7);x.fill();x.fillStyle='#fff';x.textAlign='center';x.font='700 42px Roboto,sans-serif';x.fillText(b.grade,W-90,H-86);x.font='500 17px Roboto,sans-serif';x.fillText('\u043A\u043B\u0430\u0441\u0441',W-90,H-58);}x.textAlign='left';x.fillStyle='#49454F';x.font='400 24px Roboto,sans-serif';x.fillText(String(b.author||'').slice(0,42),60,H-56);return c.toDataURL('image/jpeg',.87);}
+
 function wrap(x,t,X,y,mw,lh,maxL){const ws=String(t||'').split(/\s+/);let line='',n=0;for(const w of ws){const test=line?line+' '+w:w;if(x.measureText(test).width>mw&&line){x.fillText(line,X,y);y+=lh;line=w;if(++n>=maxL){line='\u2026';break}}else line=test;}if(line&&n<maxL)x.fillText(line,X,y);}
+
 const safeName=s=>String(s).replace(/[\\/:*?"<>|]/g,'_').trim();
+
 async function saveToFolder(b,file){if(!dirHandle||!dirGranted)return;try{let name=(safeName(b.title)||'\u0443\u0447\u0435\u0431\u043D\u0438\u043A').slice(0,90)+(b.grade?'_'+b.grade+'\u043A\u043B':'')+'.pdf';const fh=await dirHandle.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(file);await w.close();}catch(e){console.warn('folder:',e)}}
+
 async function folderClick(){if(!('showDirectoryPicker' in window)){snack('\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u043F\u0430\u043F\u043A\u0438 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0432 Chrome/Edge \u043D\u0430 \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440\u0435');return;}try{if(!dirHandle){dirHandle=await showDirectoryPicker({mode:'readwrite'});dirGranted=true;await rq(ks('readwrite').put(dirHandle,'dir'));}else if(!dirGranted){dirGranted=(await dirHandle.requestPermission({mode:'readwrite'}))==='granted';}else{snack('\u041F\u0430\u043F\u043A\u0430 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0430: \u00AB'+dirHandle.name+'\u00BB');return;}folderUI();if(dirGranted)snack('\u041F\u0430\u043F\u043A\u0430 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0430: \u00AB'+dirHandle.name+'\u00BB');}catch(e){}}
+
 function folderUI(){$('#btnFolder').textContent=dirGranted?'\uD83D\uDCC1 '+dirHandle.name:'\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u0430\u043F\u043A\u0443';}
+
 async function importFromFolder(){if(!dirHandle){await folderClick();if(!dirHandle)return;}if(!dirGranted){dirGranted=(await dirHandle.requestPermission({mode:'readwrite'}))==='granted';if(!dirGranted)return;}snack('\u0421\u043A\u0430\u043D\u0438\u0440\u0443\u044E \u043F\u0430\u043F\u043A\u0443\u2026');let n=0;try{for await(const[name,h] of dirHandle.entries()){if(h.kind!=='file'||!/\.pdf$/i.test(name))continue;if(books.some(b=>b.fname===name))continue;try{await addBookFromFile(await h.getFile());n++;}catch(e){}refresh();}snack(n?'\u0418\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E \u0438\u0437 \u043F\u0430\u043F\u043A\u0438: '+n:'\u0412 \u043F\u0430\u043F\u043A\u0435 \u043D\u0435\u0442 \u043D\u043E\u0432\u044B\u0445 PDF');}catch(e){snack('\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C \u043F\u0430\u043F\u043A\u0443');}}
+
 async function addBookFromFile(file,opts={}){
+
   const ai=aiParse(file.name);const m=Object.assign({},ai,opts.meta||{});if(!opts.meta?.title)m.title=m.title||file.name.replace(/\.pdf$/i,'');
+
   let cover=opts.cover||null,coverSrc=cover?'manual':'ph';
+
   if(!cover&&pdfOk){try{cover=await makeCover(file);coverSrc='pdf';}catch(e){}}
+
   if(!cover){cover=phCover(m);coverSrc='ph';}
+
   let ocrData=null,ocrText='';const prog=$('#ocrProgress'),fill=$('#ocrFill'),txt=$('#ocrText');
+
   if(typeof Tesseract!=='undefined'&&pdfOk){prog.classList.add('show');txt.textContent='\u0417\u0430\u043F\u0443\u0441\u043A \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u0433\u043E OCR...';fill.style.width='10%';try{ocrData=await ocrPages(file,3,parseInt(opts.firstPageNum||1),(cur,total)=>{txt.textContent='\u0420\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0432\u0430\u043D\u0438\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B '+cur+'/'+total+'...';fill.style.width=(10+Math.round(cur/total*90))+'%';});if(ocrData){ocrText=ocrData.fullText;fill.style.width='100%';txt.textContent='OCR \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D: '+ocrText.length+' \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432';}else{txt.textContent='OCR \u043D\u0435 \u0443\u0434\u0430\u043B\u0441\u044F (\u043A\u043D\u0438\u0433\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430 \u0431\u0435\u0437 \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0432\u0430\u043D\u0438\u044F)';}console.log('OCR результат для', file.name, ':', ocrText.substring(0, 100));}catch(e){console.warn('OCR failed:',e);txt.textContent='OCR \u043D\u0435 \u0443\u0434\u0430\u043B\u0441\u044F, \u043A\u043D\u0438\u0433\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0430 \u0431\u0435\u0437 \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0432\u0430\u043D\u0438\u044F';}setTimeout(()=>prog.classList.remove('show'),2500);}else{snack('OCR \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D (\u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D Tesseract.js \u0438\u0437 lib/)');}
+
   const b={id:uid(),title:m.title||file.name,author:m.author||'',subject:m.subject||'',grade:m.grade||'',year:m.year||'',categories:m.categories||'',size:file.size,mime:file.type||'application/pdf',fname:file.name,file,cover,coverSrc,ocrText,ocrData,added:Date.now()};
+
   await rq(bs('readwrite').add(b));books.push(b);saveToFolder(b,file);return b;
+
 }
+
 function imgToCover(file){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>{const w=600,h=w*img.height/img.width,c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',.85));URL.revokeObjectURL(img.src)};img.onerror=rej;img.src=URL.createObjectURL(file);});}
+
 function matches(b){const q=state.q.trim().toLowerCase();if(!q){if(state.sub&&b.subject!==state.sub)return false;if(state.grade&&String(b.grade)!==String(state.grade))return false;return true;}if((b.title+' '+b.author+' '+b.subject).toLowerCase().includes(q))return true;if(b.ocrText&&b.ocrText.toLowerCase().includes(q))return true;return false;}
+
 const sortFn=()=>({new:(a,b)=>b.added-a.added,old:(a,b)=>a.added-b.added,title:(a,b)=>a.title.localeCompare(b.title,'ru'),author:(a,b)=>(a.author||'\u044F').localeCompare(b.author||'\u044F','ru')}[state.sort]);
+
 function cardHTML(b,i){const hasOcr=b.ocrText&&b.ocrText.trim().length>0;const aiBadge=hasOcr?'<span class="ai-badge">🤖 AI Ready</span>':'';const dlTxtBtn=hasOcr?'<button class="btn-download" onclick="downloadTxt(\''+b.id+'\')" title="Скачать TXT">📄 TXT</button>':'';return '<article class="book" data-card="'+b.id+'" style="--i:'+i+'"><button class="cover" data-act="view" data-id="'+b.id+'" title="Открыть просмотр"><img src="'+b.cover+'" alt="" loading="lazy">'+aiBadge+(b.grade?'<span class="badge">'+esc(b.grade)+' КЛ</span>':'')+'</button><div class="binfo"><div class="btitle">'+esc(b.title)+'</div><div class="bauth">'+esc(b.author||'Автор не указан')+(b.subject?' · <small>'+esc(b.subject)+'</small>':'')+(b.categories?' · <small style="color:var(--primary)" title="Категории">🏷️ '+esc(b.categories).split(',').slice(0,2).join(', ')+'</small>':'')+' · '+fmtSize(b.size)+'</div></div><div class="bact">'+dlTxtBtn+'<button class="sib ripple" data-act="dl" data-id="'+b.id+'" title="Скачать PDF"><svg viewBox="0 0 24 24"><path d="M11 3h2v10l3.5-3.5 1.4 1.4L12 16.8 6.1 10.9l1.4-1.4L11 13V3Zm-6 16h14v2H5v-2Z"/></svg></button><button class="sib danger ripple" data-act="del" data-id="'+b.id+'" title="Удалить"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 2h5v2H3V5h5l1-2ZM5 8h14l-1.2 13H6.2L5 8Z"/></svg></button></div></article>';}
+
 function buildChips(){const chip=(v,l,on)=>'<button class="chip ripple '+(on?'on':'')+'" data-v="'+esc(v)+'">'+(on?'\u2713 ':'')+l+'</button>';const subs=[...new Set(books.map(b=>b.subject).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru'));const grades=[...new Set(books.map(b=>b.grade).filter(Boolean))].sort((a,b)=>a-b);$('#chipsSub').innerHTML=chip('','\u0412\u0441\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B',!state.sub)+subs.map(s=>chip(s,esc(s),state.sub===s)).join('');$('#chipsGrade').innerHTML=chip('','\u0412\u0441\u0435 \u043A\u043B\u0430\u0441\u0441\u044B',!state.grade)+grades.map(g=>chip(g,esc(g)+' \u043A\u043B\u0430\u0441\u0441',String(state.grade)===String(g))).join('');}
+
 function render(){const list=books.filter(matches).sort(sortFn());$('#stats').textContent=books.length+' '+plural(books.length,['\u043A\u043D\u0438\u0433\u0430','\u043A\u043D\u0438\u0433\u0438','\u043A\u043D\u0438\u0433'])+' \u00B7 '+fmtSize(books.reduce((s,b)=>s+(b.size||0),0));$('#emptyState').hidden=books.length>0;$('#grid').hidden=!list.length&&!!books.length;if(!list.length&&books.length)snack('\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E');const groups=new Map();list.forEach(b=>{const k=b.grade?+b.grade:0;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(b)});$('#grid').innerHTML=[...groups.keys()].sort((a,b)=>a-b).map(k=>groups.get(k).map((b,i)=>cardHTML(b,i)).join('')).join('');}
+
 function refresh(){buildChips();render();}
+
 async function regenPh(){let n=0;for(const b of books){if(b.coverSrc!=='ph')continue;try{const rec=await rq(bs().get(b.id));b.cover=await makeCover(rec.file);b.coverSrc='pdf';await rq(bs('readwrite').put(b));const img=document.querySelector('[data-card="'+b.id+'"] img');if(img)img.src=b.cover;n++;}catch(e){}}if(n)snack('\u041E\u0431\u043B\u043E\u0436\u043A\u0438 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u044B: '+n);}
+
 async function openViewer(id){const ok=await ensurePdf();if(!ok){snack('\u041F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D: \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D pdf.min.js \u0438\u0437 lib/');return;}view.rec=await rq(bs().get(id));if(!view.rec)return;view.id=id;view.page=1;view.doc=null;$('#vTitle').textContent=view.rec.title;$('#vMeta').textContent=[view.rec.author,view.rec.year].filter(Boolean).join(' \u00B7 ');$('#viewer').classList.add('open');await renderPage(1);}
+
 async function renderPage(p){const token=++view.token,stage=$('#vStage');stage.innerHTML='<div class="spin"></div>';try{if(!view.doc){view.doc=await pdfjsLib.getDocument({data:await view.rec.file.arrayBuffer()}).promise;view.pages=view.doc.numPages;}if(token!==view.token)return;p=Math.max(1,Math.min(view.pages,p));view.page=p;const page=await view.doc.getPage(p);if(token!==view.token)return;const base=page.getViewport({scale:1});view.base=Math.max(280,stage.clientWidth-48)/base.width;const vp=page.getViewport({scale:view.zoom==='auto'?view.base:view.base*parseFloat(view.zoom)});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;stage.innerHTML='';stage.appendChild(c);await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;$('#vPage').textContent=view.page+' / '+view.pages;$('#vPrev').disabled=view.page<=1;$('#vNext').disabled=view.page>=view.pages;}catch(e){stage.innerHTML='<div class="vmsg">\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u0442\u043E\u0431\u0440\u0430\u0437\u0438\u0442\u044C \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443</div>';}}
+
 function closeViewer(){$('#viewer').classList.remove('open');view.token++;if(view.doc){try{view.doc.destroy()}catch(e){}}view.doc=null;view.id=null;}
+
 function saveFile(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),8000);}
+
 async function downloadBook(id){const rec=await rq(bs().get(id));saveFile(rec.file,rec.fname||rec.title+'.pdf');snack('\u0421\u043A\u0430\u0447\u0438\u0432\u0430\u043D\u0438\u0435 \u043D\u0430\u0447\u0430\u043B\u043E\u0441\u044C');}
+
 window.downloadTxt=function(id){const b=books.find(x=>x.id===id);if(!b||!b.ocrText)return;const blob=new Blob([b.ocrText],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=(b.title.replace(/\.pdf$/i,'')||'text')+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);snack('TXT скачан');}
+
 async function deleteBook(id){const b=books.find(x=>x.id===id);if(!b||!confirm('\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u00AB'+b.title+'\u00BB?'))return;await rq(bs('readwrite').delete(id));books=books.filter(x=>x.id!==id);refresh();snack('\u041A\u043D\u0438\u0433\u0430 \u0443\u0434\u0430\u043B\u0435\u043D\u0430');}
+
 const buf2b64=async blob=>{const u=new Uint8Array(await blob.arrayBuffer());let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(s)};
+
 const b64buf=b=>Uint8Array.from(atob(b),c=>c.charCodeAt(0)).buffer;
+
 async function exportAll(){if(!books.length)return snack('\u0411\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0430 \u043F\u0443\u0441\u0442\u0430');snack('\u0421\u043E\u0431\u0438\u0440\u0430\u044E \u0440\u0435\u0437\u0435\u0440\u0432\u043D\u0443\u044E \u043A\u043E\u043F\u0438\u044E\u2026');try{const data={app:'textbook-library',books:[]};for(const b of books){const rec=await rq(bs().get(b.id));const{file,...meta}=b;data.books.push({...meta,fname:rec.fname,file:await buf2b64(rec.file)});}saveFile(new Blob([JSON.stringify(data)],{type:'application/json'}),'biblioteka-'+new Date().toISOString().slice(0,10)+'.json');}catch(e){snack('\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u043D\u0435 \u0443\u0434\u0430\u043B\u0441\u044F');}}
+
 async function importJson(file){try{const data=JSON.parse(await file.text());if(!Array.isArray(data.books))throw 0;let n=0;for(const b of data.books){if(!b||!b.file)continue;const rec={...b,id:b.id&&!books.some(x=>x.id===b.id)?b.id:uid(),file:new Blob([b64buf(b.file)],{type:b.mime||'application/pdf'})};try{await rq(bs('readwrite').add(rec));n++;}catch(e){}}books=await rq(bs().getAll());refresh();ensurePdf().then(ok=>ok&&regenPh());snack('\u0418\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E: '+n);}catch(e){snack('\u0424\u0430\u0439\u043B \u043F\u043E\u0432\u0440\u0435\u0436\u0434\u0451\u043D');}}
+
 function openDlg(el){el.classList.add('open')}function closeDlg(el){el.classList.remove('open')}document.querySelectorAll('.ovl').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeDlg(o)}));
+
 function aiAddMsg(text,isUser){const div=document.createElement('div');div.className='ai-msg '+(isUser?'user':'bot');div.innerHTML=isUser?esc(text):text;$('#aiMsgs').appendChild(div);$('#aiMsgs').scrollTop=$('#aiMsgs').scrollHeight;}
+
 function aiShowSuggest(){const suggestions=books.length?['\u0421\u043A\u043E\u043B\u044C\u043A\u043E \u043A\u043D\u0438\u0433?','\u0427\u0442\u043E \u0442\u0430\u043A\u043E\u0435 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u043D\u0430\u044F?','\u0424\u043E\u0440\u043C\u0443\u043B\u0430 \u043F\u043B\u043E\u0449\u0430\u0434\u0438 \u043A\u0440\u0443\u0433\u0430','\u041D\u0430\u0439\u0434\u0438 \u0438\u043D\u0442\u0435\u0433\u0440\u0430\u043B']:['\u041A\u0430\u043A \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u043D\u0438\u0433\u0443?','\u0427\u0442\u043E \u0442\u044B \u0443\u043C\u0435\u0435\u0448\u044C?','\u0427\u0442\u043E \u0442\u0430\u043A\u043E\u0435 \u0444\u043E\u0442\u043E\u0441\u0438\u043D\u0442\u0435\u0437?'];$('#aiSuggest').innerHTML=suggestions.map(s=>'<button>'+s+'</button>').join('');}
+
 function aiHandle(){const input=$('#aiInput').value.trim();if(!input)return;aiAddMsg(input,true);$('#aiInput').value='';setTimeout(()=>{aiAddMsg(aiChat(input),false);},150);}
+
 $('#fabAI').onclick=()=>{openDlg($('#dlgAI'));if(!$('#aiMsgs').children.length){aiAddMsg('\u041F\u0440\u0438\u0432\u0435\u0442! \u042F \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u0439 \u0418\u0418-\u043F\u043E\u043C\u043E\u0449\u043D\u0438\u043A. \u0420\u0430\u0431\u043E\u0442\u0430\u044E \u0431\u0435\u0437 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430. \u041C\u043E\u0433\u0443 \u043E\u0442\u0432\u0435\u0442\u0438\u0442\u044C \u043D\u0430 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E \u0448\u043A\u043E\u043B\u044C\u043D\u044B\u043C \u0442\u0435\u043C\u0430\u043C \u0438 \u043D\u0430\u0439\u0442\u0438 \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u0432 \u0442\u0435\u043A\u0441\u0442\u0430\u0445 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u043E\u0432. \u0421\u043F\u0440\u043E\u0441\u0438 \u0447\u0442\u043E-\u043D\u0438\u0431\u0443\u0434\u044C!',false);aiShowSuggest();}};
+
 $('#aiSend').onclick=aiHandle;$('#aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')aiHandle()});$('#aiSuggest').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('#aiInput').value=b.textContent;aiHandle();});
+
 function applyPalette(key){const p=PALETTES[key];if(!p)return;const root=document.documentElement;root.style.setProperty('--primary',p.primary);root.style.setProperty('--primary-container',p.container);root.style.setProperty('--secondary-container',p.secondary);localStorage.setItem('tl3_palette',key);renderPalette();books.filter(b=>b.coverSrc==='ph').forEach(b=>{b.cover=phCover(b);const img=document.querySelector('[data-card="'+b.id+'"] img');if(img)img.src=b.cover;});}
+
 function renderPalette(){const cur=localStorage.getItem('tl3_palette')||'violet';$('#palette').innerHTML=Object.keys(PALETTES).map(k=>'<button data-k="'+k+'" style="background:'+PALETTES[k].primary+'" class="'+(k===cur?'on':'')+'" title="'+k+'"></button>').join('');}
+
 $('#btnPalette').onclick=()=>{renderPalette();openDlg($('#dlgPalette'))};$('#btnPaletteClose').onclick=()=>closeDlg($('#dlgPalette'));$('#palette').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;applyPalette(b.dataset.k);});
+
 const TOUR=[{t:'\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C!',d:'\u0411\u0438\u0431\u043B\u0438\u043E\u0442\u0435\u043A\u0430 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u043E\u0432 \u0441 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u043C OCR \u0438 \u0418\u0418. \u0412\u0441\u0451 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u0431\u0435\u0437 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430 \u043F\u043E\u0441\u043B\u0435 \u043F\u0435\u0440\u0432\u043E\u0439 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0438.',sel:null},{sel:'#searchbar',t:'\u0423\u043C\u043D\u044B\u0439 \u043F\u043E\u0438\u0441\u043A',d:'\u0418\u0449\u0435\u0442 \u043F\u043E \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044E, \u0430\u0432\u0442\u043E\u0440\u0443 \u0418 \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u043C\u0443 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u043E\u0432 \u0447\u0435\u0440\u0435\u0437 OCR.'},{sel:'#fab',t:'\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435',d:'\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 PDF \u2014 \u043C\u0435\u0442\u0430\u0434\u0430\u043D\u043D\u044B\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u0442\u0441\u044F \u0441\u0430\u043C\u0438, \u043F\u0435\u0440\u0432\u044B\u0435 3 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u044E\u0442\u0441\u044F \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E.'},{sel:'#fabAI',t:'\u041B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u0439 \u0418\u0418',d:'\u0420\u043E\u0431\u043E\u0442 \u0441\u043B\u0435\u0432\u0430 \u0432\u043D\u0438\u0437\u0443. \u041E\u0442\u0432\u0435\u0447\u0430\u0435\u0442 \u043D\u0430 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E \u0448\u043A\u043E\u043B\u044C\u043D\u044B\u043C \u0442\u0435\u043C\u0430\u043C (70+ \u0442\u0435\u043C) \u0438 \u0438\u0449\u0435\u0442 \u0432 \u0443\u0447\u0435\u0431\u043D\u0438\u043A\u0430\u0445. \u0420\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u0431\u0435\u0437 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430.'},{sel:'#btnFolder',t:'\u041F\u0430\u043F\u043A\u0430',d:'\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u0435 \u043F\u0430\u043F\u043A\u0443 \u00AB\u0423\u0447\u0435\u0431\u043D\u0438\u043A\u0438\u00BB \u0434\u043B\u044F \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u043E\u0433\u043E \u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F.'},{sel:'#btnPalette',t:'\u0426\u0432\u0435\u0442\u0430',d:'\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0430\u043A\u0446\u0435\u043D\u0442\u043D\u044B\u0439 \u0446\u0432\u0435\u0442 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F.'}];
+
 let tStep=0;function startTour(){tStep=0;$('#tour').classList.add('on');showStep();}function endTour(){localStorage.setItem('tl3_tour','1');$('#tour').classList.remove('on','dim');}function showStep(){const s=TOUR[tStep];$('#tTitle').textContent=s.t;$('#tText').textContent=s.d;$('#tcnt').textContent=(tStep+1)+' / '+TOUR.length;$('#tBack').style.visibility=tStep?'visible':'hidden';$('#tNext').textContent=tStep===TOUR.length-1?'\u0413\u043E\u0442\u043E\u0432\u043E':'\u0414\u0430\u043B\u0435\u0435';const spot=$('#spot'),tour=$('#tour'),card=$('#tcard');const el=s.sel&&document.querySelector(s.sel);if(el){el.scrollIntoView({block:'center',behavior:'smooth'});requestAnimationFrame(()=>requestAnimationFrame(()=>{card.style.visibility='hidden';card.style.display='block';const cardH=card.offsetHeight;card.style.visibility='';const r=el.getBoundingClientRect();spot.style.display='block';tour.classList.remove('dim');spot.style.top=r.top-8+'px';spot.style.left=r.left-8+'px';spot.style.width=r.width+16+'px';spot.style.height=r.height+16+'px';placeCard(r,cardH);}));}else{spot.style.display='none';tour.classList.add('dim');card.style.transform='translate(-50%,-50%)';card.style.left='50%';card.style.top='50%';}}function placeCard(r,cardH){const c=$('#tcard');c.style.transform='none';const ch=cardH||c.offsetHeight||220;let top=r.bottom+20;if(top+ch>innerHeight-16)top=Math.max(16,r.top-ch-20);const cw=c.offsetWidth||360;let left=Math.min(Math.max(16,r.left),innerWidth-cw-16);c.style.top=top+'px';c.style.left=left+'px';}$('#tNext').onclick=()=>{if(tStep<TOUR.length-1){tStep++;showStep()}else endTour()};$('#tBack').onclick=()=>{if(tStep>0){tStep--;showStep()}};$('#tSkip').onclick=endTour;addEventListener('resize',()=>{if($('#tour').classList.contains('on'))showStep()});
+
 function applyTheme(t){document.documentElement.dataset.theme=t;$('#icoMoon').style.display=t==='dark'?'none':'block';$('#icoSun').style.display=t==='dark'?'block':'none';}$('#btnTheme').onclick=()=>{const t=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tl3_theme',t);applyTheme(t)};
+
 $('#inpSearch').addEventListener('input',debounce(e=>{state.q=e.target.value;$('#btnClear').style.display=e.target.value?'grid':'none';render()},160));$('#btnClear').onclick=()=>{$('#inpSearch').value='';state.q='';$('#btnClear').style.display='none';render()};$('#chipsSub').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;state.sub=c.dataset.v;refresh()});$('#chipsGrade').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;state.grade=c.dataset.v;refresh()});$('#selSort').onchange=e=>{state.sort=e.target.value;render()};$('#grid').addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(!el)return;const{act,id}=el.dataset;if(act==='view')openViewer(id);if(act==='dl')downloadBook(id);if(act==='del')deleteBook(id);});
+
 function fillFromAI(file){const info=aiParse(file.name);const f=id=>$('#'+id);const wasEmpty={title:!f('fTitle').value.trim(),author:!f('fAuthor').value.trim(),subject:!f('fSubject').value.trim(),grade:!f('fGrade').value,year:!f('fYear').value.trim()};if(info.title&&wasEmpty.title)f('fTitle').value=info.title;if(info.author&&wasEmpty.author)f('fAuthor').value=info.author;if(info.subject&&wasEmpty.subject)f('fSubject').value=info.subject;if(info.grade&&wasEmpty.grade)f('fGrade').value=info.grade;if(info.year&&wasEmpty.year)f('fYear').value=info.year;const found=[info.author&&'\u0430\u0432\u0442\u043E\u0440: '+info.author,info.subject&&'\u043F\u0440\u0435\u0434\u043C\u0435\u0442: '+info.subject,info.grade&&info.grade+' \u043A\u043B\u0430\u0441\u0441',info.year&&'\u0433\u043E\u0434: '+info.year].filter(Boolean);const ai=$('#aiInfo');if(found.length){ai.textContent='\uD83E\uDD16 \u041E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043E: '+found.join(' \u00B7 ');ai.classList.add('show');}else{ai.classList.remove('show');}}
+
 $('#fab').onclick=$('#btnAddEmpty').onclick=()=>{picked=[];manualCover=null;$('#coverPrev').hidden=true;$('#pickedList').textContent='';$('#aiInfo').classList.remove('show');$('#ocrProgress').classList.remove('show');['fTitle','fAuthor','fSubject','fYear','fCategories'].forEach(id=>$('#'+id).value='');$('#fGrade').value='';openDlg($('#dlgAdd'))};$('#btnFolder').onclick=folderClick;$('#btnFolderEmpty').onclick=folderClick;$('#btnFromFolder').onclick=importFromFolder;$('#btnExport').onclick=exportAll;$('#btnImportJson').onclick=()=>$('#importJson').click();$('#importJson').onchange=e=>{if(e.target.files[0])importJson(e.target.files[0]);e.target.value=''};$('#btnHelp').onclick=()=>openDlg($('#dlgGuide'));$('#btnGuideClose').onclick=()=>closeDlg($('#dlgGuide'));$('#btnRetour').onclick=()=>{closeDlg($('#dlgGuide'));startTour()};
+
 const drop=$('#drop');drop.onclick=()=>$('#fileInput').click();$('#fileInput').onchange=e=>setPicked([...e.target.files]);drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over')});drop.addEventListener('dragleave',()=>drop.classList.remove('over'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');setPicked([...e.dataTransfer.files])});function setPicked(files){picked=files.filter(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf');if(!picked.length)return snack('\u041D\u0443\u0436\u043D\u044B \u0444\u0430\u0439\u043B\u044B PDF');$('#pickedList').textContent='\u0412\u044B\u0431\u0440\u0430\u043D\u043E: '+picked.length+' \u2014 '+picked.slice(0,3).map(f=>f.name).join(', ')+(picked.length>3?'\u2026':'');if(picked.length===1)fillFromAI(picked[0]);else if(picked.length>1){const infos=picked.map(f=>aiParse(f.name));const commonSub=infos.every(i=>i.subject===infos[0].subject)?infos[0].subject:'';const commonGrade=infos.every(i=>i.grade===infos[0].grade)?infos[0].grade:'';if(commonSub&&!$('#fSubject').value)$('#fSubject').value=commonSub;if(commonGrade&&!$('#fGrade').value)$('#fGrade').value=commonGrade;$('#aiInfo').textContent='\uD83E\uDD16 \u0414\u043B\u044F '+picked.length+' \u0444\u0430\u0439\u043B\u043E\u0432: '+(commonSub||'\u2014')+' '+(commonGrade?commonGrade+' \u043A\u043B':'');$('#aiInfo').classList.add('show');}}
+
 $('#btnCover').onclick=()=>$('#coverInput').click();$('#coverInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;manualCover=await imgToCover(f);const p=$('#coverPrev');p.src=manualCover;p.hidden=false;};$('#btnCancelAdd').onclick=()=>closeDlg($('#dlgAdd'));$('#btnSave').onclick=async()=>{if(!picked.length)return snack('\u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 PDF');const btn=$('#btnSave');btn.disabled=true;btn.textContent='\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435 + OCR\u2026';const common={author:$('#fAuthor').value.trim(),subject:$('#fSubject').value.trim(),grade:$('#fGrade').value,year:$('#fYear').value.trim(),firstPageNum:$('#fFirstPage').value||1,categories:$('#fCategories').value.trim()};try{if(picked.length===1){const meta={...common,title:$('#fTitle').value.trim()||aiParse(picked[0].name).title};await addBookFromFile(picked[0],{meta,cover:manualCover||undefined,firstPageNum:common.firstPageNum});}else{for(const f of picked){const ai=aiParse(f.name);const meta={title:ai.title,author:common.author||ai.author,subject:common.subject||ai.subject,grade:common.grade||ai.grade,year:common.year||ai.year,categories:common.categories||''};await addBookFromFile(f,{meta,firstPageNum:common.firstPageNum});}}closeDlg($('#dlgAdd'));refresh();snack(picked.length===1?'\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D \u0443\u0447\u0435\u0431\u043D\u0438\u043A':'\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u043E: '+picked.length);['fTitle','fAuthor','fSubject','fYear','fCategories'].forEach(id=>$('#'+id).value='');$('#fGrade').value='';}catch(e){console.error(e);snack('\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F');}btn.disabled=false;btn.textContent='\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C';};
+
 $('#vClose').onclick=closeViewer;$('#vPrev').onclick=()=>renderPage(view.page-1);$('#vNext').onclick=()=>renderPage(view.page+1);$('#vZoom').onchange=e=>{view.zoom=e.target.value;if(view.id)renderPage(view.page)};$('#vDownload').onclick=()=>view.rec&&saveFile(view.rec.file,view.rec.fname||view.rec.title+'.pdf');addEventListener('resize',debounce(()=>{if(view.id&&$('#viewer').classList.contains('open'))renderPage(view.page)},250));document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#tour').classList.contains('on'))return endTour();if($('#viewer').classList.contains('open'))return closeViewer();document.querySelectorAll('.ovl.open').forEach(closeDlg);}if($('#viewer').classList.contains('open')){if(e.key==='ArrowRight')renderPage(view.page+1);if(e.key==='ArrowLeft')renderPage(view.page-1);}});;const vSearch=$('#vSearch');const vFind=$('#vFind');const vResults=$('#vSearchResults');vFind.onclick=()=>{if(!view.rec||!vSearch.value.trim())return;performViewerSearch(vSearch.value.trim());};vSearch.addEventListener('keydown',e=>{if(e.key==='Enter'&&vSearch.value.trim())performViewerSearch(vSearch.value.trim());});async function performViewerSearch(query){if(!view.rec)return;vResults.hidden=false;vResults.innerHTML='<h4>Результаты поиска: "'+esc(query)+'"</h4>';let found=[];const rec=await rq(bs().get(view.rec.id));if(rec&&rec.ocrData&&rec.ocrData.pages){for(const pg of rec.ocrData.pages){const idx=pg.text.toLowerCase().indexOf(query.toLowerCase());if(idx>=0){found.push({page:pg.page,text:pg.text.substring(Math.max(0,idx-50),200)});}}found.sort((a,b)=>a.page-b.page);if(found.length===0)vResults.innerHTML+='<p>Ничего не найдено</p>';else{found.slice(0,10).forEach(r=>{const div=document.createElement('div');div.className='vsearch-item';div.textContent='Стр.'+r.page+': '+esc(r.text)+'...';div.onclick=()=>{renderPage(r.page);vResults.hidden=true;};vResults.appendChild(div);});}}}
+
 (async()=>{applyTheme(localStorage.getItem('tl3_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));const p=localStorage.getItem('tl3_palette')||'violet';applyPalette(p);$('#subjList').innerHTML=SUBJECTS.map(s=>'<option value="'+s+'">').join('');try{db=await openDB();}catch(e){snack('\u0425\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E');return;}books=(await rq(bs().getAll()))||[];try{const h=await rq(ks().get('dir'));if(h){dirHandle=h;dirGranted=(await h.queryPermission({mode:'readwrite'}))==='granted';}}catch(e){}folderUI();refresh();await ensurePdf();if(pdfOk)regenPh();if(!localStorage.getItem('tl3_tour'))setTimeout(startTour,700);if(typeof pdfjsLib==='undefined')snack('pdf.min.js \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D \u0438\u0437 lib/ \u2014 \u043E\u0431\u043B\u043E\u0436\u043A\u0438 \u0438 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u043D\u0435 \u0431\u0443\u0434\u0443\u0442 \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C');if(typeof Tesseract==='undefined')snack('tesseract.min.js \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D \u0438\u0437 lib/ \u2014 OCR \u043D\u0435 \u0431\u0443\u0434\u0435\u0442 \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u044C');})();
+
 })();
+
 </script>
+
 </body>
+
 </html>
+
