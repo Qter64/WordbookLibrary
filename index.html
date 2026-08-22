@@ -367,9 +367,6 @@ async function ocrPages(blob,maxPages,onProgress){
     
     // Tesseract v5 - создаём воркера с языком первым аргументом
     const worker=await Tesseract.createWorker('rus+eng', 1, {
-      logger: m => {
-        console.log('Tesseract:',m);
-      },
       workerPath: 'lib/tesseract-worker.min.js',
       corePath: 'lib/tesseract-core-simd.wasm.js'
     });
