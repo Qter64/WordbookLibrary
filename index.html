@@ -365,11 +365,15 @@ async function ocrPages(blob,maxPages,onProgress){
     const pages=Math.min(maxPages,doc.numPages);
     let allText='';
     
-    // Tesseract v5 - создаём воркера с языком первым аргументом
-    const worker=await Tesseract.createWorker('rus+eng', 1, {
+    // Tesseract v5 - создаём воркера правильно
+    const worker=await Tesseract.createWorker({
       workerPath: 'lib/tesseract-worker.min.js',
       corePath: 'lib/tesseract-core-simd.wasm.js'
     });
+    
+    // Загружаем языковые модели
+    await worker.loadLanguage('rus+eng');
+    await worker.initialize('rus+eng');
     
     for(let i=1;i<=pages;i++){
       if(onProgress)onProgress(i,pages);
