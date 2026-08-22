@@ -770,24 +770,57 @@ function aiParse(filename){
 
 // Анализ OCR текста для автозаполнения полей
 function analyzeOcrText(fullText,pages){
-  const result={title:'',categories:''};
+  const result={title:'',subject:'',grade:'',categories:''};
   if(!fullText||!pages.length)return result;
   const firstPageText=pages[0]?.text||'';
-  const lines=firstPageText.split(/\n+/).map(l=>l.trim()).filter(l=>l.length>5&&l.length<80);
-  if(lines.length>0){result.title=lines[0].replace(/[^\w\sа-яА-ЯёЁ\-]/g,'').trim();}
-  const cats=[];
+  const lines=firstPageText.split(/\n+/).map(l=>l.trim()).filter(l=>l.length>5&&l.length<100);
+  
+  // Извлекаем название - первые значимые строки
+  let titleLines=[];
+  for(const line of lines){
+    const clean=line.replace(/[^а-яА-ЯёЁ0-9\s\-\.\,]/g,'').trim();
+    if(clean.length>3&&clean.length<80&&!/^(\d+|[ивхлс]\.?)/i.test(clean)){
+      titleLines.push(clean);
+      if(titleLines.length>=2)break;
+    }
+  }
+  if(titleLines.length>0){
+    result.title=titleLines.join(' ').substring(0,120);
+  }
+  
+  // Ищем класс в тексте
+  const gradeMatch=firstPageText.match(/(\d{1,2})\s*(?:класс|кл\.?)/i);
+  if(gradeMatch){
+    const g=parseInt(gradeMatch[1]);
+    if(g>=1&&g<=11)result.grade=g.toString();
+  }
+  
+  // Определяем предмет по ключевым словам
   const low=(fullText+' '+firstPageText).toLowerCase();
-  if(/алгебр|геометр|математик/.test(low))cats.push('Математика');
-  if(/физик|механик|оптик|термодинамик/.test(low))cats.push('Физика');
-  if(/химич|органич|неорганич/.test(low))cats.push('Химия');
-  if(/биолог|генетик|эколог|ботаник|зоолог/.test(low))cats.push('Биология');
-  if(/историч|древн|средневеков|революц|войн/.test(low))cats.push('История');
-  if(/литератур|писатель|поэт|стихотвор|роман/.test(low))cats.push('Литература');
-  if(/русск язык|грамматик|орфограф|пунктуаци/.test(low))cats.push('Русский язык');
-  if(/английск|english|foreign language/.test(low))cats.push('Иностранный язык');
-  if(/географ|карт|природ|климат|регион/.test(low))cats.push('География');
-  if(/обществознан|правов|экономик|политик|социальн/.test(low))cats.push('Обществознание');
-  if(/информатик|программир|алгоритм|компьютер/.test(low))cats.push('Информатика');
+  const cats=[];
+  let detectedSubject='';
+  
+  if(/алгебр/.test(low))detectedSubject='Алгебра';
+  else if(/геометр/.test(low))detectedSubject='Геометрия';
+  else if(/математик/.test(low))detectedSubject='Математика';
+  else if(/физик|механик|оптик|термодинамик/.test(low))detectedSubject='Физика';
+  else if(/химич|органич|неорганич/.test(low))detectedSubject='Химия';
+  else if(/биолог|генетик|эколог|ботаник|зоолог/.test(low))detectedSubject='Биология';
+  else if(/историч|древн|средневеков|революц|войн/.test(low))detectedSubject='История';
+  else if(/литератур|писатель|поэт|стихотвор|роман/.test(low))detectedSubject='Литература';
+  else if(/русск язык|грамматик|орфограф|пунктуаци/.test(low))detectedSubject='Русский язык';
+  else if(/английск|english|foreign language/.test(low))detectedSubject='Английский язык';
+  else if(/географ|карт|природ|климат|регион/.test(low))detectedSubject='География';
+  else if(/обществознан|правов|экономик|политик|социальн/.test(low))detectedSubject='Обществознание';
+  else if(/информатик|программир|алгоритм|компьютер/.test(low))detectedSubject='Информатика';
+  
+  result.subject=detectedSubject;
+  if(detectedSubject)cats.push(detectedSubject);
+  
+  // Добавляем дополнительные категории
+  if(/учебник|пособие|задачник/.test(low))cats.push('Учебная литература');
+  if(/егэ|огэ|экзамен/.test(low))cats.push('Подготовка к экзаменам');
+  
   result.categories=cats.join(',');
   return result;
 }
